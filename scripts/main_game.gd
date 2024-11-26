@@ -100,4 +100,3 @@ func _ready():
     set_walls()
     set_bg()
     place_apple()
-
