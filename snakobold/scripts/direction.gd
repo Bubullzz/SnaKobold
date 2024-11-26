@@ -2,7 +2,7 @@ extends Node
 
 # Define the class with static methods and properties
 class_name Direction
-
+a
 # Define the DIR enum
 enum DIR { UP, DOWN, LEFT, RIGHT }
 
