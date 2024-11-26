@@ -1,13 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=20 format=3 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" path="res://scripts/main_game.gd" id="1_c0m7j"]
+[ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
+[ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
+[ext_resource type="Texture2D" uid="uid://dwgwggtuxmfy6" path="res://assets/environment/wall.png" id="3_gghtf"]
+[ext_resource type="Texture2D" uid="uid://b6dt3wmn574lq" path="res://assets/apples/apple1.png" id="5_hu78u"]
+[ext_resource type="Texture2D" uid="uid://r82u6xyycfia" path="res://assets/debug/debug_box.png" id="6_qp1ht"]
 [ext_resource type="Script" path="res://scripts/snake_manager.gd" id="7_ay4re"]
-[ext_resource type="FontFile" uid="uid://caeqyn7cbvlgt" path="res://assets/fibberish.ttf" id="8_ikebx"]
+[ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a3ijf"]
+texture = ExtResource("3_gghtf")
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_av47b"]
+texture = ExtResource("2_w6ewh")
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_xjk5o"]
@@ -36,6 +43,7 @@ margins = Vector2i(16, 16)
 3:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhim3"]
+texture = ExtResource("2_myy0b")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -298,12 +306,14 @@ sources/1 = SubResource("TileSetAtlasSource_8u2nx")
 sources/3 = SubResource("TileSetAtlasSource_lhim3")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ylei"]
+texture = ExtResource("5_hu78u")
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_df7od"]
 sources/1 = SubResource("TileSetAtlasSource_5ylei")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w58h2"]
+texture = ExtResource("6_qp1ht")
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_lbq1w"]
