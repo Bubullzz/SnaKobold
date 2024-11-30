@@ -32,3 +32,15 @@ static func dir_to_vec(dir):
     DIR.RIGHT : Vector2(1,0) 
     }
     return dict[dir]
+
+static func hor(dir):
+    match dir:
+        Direction.DIR.LEFT: return -1
+        Direction.DIR.RIGHT: return 1
+    return 0
+
+static func ver(dir):
+    match dir:
+        Direction.DIR.UP: return -1
+        Direction.DIR.DOWN: return 1
+    return 0

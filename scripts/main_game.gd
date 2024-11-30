@@ -27,26 +27,30 @@ func _input(_event):
        %SnakeManager. dir_buff_add(DIR.RIGHT)
     if Input.is_action_just_pressed("ui_left"):
         %SnakeManager.dir_buff_add(DIR.LEFT)
+    if Input.is_key_pressed(KEY_SPACE):
+        %SnakeManager.input_jump = true
 
 
 
     # Debug
     if Input.is_key_pressed(KEY_C):
-        %SnakeManager.RUNNING = true
+        %SnakeManager.game_state = %SnakeManager.GAME_STATE.RUNNING
     if Input.is_key_pressed(KEY_D):
         debug = !debug
     if Input.is_key_pressed(KEY_R):
         get_tree().reload_current_scene()
+    if Input.is_key_pressed(KEY_P):
+        %SnakeManager.growth += 3
     if Input.is_key_pressed(KEY_S):
         %SnakeManager.speed += 1
     if Input.is_key_pressed(KEY_Q):
         %SnakeManager.speed -= 1
     if Input.is_key_pressed(KEY_W):
-        %SnakeManager.RUNNING = false
+        %SnakeManager.game_state = %SnakeManager.GAME_STATE.DEBUG
         %SnakeManager._on_clock_tick()
         print("current clock : ",%SnakeManager.clock)
     if Input.is_key_pressed(KEY_X):
-        %SnakeManager.RUNNING = false
+        %SnakeManager.game_state = %SnakeManager.GAME_STATE.DEBUG
         %SnakeManager._on_clock_tick()
         while %SnakeManager.clock > 0:
             %SnakeManager._on_clock_tick()

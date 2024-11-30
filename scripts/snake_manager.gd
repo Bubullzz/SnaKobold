@@ -1,6 +1,6 @@
 extends Node
 
-var RUNNING = true # Used for debugging
+enum GAME_STATE {RUNNING, PAUSED, GAME_OVER, DEBUG}
 enum BODY_PART {HEAD, PRE_HEAD, BODY, PRE_TAIL, TAIL}
 
 # XXX vraiment cracra mais bon
@@ -16,7 +16,9 @@ func place_apple():
     %appleLayer.set_cell(apple_pos, 1, Vector2(0, 0))
 
 var dir_buffer = [null, null] 
-
+var input_jump = false
+var jumping = false
+var game_state : GAME_STATE = GAME_STATE.RUNNING
 # All snake pos in the TileMap
 var body : Array[Vector2]
 var curr_dir : Direction.DIR
@@ -35,7 +37,7 @@ func dir_buff_consume():
     dir_buffer[0] = dir_buffer[1]
     dir_buffer[1] = null
     return tmp
-    
+
 
 func apple_check():
     if %appleLayer.get_cell_source_id(body[0]) == 1:
@@ -61,18 +63,32 @@ func update_pos():
     
     # Update body data
     var neaw_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
-    body.push_front(neaw_head_pos)
+    if neaw_head_pos in body || %background.get_cell_source_id(neaw_head_pos) == 2: # 2 is the wall
+        print("in wall or body")
+        if input_jump: 
+            print("jumping")
+            jumping = true
+            body.push_front(neaw_head_pos)
+        else:
+            game_state = GAME_STATE.GAME_OVER
+    else:
+        body.push_front(neaw_head_pos)
 
     apple_check()
     
 
 
 func update_pre_head_sp() -> void :
-    var base_pos = Vector2(0,4) # Where do we begin the table in the sprites sheet
     var pre_dir = Direction.cells_to_dir(body[2], body[1])
     var post_dir = Direction.cells_to_dir(body[1], body[0])
+    var layer
+    var base_pos = Vector2(0,4) # Where do we begin the table in the sprites sheet
+    if jumping:
+        layer = %snakeJumpingLayer
+    else:
+        layer = %snakeLayer
     var pre_head = base_pos + Vector2(int(post_dir) * 4, int(pre_dir)) # start on top left of table then select right line and col using order up, down, left, right
-    %snakeLayer.set_cell(body[1], 3, pre_head + Vector2(clock, 0))
+    layer.set_cell(body[1], 3, pre_head + Vector2(clock, 0))
 
 func update_pre_tail_sp() -> void :
     var base_pos = Vector2(0,12) # Where do we begin the table in the sprites sheet
@@ -89,13 +105,21 @@ func update_tail_sp():
 
 func update_head_sp():
     var head = Vector2(clock, int(curr_dir))
-    %snakeLayer.set_cell(body[0], 3, head)
+    var layer
+    if jumping:
+        layer = %snakeJumpingLayer
+    else:
+        layer = %snakeLayer
+    layer.set_cell(body[0], 3, head)
 
 
 func _on_clock_tick() -> void:
     clock = (clock + 1) % 16
     if clock == 0:
+        jumping = false
         update_pos()
+    if game_state == GAME_STATE.GAME_OVER:
+        return
     if clock < 4:
         update_pre_head_sp()
     if growth == 0 && clock >= 12:
@@ -110,7 +134,7 @@ func _process(delta: float) -> void:
     delta = delta * 1000 # get it in ms
     delta = delta * 1000 # get it in ns
     clock_collector += delta
-    if RUNNING && clock_collector > clock_rate:
+    if game_state == GAME_STATE.RUNNING && clock_collector > clock_rate:
         for i in range(speed):
             _on_clock_tick()
         clock_collector = int(clock_collector) % int(clock_rate)
