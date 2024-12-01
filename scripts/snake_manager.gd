@@ -58,8 +58,6 @@ func update_pos():
         if %snakeJumpingLayer.get_cell_source_id(old_tail_co) == JUMP_ID && %snakeLayer.get_cell_source_id(old_tail_co) == GROUND_ID: # second check is for when jumping over walls
             %snakeJumpingLayer.set_cell(old_tail_co)
             var sprite = VERT_BODY if Direction.hor(Direction.cells_to_dir(old_tail_co, body[-1])) else HOR_BODY 
-            print('BODY')
-            print(%snakeLayer.get_cell_source_id(old_tail_co))
             %snakeLayer.set_cell(old_tail_co, GROUND_ID, sprite)
         else:
             %snakeLayer.set_cell(old_tail_co)
