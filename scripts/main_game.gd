@@ -28,7 +28,7 @@ func _input(_event):
     if Input.is_action_just_pressed("ui_left"):
         %SnakeManager.dir_buff_add(DIR.LEFT)
     if Input.is_key_pressed(KEY_SPACE):
-        %SnakeManager.input_jump = true
+        %SnakeManager.input_jump = 4
 
 
 

@@ -4,6 +4,8 @@ enum GAME_STATE {RUNNING, PAUSED, GAME_OVER, DEBUG}
 enum BODY_PART {HEAD, PRE_HEAD, BODY, PRE_TAIL, TAIL}
 var GROUND_ID = 1
 var JUMP_ID = 1
+var VERT_BODY = Vector2(3,4)
+var HOR_BODY = Vector2(11,6)
 
 # XXX vraiment cracra mais bon
 func place_apple():
@@ -18,13 +20,13 @@ func place_apple():
     %appleLayer.set_cell(apple_pos, 1, Vector2(0, 0))
 
 var dir_buffer = [null, null] 
-var input_jump = false
+var input_jump = 0
 var game_state : GAME_STATE = GAME_STATE.RUNNING
 var jumping_frame = false
 
 # All snake pos in the TileMap
 var body : Array[Vector2]
-var curr_dir : Direction.DIR
+var curr_dir : Direction.DIR = Direction.DIR.RIGHT
 var growth : int = 0
 var clock : int = 0 # The clock used for updating the snake. One pixel per tick
 var clock_collector : float = 0.0
@@ -53,7 +55,15 @@ func update_pos():
     # First update the tail
     if growth == 0:
         var old_tail_co = body.pop_back()
-        %snakeLayer.set_cell(old_tail_co)
+        if %snakeJumpingLayer.get_cell_source_id(old_tail_co) == JUMP_ID && %snakeLayer.get_cell_source_id(old_tail_co) == GROUND_ID: # second check is for when jumping over walls
+            %snakeJumpingLayer.set_cell(old_tail_co)
+            var sprite = VERT_BODY if Direction.hor(Direction.cells_to_dir(old_tail_co, body[-1])) else HOR_BODY 
+            print('BODY')
+            print(%snakeLayer.get_cell_source_id(old_tail_co))
+            %snakeLayer.set_cell(old_tail_co, GROUND_ID, sprite)
+        else:
+            %snakeLayer.set_cell(old_tail_co)
+
     else:
         growth -= 1
 
@@ -67,11 +77,10 @@ func update_pos():
     # Update body data
     var neaw_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
     if neaw_head_pos in body || %background.get_cell_source_id(neaw_head_pos) == 2: # 2 is the wall
-        print("in wall or body")
         if input_jump: 
-            print("jumping")
             jumping_frame = true
-            body.push_front(neaw_head_pos)
+            body.push_front(neaw_head_pos) 
+            input_jump = 0
         else:
             game_state = GAME_STATE.GAME_OVER
     else:
@@ -127,7 +136,7 @@ func _on_clock_tick() -> void:
     if clock == 0:
         jumping_frame = false
         update_pos()
-        input_jump = false
+        input_jump = max(0, input_jump - 1)
     if game_state == GAME_STATE.GAME_OVER:
         return
     if clock < 4:
