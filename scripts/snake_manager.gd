@@ -2,6 +2,8 @@ extends Node
 
 enum GAME_STATE {RUNNING, PAUSED, GAME_OVER, DEBUG}
 enum BODY_PART {HEAD, PRE_HEAD, BODY, PRE_TAIL, TAIL}
+var GROUND_ID = 1
+var JUMP_ID = 1
 
 # XXX vraiment cracra mais bon
 func place_apple():
@@ -17,8 +19,9 @@ func place_apple():
 
 var dir_buffer = [null, null] 
 var input_jump = false
-var jumping = false
 var game_state : GAME_STATE = GAME_STATE.RUNNING
+var jumping_frame = false
+
 # All snake pos in the TileMap
 var body : Array[Vector2]
 var curr_dir : Direction.DIR
@@ -67,7 +70,7 @@ func update_pos():
         print("in wall or body")
         if input_jump: 
             print("jumping")
-            jumping = true
+            jumping_frame = true
             body.push_front(neaw_head_pos)
         else:
             game_state = GAME_STATE.GAME_OVER
@@ -83,41 +86,48 @@ func update_pre_head_sp() -> void :
     var post_dir = Direction.cells_to_dir(body[1], body[0])
     var layer
     var base_pos = Vector2(0,4) # Where do we begin the table in the sprites sheet
-    if jumping:
+    var sprite_id
+    if %snakeJumpingLayer.get_cell_source_id(body[1]) == JUMP_ID:
         layer = %snakeJumpingLayer
+        sprite_id = JUMP_ID
     else:
         layer = %snakeLayer
+        sprite_id = GROUND_ID
     var pre_head = base_pos + Vector2(int(post_dir) * 4, int(pre_dir)) # start on top left of table then select right line and col using order up, down, left, right
-    layer.set_cell(body[1], 3, pre_head + Vector2(clock, 0))
+    layer.set_cell(body[1], sprite_id, pre_head + Vector2(clock, 0))
 
 func update_pre_tail_sp() -> void :
     var base_pos = Vector2(0,12) # Where do we begin the table in the sprites sheet
     var pre_tail = Direction.cells_to_dir(body[-3], body[-2])
     var post_tail = Direction.cells_to_dir(body[-2], body[-1]) # Reversed reading order for same indexing as pre_head
     var pre_head = base_pos + Vector2(int(post_tail) * 4, int(pre_tail)) # start on top left of table then select right line and col using order up, down, left, right
-    %snakeLayer.set_cell(body[-2], 3, pre_head + Vector2(clock - 12, 0))
+    %snakeLayer.set_cell(body[-2], GROUND_ID, pre_head + Vector2(clock - 12, 0))
 
 
 func update_tail_sp():
     var tail_dir = Direction.cells_to_dir(body[-2], body[-1])
     var tail = Vector2(clock, 8 + int(tail_dir))
-    %snakeLayer.set_cell(body[-1], 3, tail)
+    %snakeLayer.set_cell(body[-1], GROUND_ID, tail)
 
 func update_head_sp():
     var head = Vector2(clock, int(curr_dir))
-    var layer
-    if jumping:
+    var layer 
+    var sprite_id
+    if jumping_frame:
+        sprite_id = JUMP_ID
         layer = %snakeJumpingLayer
     else:
+        sprite_id = GROUND_ID
         layer = %snakeLayer
-    layer.set_cell(body[0], 3, head)
+    layer.set_cell(body[0], sprite_id, head)
 
 
 func _on_clock_tick() -> void:
     clock = (clock + 1) % 16
     if clock == 0:
-        jumping = false
+        jumping_frame = false
         update_pos()
+        input_jump = false
     if game_state == GAME_STATE.GAME_OVER:
         return
     if clock < 4:
