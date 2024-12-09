@@ -478,6 +478,7 @@ tile_set = SubResource("TileSet_lbq1w")
 [node name="MainCam" type="Camera2D" parent="jsp"]
 unique_name_in_owner = true
 position = Vector2(27, 16)
+zoom = Vector2(4, 4)
 process_callback = 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="jsp"]

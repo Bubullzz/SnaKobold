@@ -8,15 +8,28 @@ enum DIR {UP, DOWN, LEFT, RIGHT}
 
 var debug = true
 
+
+func lakes(lake, pos):
+    if pos in lake || $GameTiles/background.get_cell_source_id(pos) == 2:
+        return
+    lake.append(pos)
+    lakes(lake, pos + Vector2(1,0))
+    lakes(lake, pos + Vector2(-1,0))
+    lakes(lake, pos + Vector2(0,1))
+    lakes(lake, pos + Vector2(0,-1))
+
+
 func proc_gen():
     var noise = noise_texture.noise
+    noise.seed = randi()    
     var mid_width = width / 2
     var mid_height = height / 2
 
     for i in range(1,width):
         for j in range(1, height):
             var val = noise.get_noise_2d(i, j)
-            if val > 0.3:
+            val += pow(Vector2(i,j).distance_to(Vector2(mid_width, mid_height)), 2.) * 0.001 
+            if val > 0.5 :
                 $GameTiles/background.set_cell(Vector2(i,j),2,Vector2(0,0))
             else:
                 $GameTiles/background.set_cell(Vector2(i,j),3,Vector2(0,0))
@@ -24,6 +37,12 @@ func proc_gen():
     for i in range(mid_width - 5, mid_width + 5):
         for j in range(mid_height - 5, mid_height + 5):
             $GameTiles/background.set_cell(Vector2(i,j),3,Vector2(0,0))
+    var lake = [] # fill holes
+    lakes(lake, Vector2(mid_width, mid_height))
+    for i in range(1,width):
+        for j in range(1, height):
+            if Vector2(i,j) not in lake:
+                $GameTiles/background.set_cell(Vector2(i,j),2,Vector2(0,0))
 
 func _input(_event):
     if Input.is_action_just_pressed("ui_up"):
