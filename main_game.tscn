@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=23 format=3 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
@@ -9,6 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://r82u6xyycfia" path="res://assets/debug/debug_box.png" id="6_qp1ht"]
 [ext_resource type="Script" path="res://scripts/snake_manager.gd" id="7_ay4re"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
+frequency = 0.0808
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rk40v"]
+noise = SubResource("FastNoiseLite_r51s0")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a3ijf"]
 texture = ExtResource("3_gghtf")
@@ -284,13 +290,6 @@ texture = ExtResource("2_myy0b")
 [sub_resource type="TileSet" id="TileSet_bucej"]
 sources/1 = SubResource("TileSetAtlasSource_lhim3")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ylei"]
-texture = ExtResource("5_hu78u")
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_df7od"]
-sources/1 = SubResource("TileSetAtlasSource_5ylei")
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1aqwx"]
 texture = ExtResource("6_n05t0")
 0:0/0 = 0
@@ -425,6 +424,13 @@ texture = ExtResource("6_n05t0")
 [sub_resource type="TileSet" id="TileSet_q333y"]
 sources/1 = SubResource("TileSetAtlasSource_1aqwx")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ylei"]
+texture = ExtResource("5_hu78u")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_df7od"]
+sources/1 = SubResource("TileSetAtlasSource_5ylei")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w58h2"]
 texture = ExtResource("6_qp1ht")
 0:0/0 = 0
@@ -434,6 +440,9 @@ sources/0 = SubResource("TileSetAtlasSource_w58h2")
 
 [node name="MainGame" type="Node"]
 script = ExtResource("1_c0m7j")
+width = 100
+height = 100
+noise_texture = SubResource("NoiseTexture2D_rk40v")
 
 [node name="GameTiles" type="Node" parent="."]
 
@@ -447,14 +456,14 @@ unique_name_in_owner = true
 use_parent_material = true
 tile_set = SubResource("TileSet_bucej")
 
+[node name="snakeJumpingLayer" type="TileMapLayer" parent="GameTiles"]
+unique_name_in_owner = true
+tile_set = SubResource("TileSet_q333y")
+
 [node name="appleLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
 position = Vector2(0, -1)
 tile_set = SubResource("TileSet_df7od")
-
-[node name="snakeJumpingLayer" type="TileMapLayer" parent="GameTiles"]
-unique_name_in_owner = true
-tile_set = SubResource("TileSet_q333y")
 
 [node name="SnakeManager" type="Node" parent="GameTiles"]
 unique_name_in_owner = true
@@ -466,16 +475,20 @@ tile_set = SubResource("TileSet_lbq1w")
 
 [node name="jsp" type="Node2D" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="jsp"]
+[node name="MainCam" type="Camera2D" parent="jsp"]
+unique_name_in_owner = true
 position = Vector2(27, 16)
-zoom = Vector2(3, 3)
 process_callback = 0
 
-[node name="DebugLabels" type="Label" parent="jsp"]
+[node name="CanvasLayer" type="CanvasLayer" parent="jsp"]
+
+[node name="DebugLabels" type="Label" parent="jsp/CanvasLayer"]
 unique_name_in_owner = true
-offset_left = -286.0
-offset_top = -157.0
-offset_right = -205.0
-offset_bottom = -134.0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 100.0
+offset_bottom = 42.0
+scale = Vector2(3.72487, 3.72487)
 theme_override_fonts/font = ExtResource("8_ikebx")
-text = "PLACEHOLDER"
+text = "Debug Labels
+"

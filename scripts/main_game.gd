@@ -1,22 +1,29 @@
 extends Node
 
-var width = 30
-var height = 20
+@export var width = 30
+@export var height = 20
+@export var noise_texture : NoiseTexture2D
 
 enum DIR {UP, DOWN, LEFT, RIGHT}
 
 var debug = true
 
-func place_apple():
-    var apple_pos = Vector2()
-    var snake_body = %SnakeManager.body
-    apple_pos.x = 1 + randi() % 29
-    apple_pos.y = 1 + randi() % 19
-    while apple_pos in snake_body:
-        apple_pos.x = 1 + randi() % 29
-        apple_pos.y = 1 + randi() % 19 
+func proc_gen():
+    var noise = noise_texture.noise
+    var mid_width = width / 2
+    var mid_height = height / 2
 
-    %appleLayer.set_cell(apple_pos, 1, Vector2(0, 0))
+    for i in range(1,width):
+        for j in range(1, height):
+            var val = noise.get_noise_2d(i, j)
+            if val > 0.3:
+                $GameTiles/background.set_cell(Vector2(i,j),2,Vector2(0,0))
+            else:
+                $GameTiles/background.set_cell(Vector2(i,j),3,Vector2(0,0))
+    
+    for i in range(mid_width - 5, mid_width + 5):
+        for j in range(mid_height - 5, mid_height + 5):
+            $GameTiles/background.set_cell(Vector2(i,j),3,Vector2(0,0))
 
 func _input(_event):
     if Input.is_action_just_pressed("ui_up"):
@@ -61,6 +68,7 @@ func update_debug_labels():
         return
     var format = "%s : %s"
     %DebugLabels.text = ""
+    %DebugLabels.text += format % ["head_pos", %SnakeManager.body[0]] + '\n'
     %DebugLabels.text += format % ["speed", %SnakeManager.speed] + '\n'
     %DebugLabels.text += format % ["clock", %SnakeManager.clock] + '\n'
     %DebugLabels.text += format % ["body length", len(%SnakeManager.body)] + '\n'
@@ -101,6 +109,9 @@ func set_bg():
 
 
 func _ready():
-    set_walls()
-    set_bg()
-    place_apple()
+    #set_walls()
+    #set_bg()
+    proc_gen()
+    print(Vector2(width/2, height/2))
+    %SnakeManager.place_snake(Vector2(width/2, height/2))
+    %SnakeManager.place_apple()

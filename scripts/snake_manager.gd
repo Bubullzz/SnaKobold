@@ -9,15 +9,17 @@ var HOR_BODY = Vector2(11,6)
 
 # XXX vraiment cracra mais bon
 func place_apple():
-    var apple_pos = Vector2()
-    var snake_body = %SnakeManager.body
-    apple_pos.x = 1 + randi() % 29
-    apple_pos.y = 1 + randi() % 19
-    while apple_pos in snake_body:
-        apple_pos.x = 1 + randi() % 29
-        apple_pos.y = 1 + randi() % 19 
+    var apple_pos = Vector2(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
+    while apple_pos in body || %background.get_cell_source_id(apple_pos) == 2:
+        apple_pos = Vector2(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
 
     %appleLayer.set_cell(apple_pos, 1, Vector2(0, 0))
+
+
+func place_snake(pos):
+    for i in range(4):
+        body.push_back(pos + Direction.dir_to_vec(Direction.DIR.LEFT) * i)
+        %snakeLayer.set_cell(body[-1], GROUND_ID, Vector2(0, 0))
 
 var dir_buffer = [null, null] 
 var input_jump = 0
@@ -55,15 +57,19 @@ func update_pos():
     # First update the tail
     if growth == 0:
         var old_tail_co = body.pop_back()
-        if %snakeJumpingLayer.get_cell_source_id(old_tail_co) == JUMP_ID && %snakeLayer.get_cell_source_id(old_tail_co) == GROUND_ID: # second check is for when jumping over walls
+        if %snakeJumpingLayer.get_cell_source_id(old_tail_co) == JUMP_ID:
             %snakeJumpingLayer.set_cell(old_tail_co)
-            var sprite = VERT_BODY if Direction.hor(Direction.cells_to_dir(old_tail_co, body[-1])) else HOR_BODY 
-            %snakeLayer.set_cell(old_tail_co, GROUND_ID, sprite)
+            if %background.get_cell_source_id(old_tail_co) != 2:
+                var sprite = VERT_BODY if Direction.hor(Direction.cells_to_dir(old_tail_co, body[-1])) else HOR_BODY 
+                %snakeLayer.set_cell(old_tail_co, GROUND_ID, sprite)
         else:
             %snakeLayer.set_cell(old_tail_co)
 
     else:
         growth -= 1
+        if len(body) > 10:
+            %MainCam.zoom.x = 2.5
+            %MainCam.zoom.y = 2.5
 
     # Update Direction from inputs in the last 16-frame
     var d = dir_buff_consume()
@@ -156,6 +162,3 @@ func _process(delta: float) -> void:
             _on_clock_tick()
         clock_collector = int(clock_collector) % int(clock_rate)
     
-
-func _init() -> void:
-    body = [Vector2(5,3), Vector2(4,3), Vector2(3,3), Vector2(2,3)]
