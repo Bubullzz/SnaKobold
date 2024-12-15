@@ -17,19 +17,19 @@ static func opp(dir):
 static func cells_to_dir(c1,c2) -> Direction.DIR:
     # Direction to go from c1 to c2
     match c2 - c1:
-        Vector2(0,-1): return Direction.DIR.UP
-        Vector2(0,1): return Direction.DIR.DOWN
-        Vector2(-1,0): return Direction.DIR.LEFT
-        Vector2(1,0): return Direction.DIR.RIGHT
+        Vector2i(0,-1): return Direction.DIR.UP
+        Vector2i(0,1): return Direction.DIR.DOWN
+        Vector2i(-1,0): return Direction.DIR.LEFT
+        Vector2i(1,0): return Direction.DIR.RIGHT
         _: push_error("Error when getting Direction")
     return Direction.DIR.UP
 
 static func dir_to_vec(dir):
     var dict = {
-    DIR.UP : Vector2(0,-1), 
-    DIR.DOWN : Vector2(0,1), 
-    DIR.LEFT : Vector2(-1,0), 
-    DIR.RIGHT : Vector2(1,0) 
+    DIR.UP : Vector2i(0,-1), 
+    DIR.DOWN : Vector2i(0,1), 
+    DIR.LEFT : Vector2i(-1,0), 
+    DIR.RIGHT : Vector2i(1,0) 
     }
     return dict[dir]
 
