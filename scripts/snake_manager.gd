@@ -9,9 +9,18 @@ var HOR_BODY = Vector2i(11,6)
 var health_points = 3
 
 # XXX vraiment cracra mais bon
+
+func check_accessible(pos):
+	var sum = 0
+	for dir in [Direction.DIR.UP, Direction.DIR.DOWN, Direction.DIR.LEFT, Direction.DIR.RIGHT]:
+		if %EnvironmentLayer.is_wall(pos + Direction.dir_to_vec(dir)):
+			sum += 1
+	return sum < 3
+
+	
 func place_apple():
 	var apple_pos = Vector2i(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
-	while apple_pos in body || %EnvironmentLayer.is_wall(apple_pos):
+	while apple_pos in body || %EnvironmentLayer.is_wall(apple_pos) || !check_accessible(apple_pos):
 		apple_pos = Vector2i(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
 
 	%appleLayer.set_cell(apple_pos, 1, Vector2i(0, 0))
@@ -73,8 +82,10 @@ func handle_collision():
 	actual_speed = 0.1
 	curr_dir = Direction.cells_to_dir(body[1], body[0])
 	var ideal_cam_pos = body[0] + 3 * Direction.dir_to_vec(Direction.opp(curr_dir))
-	%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 0.5)
+	%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 0.2, 0.1)
 	%MainCam.start_shake()
+
+	dir_buffer = [null, null]
 
 func step():
 	# First update the tail
@@ -175,8 +186,6 @@ func _process(delta: float) -> void:
 	delta = delta * 1000 # get it in ms
 	delta = delta * 1000 # get it in ns
 	clock_collector += delta
-	print(clock_collector)
-	print(clock_collector * actual_speed)
 	if game_state == GAME_STATE.RUNNING && clock_collector * actual_speed > clock_rate:
 		for i in range(int(clock_collector * actual_speed / clock_rate)):
 			_on_clock_tick()
