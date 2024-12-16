@@ -855,8 +855,6 @@ zoom = Vector2(6, 6)
 process_callback = 0
 position_smoothing_speed = 2.0
 script = ExtResource("2_uddo3")
-advance = null
-speed_factor = null
 
 [node name="CanvasLayer" type="CanvasLayer" parent="MainCam"]
 

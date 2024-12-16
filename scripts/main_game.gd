@@ -122,7 +122,7 @@ func update_debug_boxes():
     if debug:
         for part in %SnakeManager.body:
            %DebugLayer.set_cell(part, 0, Vector2i(0,0))
-        %DebugLayer.set_cell(%SnakeManager.body[0] + %MainCam.advance * Direction.dir_to_vec(%SnakeManager.curr_dir), 0, Vector2i(0,0))
+        %DebugLayer.set_cell(%SnakeManager.body[0] + %MainCam.lookahead * Direction.dir_to_vec(%SnakeManager.curr_dir), 0, Vector2i(0,0)) # XXX change lookahaed color
         
 
 func _process(_delta: float) -> void:
@@ -141,4 +141,4 @@ func _ready():
     %MainCam.set_both_zoom(0.6)
     await get_tree().create_timer(0.1).timeout 
     %MainCam.position_smoothing_enabled = true
-
+    %MainCam.position_smoothing_speed = 1.
