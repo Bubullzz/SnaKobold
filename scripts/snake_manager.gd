@@ -8,6 +8,10 @@ var VERT_BODY = Vector2i(3,4)
 var HOR_BODY = Vector2i(11,6)
 var health_points = 3
 
+
+func is_snake(pos):
+	return %SnakeLayer.get_cell_source_id(pos) == GROUND_ID || %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
+
 # XXX vraiment cracra mais bon
 
 func check_accessible(pos):
@@ -20,7 +24,7 @@ func check_accessible(pos):
 	
 func place_apple():
 	var apple_pos = Vector2i(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
-	while apple_pos in body || %EnvironmentLayer.is_wall(apple_pos) || !check_accessible(apple_pos):
+	while is_snake(apple_pos) || %EnvironmentLayer.is_wall(apple_pos) || !check_accessible(apple_pos):
 		apple_pos = Vector2i(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
 
 	%appleLayer.set_cell(apple_pos, 1, Vector2i(0, 0))
@@ -81,8 +85,8 @@ func handle_collision():
 	%SnakeLayer.set_cell(body.pop_front())
 	actual_speed = 0.1
 	curr_dir = Direction.cells_to_dir(body[1], body[0])
-	var ideal_cam_pos = body[0] + 3 * Direction.dir_to_vec(Direction.opp(curr_dir))
-	%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 0.2, 0.1)
+	var ideal_cam_pos = body[0] + 1 * Direction.dir_to_vec(Direction.opp(curr_dir))
+	%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 1, 4.)
 	%MainCam.start_shake()
 
 	dir_buffer = [null, null]
@@ -103,7 +107,7 @@ func step():
 	
 	# Update body data
 	var expected_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
-	if expected_head_pos in body || %EnvironmentLayer.is_wall(expected_head_pos):
+	if is_snake(expected_head_pos) || %EnvironmentLayer.is_wall(expected_head_pos):
 		if input_jump: 
 			jumping_frame = true
 			body.push_front(expected_head_pos) 
