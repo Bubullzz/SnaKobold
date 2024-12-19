@@ -60,7 +60,7 @@ func dir_buff_consume():
 
 func apple_check():
 	if %appleLayer.get_cell_source_id(body[0]) == 1:
-		growth += 4
+		growth += 1
 		%appleLayer.set_cell(body[0])
 		place_apple()
 

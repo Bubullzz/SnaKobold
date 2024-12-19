@@ -51,7 +51,7 @@ func _process(_delta: float) -> void:
         zoom.y = lerp(zoom.y, tmp_zoom, tmp_lerp_speed)
         position = lerp(position, tmp_pos, tmp_lerp_speed)
     else: # Basic behaviour
-        var target_zoom = zoom_k / (log(%SnakeManager.body.size()) / log(10))
+        var target_zoom = zoom_k / (log(%SnakeManager.body.size() + 4) / log(10))
         set_both_zoom(lerp(zoom.x, target_zoom, 0.005))
         var snake_head_pos = %SnakeLayer.map_to_local(%SnakeManager.body[0])
         var anchor = %SnakeLayer.map_to_local(%SnakeManager.body[0] + Direction.dir_to_vec(%SnakeManager.curr_dir)) # One tile after head

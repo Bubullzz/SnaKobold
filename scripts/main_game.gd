@@ -135,6 +135,7 @@ func _ready():
     proc_gen()
     %SnakeManager.place_snake(middle())
     %SnakeManager.place_apple()
+    %SnakeManager.place_apple()
 
     %MainCam.position_smoothing_enabled = false
     %MainCam.position = %SnakeLayer.map_to_local(%SnakeManager.body[0])

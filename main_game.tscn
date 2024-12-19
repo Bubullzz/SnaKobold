@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
 [ext_resource type="Texture2D" uid="uid://dwgwggtuxmfy6" path="res://assets/environment/wall.png" id="3_gghtf"]
+[ext_resource type="Texture2D" uid="uid://dtbceteo2be8b" path="res://assets/environment/walls_better.png" id="4_fs4yw"]
 [ext_resource type="Script" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
-[ext_resource type="Texture2D" uid="uid://b14xo43atlap8" path="res://assets/environment/match_corners.png" id="5_bve1m"]
 [ext_resource type="Texture2D" uid="uid://b6dt3wmn574lq" path="res://assets/apples/apple1.png" id="5_hu78u"]
 [ext_resource type="Texture2D" uid="uid://bj6ace68somk7" path="res://assets/snake/jump.png" id="6_n05t0"]
 [ext_resource type="Texture2D" uid="uid://r82u6xyycfia" path="res://assets/debug/debug_box.png" id="6_qp1ht"]
@@ -20,7 +20,7 @@ frequency = 0.0808
 noise = SubResource("FastNoiseLite_r51s0")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_233vw"]
-texture = ExtResource("5_bve1m")
+texture = ExtResource("4_fs4yw")
 0:0/0 = 0
 0:0/0/metadata/_better_terrain = {
 4: [0],
@@ -281,6 +281,7 @@ texture = ExtResource("5_bve1m")
 "type": 0
 }
 9:2/0 = 0
+9:2/0/probability = 0.2
 9:2/0/metadata/_better_terrain = {
 0: [0],
 3: [0],
@@ -396,6 +397,55 @@ texture = ExtResource("5_bve1m")
 8: [0],
 11: [0],
 12: [0],
+"type": 0
+}
+13:0/0 = 0
+13:0/0/metadata/_better_terrain = {
+0: [0],
+3: [0],
+4: [0],
+7: [0],
+8: [0],
+11: [0],
+12: [0],
+15: [0],
+"type": 0
+}
+14:0/0 = 0
+14:0/0/probability = 0.01
+14:0/0/metadata/_better_terrain = {
+0: [0],
+3: [0],
+4: [0],
+7: [0],
+8: [0],
+11: [0],
+12: [0],
+15: [0],
+"type": 0
+}
+13:1/0 = 0
+13:1/0/metadata/_better_terrain = {
+0: [0],
+3: [0],
+4: [0],
+7: [0],
+8: [0],
+11: [0],
+12: [0],
+15: [0],
+"type": 0
+}
+14:1/0 = 0
+14:1/0/metadata/_better_terrain = {
+0: [0],
+3: [0],
+4: [0],
+7: [0],
+8: [0],
+11: [0],
+12: [0],
+15: [0],
 "type": 0
 }
 
@@ -855,8 +905,6 @@ zoom = Vector2(6, 6)
 process_callback = 0
 position_smoothing_speed = 2.0
 script = ExtResource("2_uddo3")
-advance = null
-speed_factor = null
 
 [node name="CanvasLayer" type="CanvasLayer" parent="MainCam"]
 
