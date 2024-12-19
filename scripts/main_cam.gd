@@ -4,7 +4,7 @@ enum STATE {BASIC, TEMPORARY}
 
 var curr_state = STATE.BASIC
 var lookahead : int = 2
-var basic_movement_speed_factor : float = 2
+var basic_movement_speed_factor : float = 1.3
 var basic_zoom_speed_factor : float = 0.3
 var zoom_k : float = 5
 
