@@ -1,11 +1,10 @@
-[gd_scene load_steps=27 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=25 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
 [ext_resource type="Script" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
-[ext_resource type="Texture2D" uid="uid://dwgwggtuxmfy6" path="res://assets/environment/wall.png" id="3_gghtf"]
-[ext_resource type="Texture2D" uid="uid://dtbceteo2be8b" path="res://assets/environment/walls_better.png" id="4_fs4yw"]
+[ext_resource type="Texture2D" uid="uid://dh5qsprb5u1lm" path="res://assets/environment/walls perspective TileMap.png" id="4_1cce4"]
 [ext_resource type="Script" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
 [ext_resource type="Texture2D" uid="uid://b6dt3wmn574lq" path="res://assets/apples/apple1.png" id="5_hu78u"]
 [ext_resource type="Texture2D" uid="uid://bj6ace68somk7" path="res://assets/snake/jump.png" id="6_n05t0"]
@@ -20,7 +19,8 @@ frequency = 0.0808
 noise = SubResource("FastNoiseLite_r51s0")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_233vw"]
-texture = ExtResource("4_fs4yw")
+texture = ExtResource("4_1cce4")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/metadata/_better_terrain = {
 4: [0],
@@ -399,67 +399,14 @@ texture = ExtResource("4_fs4yw")
 12: [0],
 "type": 0
 }
-13:0/0 = 0
-13:0/0/metadata/_better_terrain = {
-0: [0],
-3: [0],
-4: [0],
-7: [0],
-8: [0],
-11: [0],
-12: [0],
-15: [0],
-"type": 0
-}
-14:0/0 = 0
-14:0/0/probability = 0.01
-14:0/0/metadata/_better_terrain = {
-0: [0],
-3: [0],
-4: [0],
-7: [0],
-8: [0],
-11: [0],
-12: [0],
-15: [0],
-"type": 0
-}
-13:1/0 = 0
-13:1/0/metadata/_better_terrain = {
-0: [0],
-3: [0],
-4: [0],
-7: [0],
-8: [0],
-11: [0],
-12: [0],
-15: [0],
-"type": 0
-}
-14:1/0 = 0
-14:1/0/metadata/_better_terrain = {
-0: [0],
-3: [0],
-4: [0],
-7: [0],
-8: [0],
-11: [0],
-12: [0],
-15: [0],
-"type": 0
-}
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a3ijf"]
-texture = ExtResource("3_gghtf")
-0:0/0 = 0
-0:0/0/terrain_set = 0
-0:0/0/terrain = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_av47b"]
 texture = ExtResource("2_w6ewh")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_xjk5o"]
+tile_size = Vector2i(32, 32)
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Sand"
 terrain_set_0/terrain_0/color = Color(0.629521, 0.000286956, 0.627415, 1)
@@ -468,7 +415,6 @@ terrain_set_0/terrain_1/color = Color(1.2514e-06, 0.534455, 0.202583, 1)
 terrain_set_1/mode = 0
 terrain_set_1/terrain_0/name = "JE SAIS PAAAS"
 terrain_set_1/terrain_0/color = Color(0.360842, 0.0185067, 1, 1)
-sources/2 = SubResource("TileSetAtlasSource_a3ijf")
 sources/3 = SubResource("TileSetAtlasSource_av47b")
 sources/1 = SubResource("TileSetAtlasSource_233vw")
 metadata/_better_terrain = {
@@ -484,6 +430,7 @@ metadata/_better_terrain = {
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhim3"]
 texture = ExtResource("2_myy0b")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -742,10 +689,12 @@ texture = ExtResource("2_myy0b")
 15:8/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_bucej"]
+tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_lhim3")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1aqwx"]
 texture = ExtResource("6_n05t0")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:1/0 = 0
 1:0/0 = 0
@@ -876,20 +825,25 @@ texture = ExtResource("6_n05t0")
 15:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_q333y"]
+tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_1aqwx")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ylei"]
 texture = ExtResource("5_hu78u")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_df7od"]
+tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_5ylei")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w58h2"]
 texture = ExtResource("6_qp1ht")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_lbq1w"]
+tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_w58h2")
 
 [node name="MainGame" type="Node"]
@@ -923,14 +877,14 @@ text = "Debug Labels
 
 [node name="EnvironmentLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
-position = Vector2(2, 0)
-tile_map_data = PackedByteArray("AAAsAAwAAQAIAAMAAAAtAAwAAQAHAAIAAAAtAA0AAQAEAAEAAAAtAA4AAQAFAAMAAAAuAA4AAQAGAAMAAAAvAA4AAQACAAAAAAAwAA4AAQACAAMAAAAxAA4AAQACAAMAAAAwAAsAAQAJAAMAAAAxAAsAAQAJAAMAAAAyAA0AAQABAAEAAAAyAA4AAQADAAIAAAAuAA0AAQALAAAAAAAvAAsAAQAIAAMAAAAvAAoAAQAEAAEAAAAwAAoAAQAKAAAAAAAxAAoAAQAKAAAAAAAyAAoAAQAHAAEAAAAzAA0AAQACAAMAAAA0AA0AAQADAAEAAAA0AA4AAQAAAAEAAAA0AA8AAQABAAIAAAA1AA8AAQACAAMAAAA2AA8AAQADAAIAAAA2AA4AAQABAAAAAAA3AA4AAQADAAIAAAA3AA0AAQAAAAEAAAA3AAwAAQAAAAEAAAA3AAsAAQADAAAAAAA2AAsAAQABAAIAAAA2AAoAAQADAAAAAAA1AAoAAQAGAAMAAAA1AAkAAQALAAAAAAA0AAkAAQAFAAAAAAAzAAkAAQACAAMAAAAyAAkAAQABAAEAAAAyAAgAAQADAAAAAAAxAAgAAQACAAMAAAAwAAgAAQACAAMAAAAvAAgAAQABAAAAAAAvAAkAAQADAAEAAAAuAAkAAQACAAMAAAAtAAkAAQABAAAAAAAtAAoAAQAAAAEAAAAtAAsAAQAHAAEAAAAsAAsAAQAFAAAAAAArAAsAAQACAAMAAAAqAAsAAQAGAAMAAAAqAAoAAQALAAAAAAApAAoAAQAIAAAAAAApAAsAAQAFAAMAAAAoAAsAAQABAAAAAAAoAAwAAQAAAAEAAAAoAA0AAQABAAIAAAApAA0AAQADAAAAAAApAA4AAQABAAIAAAAqAA4AAQAFAAAAAAAqAA8AAQAIAAMAAAArAA8AAQAKAAMAAAArABAAAQAAAAEAAAArABEAAQABAAIAAAAsABEAAQACAAMAAAAtABEAAQACAAIAAAAuABEAAQACAAMAAAAtABAAAQAAAAAAAAAsAA8AAQALAAMAAAArAA4AAQAKAAAAAAAsAA4AAQAGAAAAAAAvABEAAQADAAIAAAAvABAAAQAAAAEAAAAvAA8AAQAAAAEAAAAyAAwAAQAAAAEAAAAyAAsAAQAEAAAAAAA0AAwAAQAAAAAAAAAzAAsAAQADAAMAAAA0AAoAAQAIAAMAAAAmAA0AAQAAAAAAAAAmAA4AAQAAAAEAAAAmAA8AAQAEAAEAAAAmABAAAQAEAAIAAAAmABEAAQAAAAIAAAAnAA8AAQAKAAAAAAAoAA8AAQALAAAAAAAoABAAAQALAAMAAAAnABAAAQAJAAMAAAA=")
+tile_map_data = PackedByteArray("AAAJAPz/AQABAAMAAAAKAPz/AQACAAMAAAALAPz/AQACAAMAAAAMAPz/AQAFAAAAAAANAPz/AQAGAAAAAAAOAPz/AQADAAMAAAANAP3/AQALAAMAAAAMAP3/AQAIAAMAAAACAP//AQABAAMAAAADAP//AQACAAIAAAAEAP//AQACAAMAAAAFAP//AQADAAIAAAAFAP7/AQAAAAEAAAAFAP3/AQADAAAAAAAEAP3/AQACAAMAAAADAP3/AQACAAAAAAACAP3/AQABAAIAAAACAPz/AQAAAAAAAAADAP7/AQAAAAEAAAA=")
 tile_set = SubResource("TileSet_xjk5o")
 script = ExtResource("5_bfbmu")
 
 [node name="SnakeLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
 use_parent_material = true
+tile_map_data = PackedByteArray("AAAGAP3/AQAAAAQAAAAGAP7/AQAHAAUAAAAGAP//AQAHAAUAAAA=")
 tile_set = SubResource("TileSet_bucej")
 
 [node name="snakeJumpingLayer" type="TileMapLayer" parent="GameTiles"]
