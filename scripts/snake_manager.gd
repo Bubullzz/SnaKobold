@@ -102,8 +102,14 @@ func pop_tail():
 
 func handle_collision():
 	health_points -= 1
-	%SnakeLayer.set_cell(body.pop_front())
-	%SnakeLayer.set_cell(body.pop_front())
+	var i = 0
+	while i < 2 or %snakeJumpingLayer.get_cell_source_id(body[0]) == JUMP_ID: # Pop until we reach a non-jumping cell
+		var poped = body.pop_front()
+		if %snakeJumpingLayer.get_cell_source_id(poped) == JUMP_ID:
+			%snakeJumpingLayer.set_cell(poped)
+		else:
+			%SnakeLayer.set_cell(poped)
+		i += 1
 	actual_speed = 0.1
 	curr_dir = Direction.cells_to_dir(body[1], body[0])
 	var ideal_cam_pos = body[0] + 1 * Direction.dir_to_vec(Direction.opp(curr_dir))
@@ -112,20 +118,22 @@ func handle_collision():
 
 	dir_buffer = [null, null]
 
-func step():
+func step(jumped_last_frame : bool):
 	# First update the tail
 	if growth == 0:
 		pop_tail()
 	else:
 		growth -= 1
 
-	# Update Direction from inputs in the last 16-frame
-	var d = dir_buff_consume()
-	if Direction.opp(d) == curr_dir || d == curr_dir:
-		d = dir_buff_consume()
-	if d != null && Direction.opp(d) != curr_dir:
-		curr_dir = d
+	# Update Direction from inputs in the last X frame
+	if ! jumped_last_frame: # dont turn when jumping
+		var d = dir_buff_consume()
+		if Direction.opp(d) == curr_dir || d == curr_dir:
+			d = dir_buff_consume()
+		if d != null && Direction.opp(d) != curr_dir:
+			curr_dir = d
 	
+
 	# Update body data
 	var expected_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
 	if is_snake(expected_head_pos) || %EnvironmentLayer.is_wall(expected_head_pos):
@@ -196,8 +204,9 @@ func smooth_actual_speed_step():
 func _on_clock_tick() -> void:
 	clock = (clock + 1) % 16
 	if clock == 0:
+		var last_jump_frame = jumping_frame
 		jumping_frame = false
-		step()
+		step(last_jump_frame)
 		input_jump = max(0, input_jump - 1)
 	if game_state == GAME_STATE.GAME_OVER:
 		return
