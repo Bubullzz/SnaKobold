@@ -1,22 +1,49 @@
-[gd_scene load_steps=25 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=30 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
 [ext_resource type="Script" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
 [ext_resource type="Texture2D" uid="uid://dh5qsprb5u1lm" path="res://assets/environment/walls perspective TileMap.png" id="4_1cce4"]
+[ext_resource type="Texture2D" uid="uid://duo2etmnqpkh4" path="res://assets/environment/KAYOU_PErspective.png" id="4_pwpv7"]
 [ext_resource type="Script" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
 [ext_resource type="Texture2D" uid="uid://b6dt3wmn574lq" path="res://assets/apples/apple1.png" id="5_hu78u"]
 [ext_resource type="Texture2D" uid="uid://bj6ace68somk7" path="res://assets/snake/jump.png" id="6_n05t0"]
 [ext_resource type="Texture2D" uid="uid://r82u6xyycfia" path="res://assets/debug/debug_box.png" id="6_qp1ht"]
 [ext_resource type="Script" path="res://scripts/snake_manager.gd" id="7_ay4re"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
+[ext_resource type="Texture2D" uid="uid://dcuwchyntsava" path="res://assets/environment/KAYOU.png" id="12_at3rc"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rk40v"]
 noise = SubResource("FastNoiseLite_r51s0")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8fyq5"]
+texture = ExtResource("4_pwpv7")
+texture_region_size = Vector2i(32, 32)
+2:5/size_in_atlas = Vector2i(1, 2)
+2:5/0 = 0
+2:5/0/texture_origin = Vector2i(0, 16)
+2:5/0/metadata/_better_terrain = {
+0: [0],
+8: [0],
+11: [0],
+12: [0],
+15: [0],
+"type": 0
+}
+4:6/0 = 0
+4:6/0/texture_origin = Vector2i(0, 16)
+4:6/0/metadata/_better_terrain = {
+0: [0],
+3: [0],
+4: [0],
+7: [0],
+8: [0],
+"type": 0
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_233vw"]
 texture = ExtResource("4_1cce4")
@@ -417,6 +444,7 @@ terrain_set_1/terrain_0/name = "JE SAIS PAAAS"
 terrain_set_1/terrain_0/color = Color(0.360842, 0.0185067, 1, 1)
 sources/3 = SubResource("TileSetAtlasSource_av47b")
 sources/1 = SubResource("TileSetAtlasSource_233vw")
+sources/0 = SubResource("TileSetAtlasSource_8fyq5")
 metadata/_better_terrain = {
 "decoration": ["Decoration", Color(0.411765, 0.411765, 0.411765, 1), 3, [], {
 "path": "res://addons/better-terrain/icons/Decoration.svg"
@@ -846,6 +874,18 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_w58h2")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mt7ih"]
+texture = ExtResource("12_at3rc")
+texture_region_size = Vector2i(32, 32)
+7:0/0 = 0
+6:0/size_in_atlas = Vector2i(1, 2)
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, 16)
+
+[sub_resource type="TileSet" id="TileSet_ufdj2"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_mt7ih")
+
 [node name="MainGame" type="Node"]
 script = ExtResource("1_c0m7j")
 width = 100
@@ -877,14 +917,14 @@ text = "Debug Labels
 
 [node name="EnvironmentLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
-tile_map_data = PackedByteArray("AAAJAPz/AQABAAMAAAAKAPz/AQACAAMAAAALAPz/AQACAAMAAAAMAPz/AQAFAAAAAAANAPz/AQAGAAAAAAAOAPz/AQADAAMAAAANAP3/AQALAAMAAAAMAP3/AQAIAAMAAAACAP//AQABAAMAAAADAP//AQACAAIAAAAEAP//AQACAAMAAAAFAP//AQADAAIAAAAFAP7/AQAAAAEAAAAFAP3/AQADAAAAAAAEAP3/AQACAAMAAAADAP3/AQACAAAAAAACAP3/AQABAAIAAAACAPz/AQAAAAAAAAADAP7/AQAAAAEAAAA=")
+tile_map_data = PackedByteArray("AAAJAPz/AQABAAMAAAAKAPz/AQACAAMAAAALAPz/AQACAAMAAAAMAPz/AQAFAAAAAAANAPz/AQAGAAAAAAAOAPz/AQADAAMAAAANAP3/AQALAAMAAAAMAP3/AQAIAAMAAAACAP//AQABAAMAAAADAP//AQACAAIAAAAEAP//AQACAAMAAAAFAP//AQADAAIAAAAFAP7/AQAAAAEAAAAFAP3/AQADAAAAAAAEAP3/AQACAAMAAAADAP3/AQACAAAAAAACAP3/AQAGAAMAAAACAPz/AQALAAAAAAADAP7/AQAAAAEAAAD2//7/AQALAAMAAAD1//7/AQAJAAMAAAD0//7/AQAIAAMAAAD0//3/AQAIAAAAAAD1//3/AQAKAAAAAAD2//3/AQALAAAAAAD7//r/AQAJAAMAAAD6//r/AQAIAAMAAAD6//n/AQAIAAAAAAD7//n/AAAEAAYAAAD8//n/AAAEAAYAAAD8//r/AAACAAUAAAD9//n/AQALAAAAAAD9//r/AQALAAMAAAAAAPn/AQAIAAMAAAABAPn/AQAJAAMAAAACAPn/AAACAAUAAAADAPn/AQAJAAMAAAAEAPn/AAACAAUAAAAFAPn/AAACAAUAAAAGAPn/AQALAAMAAAAGAPj/AQALAAIAAAAFAPj/AQAJAAIAAAAEAPj/AQAJAAIAAAADAPj/AQAJAAIAAAACAPj/AQAJAAIAAAABAPj/AQAJAAIAAAAAAPj/AQAIAAEAAAAAAPf/AQAIAAAAAAABAPf/AAAEAAYAAAACAPf/AAAEAAYAAAADAPf/AAAEAAYAAAAEAPf/AQAKAAAAAAAFAPf/AAAEAAYAAAAGAPf/AQALAAAAAAD9//z/AQAKAAAAAAD7//z/AAAEAAYAAAD6//z/AQAKAAAAAAD5//z/AQAIAAAAAAD5//3/AQAIAAMAAAD6//3/AQAJAAMAAAD7//3/AAACAAUAAAD9//3/AQAJAAMAAAD8//z/AQAKAAAAAAD8//3/AQAJAAMAAAD+//z/AQAKAAAAAAD+//3/AQAJAAMAAAD///z/AAAEAAYAAAD///3/AAACAAUAAAAAAPz/AAAEAAYAAAAAAP3/AAACAAUAAAABAPz/AAAEAAYAAAABAP3/AAACAAUAAAA=")
 tile_set = SubResource("TileSet_xjk5o")
 script = ExtResource("5_bfbmu")
 
 [node name="SnakeLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
 use_parent_material = true
-tile_map_data = PackedByteArray("AAAGAP3/AQAAAAQAAAAGAP7/AQAHAAUAAAAGAP//AQAHAAUAAAA=")
+tile_map_data = PackedByteArray("AAAGAP3/AQAAAAQAAAAGAP7/AQAHAAUAAAAGAP//AQAHAAUAAAD1/wUAAQAPAAAAAGD2/wUAAQADAAIAAGD3/wUAAQADAAIAAGD4/wUAAQADAAIAAGA=")
 tile_set = SubResource("TileSet_bucej")
 
 [node name="snakeJumpingLayer" type="TileMapLayer" parent="GameTiles"]
@@ -903,3 +943,8 @@ script = ExtResource("7_ay4re")
 [node name="DebugLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
 tile_set = SubResource("TileSet_lbq1w")
+
+[node name="Couille" type="TileMapLayer" parent="GameTiles"]
+unique_name_in_owner = true
+tile_map_data = PackedByteArray("AAABAP//AAAGAAAAAAAAAP//AAAGAAAAAAD1/wQAAAAGAAAAAAD2/wQAAAAGAAAAAAD3/wQAAAAGAAAAAAD4/wQAAAAGAAAAAAA=")
+tile_set = SubResource("TileSet_ufdj2")
