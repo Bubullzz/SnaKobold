@@ -15,7 +15,7 @@ func middle() -> Vector2i:
 
 func lakes(lake : Array[Vector2i], pos : Vector2i) -> void:
     # Reccursively find all the connected cells to initial pos
-    if pos in lake || %EnvironmentLayer.is_wall(pos):
+    if pos in lake || %EnvironmentManager.is_wall(pos):
         return
     lake.append(pos)
     lakes(lake, pos + Vector2i(1,0))
@@ -36,26 +36,25 @@ func proc_gen():
             var val = noise.get_noise_2d(i, j)
             val += pow(Vector2i(i,j).distance_to(Vector2i(mid_width, mid_height)), 2.) * 0.001 
             if val > 0.5 :
-                %EnvironmentLayer.set_wall(Vector2i(i,j))
-            else:
-                %EnvironmentLayer.set_floor(Vector2i(i,j))
+                %EnvironmentManager.set_wall(Vector2i(i,j))
+            %EnvironmentManager.set_floor(Vector2i(i,j))
     
     # Make sure there is space for the snake to spawn
     for i in range(mid_width - 15, mid_width + 15):
         for j in range(mid_height - 15, mid_height + 15):
-            %EnvironmentLayer.set_floor(Vector2i(i,j))
+            %EnvironmentManager.remove_wall(Vector2i(i,j))
 
     # Filling unreachable holes
     var accessible : Array[Vector2i] = [] 
     lakes(accessible, Vector2i(mid_width, mid_height))
-    var un_accessible = []
+    var un_accessible : Array[Vector2i] = []
     for i in range(1,width):
         for j in range(1, height):
             if Vector2i(i,j) not in accessible:
                 un_accessible.append(Vector2i(i,j))
-                %EnvironmentLayer.set_wall(Vector2i(i,j))
+                %EnvironmentManager.set_wall(Vector2i(i,j))
     
-    BetterTerrain.update_terrain_cells(%EnvironmentLayer, un_accessible)
+    %EnvironmentManager.update_terrain_cells(un_accessible)
 
     return
 

@@ -36,14 +36,14 @@ func is_snake(pos):
 func check_accessible(pos):
 	var sum = 0
 	for dir in [Direction.DIR.UP, Direction.DIR.DOWN, Direction.DIR.LEFT, Direction.DIR.RIGHT]:
-		if %EnvironmentLayer.is_wall(pos + Direction.dir_to_vec(dir)):
+		if %EnvironmentManager.is_wall(pos + Direction.dir_to_vec(dir)):
 			sum += 1
 	return sum < 3
 
 	
 func place_apple():
 	var apple_pos = Vector2i(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
-	while is_snake(apple_pos) || %EnvironmentLayer.is_wall(apple_pos) || !check_accessible(apple_pos):
+	while is_snake(apple_pos) || %EnvironmentManager.is_wall(apple_pos) || !check_accessible(apple_pos):
 		apple_pos = Vector2i(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
 
 	%appleLayer.set_cell(apple_pos, 1, Vector2i(0, 0))
@@ -91,7 +91,7 @@ func pop_tail():
 	var old_tail_co = body.pop_back()
 	if %snakeJumpingLayer.get_cell_source_id(old_tail_co) == (JUMP_ID):
 		%snakeJumpingLayer.set_cell(old_tail_co)
-		if ! %EnvironmentLayer.is_wall(old_tail_co): # If not in wall then the tail is passing under body and needs update
+		if ! %EnvironmentManager.is_wall(old_tail_co): # If not in wall then the tail is passing under body and needs update
 			var transform = 0
 			if Direction.ver(Direction.cells_to_dir(old_tail_co, body[-1])):
 				transform = dir_to_atlas_transform(Direction.DIR.LEFT)
@@ -136,7 +136,7 @@ func step(jumped_last_frame : bool):
 
 	# Update body data
 	var expected_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
-	if is_snake(expected_head_pos) || %EnvironmentLayer.is_wall(expected_head_pos):
+	if is_snake(expected_head_pos) || %EnvironmentManager.is_wall(expected_head_pos):
 		if input_jump: 
 			jumping_frame = true
 			body.push_front(expected_head_pos) 
