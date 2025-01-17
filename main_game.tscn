@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
 [ext_resource type="Script" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
-[ext_resource type="Texture2D" uid="uid://dh5qsprb5u1lm" path="res://assets/environment/walls perspective TileMap.png" id="4_1cce4"]
 [ext_resource type="Script" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
 [ext_resource type="Texture2D" uid="uid://b6dt3wmn574lq" path="res://assets/apples/apple1.png" id="5_hu78u"]
 [ext_resource type="Texture2D" uid="uid://bj6ace68somk7" path="res://assets/snake/jump.png" id="6_n05t0"]
 [ext_resource type="Texture2D" uid="uid://r82u6xyycfia" path="res://assets/debug/debug_box.png" id="6_qp1ht"]
 [ext_resource type="Script" path="res://scripts/snake_manager.gd" id="7_ay4re"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
+[ext_resource type="Texture2D" uid="uid://doqol7s06bexk" path="res://assets/environment/walls_kayouent.png" id="8_xtbsh"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -292,7 +292,7 @@ tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_lhim3")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mt7ih"]
-texture = ExtResource("4_1cce4")
+texture = ExtResource("8_xtbsh")
 texture_region_size = Vector2i(32, 32)
 0:4/size_in_atlas = Vector2i(1, 2)
 0:4/0 = 0
