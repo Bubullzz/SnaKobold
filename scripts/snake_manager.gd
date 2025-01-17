@@ -102,14 +102,17 @@ func pop_tail():
 
 func handle_collision():
 	health_points -= 1
-	var i = 0
-	while i < 2 or %snakeJumpingLayer.get_cell_source_id(body[0]) == JUMP_ID: # Pop until we reach a non-jumping cell
+	var send_back_amaount = 2
+	if len(body) - send_back_amaount < 4:
+		game_state = GAME_STATE.GAME_OVER
+		return
+	while send_back_amaount > 0 or %snakeJumpingLayer.get_cell_source_id(body[0]) == JUMP_ID: # Pop until we reach a non-jumping cell
 		var poped = body.pop_front()
 		if %snakeJumpingLayer.get_cell_source_id(poped) == JUMP_ID:
 			%snakeJumpingLayer.set_cell(poped)
 		else:
 			%SnakeLayer.set_cell(poped)
-		i += 1
+		send_back_amaount -= 1
 	actual_speed = 0.1
 	curr_dir = Direction.cells_to_dir(body[1], body[0])
 	var ideal_cam_pos = body[0] + 1 * Direction.dir_to_vec(Direction.opp(curr_dir))

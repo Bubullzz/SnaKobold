@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=26 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
@@ -25,7 +25,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_nsp50"]
 tile_size = Vector2i(32, 32)
-sources/3 = SubResource("TileSetAtlasSource_by0jw")
+sources/2 = SubResource("TileSetAtlasSource_by0jw")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhim3"]
 texture = ExtResource("2_myy0b")
@@ -935,6 +935,7 @@ tile_set = SubResource("TileSet_bucej")
 [node name="WallsLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
 position = Vector2(-1, 0)
+tile_map_data = PackedByteArray("AABDAPn/AQABAAQAAABEAPn/AQACAAQAAABFAPn/AQADAAEAAABFAPj/AQABAAAAAABIAPj/AQAKAAAAAABHAPj/AQAFAAAAAABGAPj/AQACAAQAAABIAPn/AQAGAAIAAABIAPr/AQALAAMAAABHAPr/AQAFAAMAAABGAPr/AQACAAQAAABFAPr/AQABAAIAAABJAPn/AQALAAMAAABHAPn/AQAIAAEAAABJAPj/AQAGAAAAAABKAPj/AQACAAQAAABLAPj/AQADAAAAAABLAPn/AQAAAAEAAABLAPr/AQADAAIAAABKAPr/AQABAAQAAAA=")
 tile_set = SubResource("TileSet_ufdj2")
 
 [node name="snakeJumpingLayer" type="TileMapLayer" parent="GameTiles"]
