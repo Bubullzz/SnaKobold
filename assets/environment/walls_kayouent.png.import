@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4q8ats04sjvg"
-path="res://.godot/imported/bg_terrain.png-f8a2517a4ef9176704ade68643d8aa18.ctex"
+uid="uid://doqol7s06bexk"
+path="res://.godot/imported/walls_kayouent.png-37832711ffd821d122469c3b685e9559.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/environment/bg_terrain.png"
-dest_files=["res://.godot/imported/bg_terrain.png-f8a2517a4ef9176704ade68643d8aa18.ctex"]
+source_file="res://assets/environment/walls_kayouent.png"
+dest_files=["res://.godot/imported/walls_kayouent.png-37832711ffd821d122469c3b685e9559.ctex"]
 
 [params]
 
