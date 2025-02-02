@@ -291,6 +291,15 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_lhim3")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ylei"]
+texture = ExtResource("5_hu78u")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_df7od"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_5ylei")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mt7ih"]
 texture = ExtResource("8_xtbsh")
 texture_region_size = Vector2i(32, 32)
@@ -867,15 +876,6 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_1aqwx")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ylei"]
-texture = ExtResource("5_hu78u")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_df7od"]
-tile_size = Vector2i(32, 32)
-sources/1 = SubResource("TileSetAtlasSource_5ylei")
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w58h2"]
 texture = ExtResource("6_qp1ht")
 texture_region_size = Vector2i(32, 32)
@@ -932,6 +932,11 @@ unique_name_in_owner = true
 use_parent_material = true
 tile_set = SubResource("TileSet_bucej")
 
+[node name="appleLayer" type="TileMapLayer" parent="GameTiles"]
+unique_name_in_owner = true
+position = Vector2(0, -1)
+tile_set = SubResource("TileSet_df7od")
+
 [node name="WallsLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
 position = Vector2(-1, 0)
@@ -941,11 +946,6 @@ tile_set = SubResource("TileSet_ufdj2")
 [node name="snakeJumpingLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
 tile_set = SubResource("TileSet_q333y")
-
-[node name="appleLayer" type="TileMapLayer" parent="GameTiles"]
-unique_name_in_owner = true
-position = Vector2(0, -1)
-tile_set = SubResource("TileSet_df7od")
 
 [node name="DebugLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
