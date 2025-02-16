@@ -4,6 +4,8 @@ enum GAME_STATE {RUNNING, PAUSED, GAME_OVER, DEBUG}
 enum BODY_PART {HEAD, PRE_HEAD, BODY, PRE_TAIL, TAIL}
 var GROUND_ID = 1
 var JUMP_ID = 1 
+var APPLE_ID = 1
+var JUICE_ID = 0
 var HEAD_BASE = Vector2i(0,0)
 var TAIL_BASE = Vector2i(0,1)
 var PRE_HEAD_BASE = Vector2i(0,2)
@@ -11,7 +13,8 @@ var PRE_TAIL_BASE = Vector2i(0,6)
 
 var VERT_BODY = Vector2i(3,2) # Used when passing under body because of jump
 var health_points = 3
-
+var max_juice = 10000
+var juice = 0
 
 func dir_to_atlas_transform(dir : Direction.DIR) -> int:
 	# Uses Atlas transforms flags (godot hardcode) for mirror and/or flip
@@ -42,12 +45,23 @@ func check_accessible(pos):
 
 	
 func place_apple():
-	var apple_pos = Vector2i(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
+	var spawn_height = 15
+	var spawn_width = 20
+	var apple_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
 	while is_snake(apple_pos) || %EnvironmentManager.is_wall(apple_pos) || !check_accessible(apple_pos):
-		apple_pos = Vector2i(body[0].x + (randi() % 30) - 15, %SnakeManager.body[0].y + (randi() % 20) - 10)
+		apple_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
 
-	%appleLayer.set_cell(apple_pos, 1, Vector2i(0, 0))
+	%appleLayer.set_cell(apple_pos, APPLE_ID, Vector2i(0, 0))
 
+
+func place_juice():
+	var spawn_height = 8
+	var spawn_width = 8
+	var juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
+	while is_snake(juice_pos) || %EnvironmentManager.is_wall(juice_pos) || !check_accessible(juice_pos):
+		juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
+
+	%appleLayer.set_cell(juice_pos, JUICE_ID, Vector2i(0, 0))
 
 func place_snake(pos):
 	for i in range(4):
@@ -82,10 +96,18 @@ func dir_buff_consume():
 
 
 func apple_check():
-	if %appleLayer.get_cell_source_id(body[0]) == 1:
+	if %appleLayer.get_cell_source_id(body[0]) == APPLE_ID:
 		growth += 1
 		%appleLayer.set_cell(body[0])
 		place_apple()
+
+func juice_check():
+	if %appleLayer.get_cell_source_id(body[0]) == JUICE_ID:
+		juice += 100
+		juice = min(juice, max_juice)
+		%appleLayer.set_cell(body[0])
+		place_juice()
+		%JuiceBar.value = juice
 
 func pop_tail():
 	var old_tail_co = body.pop_back()
@@ -150,7 +172,7 @@ func step(jumped_last_frame : bool):
 		body.push_front(expected_head_pos)
 
 	apple_check()
-	
+	juice_check()
 
 
 func update_pre_head_sp() -> void :

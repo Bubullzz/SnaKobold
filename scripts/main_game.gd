@@ -72,7 +72,6 @@ func _input(_event):
         %SnakeManager.input_jump = 4
 
 
-
     # Debug
     if Input.is_key_pressed(KEY_C):
         %SnakeManager.clock_collector = 0.0
@@ -135,6 +134,9 @@ func _ready():
     %SnakeManager.place_snake(middle())
     %SnakeManager.place_apple()
     %SnakeManager.place_apple()
+    %SnakeManager.place_juice()
+
+    %JuiceBar.max_value = %SnakeManager.max_juice
 
     %MainCam.position_smoothing_enabled = false
     %MainCam.position = %SnakeLayer.map_to_local(%SnakeManager.body[0])
