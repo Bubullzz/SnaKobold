@@ -68,9 +68,6 @@ func _input(_event):
        %SnakeManager. dir_buff_add(DIR.RIGHT)
     if Input.is_action_just_pressed("ui_left"):
         %SnakeManager.dir_buff_add(DIR.LEFT)
-    if Input.is_key_pressed(KEY_SPACE):
-        %SnakeManager.input_jump = 4
-
 
     # Debug
     if Input.is_key_pressed(KEY_C):
@@ -83,6 +80,8 @@ func _input(_event):
         get_tree().reload_current_scene()
     if Input.is_key_pressed(KEY_P):
         %SnakeManager.growth += 3
+    if Input.is_key_pressed(KEY_J):
+        %SnakeManager.update_juice(1000)
     if Input.is_key_pressed(KEY_H):
         %SnakeManager.health_points += 1
     if Input.is_key_pressed(KEY_S):

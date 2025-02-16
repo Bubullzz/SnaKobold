@@ -68,7 +68,6 @@ func place_snake(pos):
 		%SnakeLayer.set_cell(body[-1], GROUND_ID, Vector2i(0, 0))
 
 var dir_buffer = [null, null] 
-var input_jump = 0
 var game_state : GAME_STATE = GAME_STATE.RUNNING
 var jumping_frame = false
 
@@ -93,6 +92,10 @@ func dir_buff_consume():
 	dir_buffer[1] = null
 	return tmp
 
+func update_juice(value : int):
+	juice += value
+	juice = min(juice, max_juice)
+	%JuiceBar.value = juice
 
 func apple_check():
 	if %appleLayer.get_cell_source_id(body[0]) == APPLE_ID:
@@ -102,11 +105,9 @@ func apple_check():
 
 func juice_check():
 	if %appleLayer.get_cell_source_id(body[0]) == JUICE_ID:
-		juice += 100
-		juice = min(juice, max_juice)
 		%appleLayer.set_cell(body[0])
 		place_juice()
-		%JuiceBar.value = juice
+		update_juice(100)
 
 func pop_tail():
 	var old_tail_co = body.pop_back()
@@ -156,15 +157,14 @@ func step(jumped_last_frame : bool):
 			d = dir_buff_consume()
 		if d != null && Direction.opp(d) != curr_dir:
 			curr_dir = d
-	
 
 	# Update body data
 	var expected_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
 	if is_snake(expected_head_pos) || %EnvironmentManager.is_wall(expected_head_pos):
-		if input_jump: 
+		if juice > 500: 
 			jumping_frame = true
 			body.push_front(expected_head_pos) 
-			input_jump = 0
+			update_juice(-500)
 		else:
 			handle_collision()
 	else:
@@ -231,7 +231,6 @@ func _on_clock_tick() -> void:
 		var last_jump_frame = jumping_frame
 		jumping_frame = false
 		step(last_jump_frame)
-		input_jump = max(0, input_jump - 1)
 	if game_state == GAME_STATE.GAME_OVER:
 		return
 	smooth_actual_speed_step()
@@ -255,3 +254,7 @@ func _process(delta: float) -> void:
 
 		clock_collector = int(clock_collector) % (int(clock_rate / actual_speed))
 	
+
+
+func _on_timer_timeout() -> void:
+	update_juice(-1)

@@ -936,6 +936,11 @@ stretch_margin_bottom = 3
 texture_under = ExtResource("4_3db6c")
 texture_progress = ExtResource("5_0ftxp")
 
+[node name="JuiceTimer" type="Timer" parent="MainCam/CanvasLayer/JuiceBar"]
+process_callback = 0
+wait_time = 0.01
+autostart = true
+
 [node name="GameTiles" type="Node" parent="."]
 
 [node name="EnvironmentManager" type="Node" parent="GameTiles"]
@@ -974,3 +979,5 @@ tile_set = SubResource("TileSet_q333y")
 [node name="DebugLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
 tile_set = SubResource("TileSet_lbq1w")
+
+[connection signal="timeout" from="MainCam/CanvasLayer/JuiceBar/JuiceTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
