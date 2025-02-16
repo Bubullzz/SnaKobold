@@ -122,6 +122,7 @@ func update_debug_boxes():
            %DebugLayer.set_cell(part, 0, Vector2i(0,0))
         %DebugLayer.set_cell(%SnakeManager.body[0] + %MainCam.lookahead * Direction.dir_to_vec(%SnakeManager.curr_dir), 0, Vector2i(0,0)) # XXX change lookahaed color
         
+#aa
 
 func _process(_delta: float) -> void:
     update_debug_labels()
