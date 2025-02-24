@@ -15,6 +15,7 @@ var VERT_BODY = Vector2i(3,2) # Used when passing under body because of jump
 var health_points = 3
 var max_juice = 10000
 var juice = 0
+var juice_pos = Vector2i(0,0)
 
 func dir_to_atlas_transform(dir : Direction.DIR) -> int:
     # Uses Atlas transforms flags (godot hardcode) for mirror and/or flip
@@ -54,12 +55,15 @@ func place_apple():
 
 
 func place_juice():
-    var spawn_height = 8
-    var spawn_width = 8
-    var juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
-    while is_snake(juice_pos) || %EnvironmentManager.is_wall(juice_pos) || !check_accessible(juice_pos):
+    var spawn_height = 4
+    var spawn_width = 4
+    juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
+    while is_snake(juice_pos) || %EnvironmentManager.is_wall(juice_pos) || !check_accessible(juice_pos) || juice_pos in body:
+        spawn_height += 1
+        spawn_width += 1
         juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
     %appleLayer.set_cell(juice_pos, JUICE_ID, Vector2i(0, 0))
+    %JuiceEntityRespawner.start()
 
 func place_snake(pos):
     for i in range(4):
@@ -259,3 +263,8 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
     update_juice(-1)
 
+
+
+func _on_juice_entity_respawner_timeout() -> void:
+    %appleLayer.set_cell(juice_pos)
+    place_juice()
