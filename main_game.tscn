@@ -921,6 +921,17 @@ theme_override_fonts/font = ExtResource("8_ikebx")
 text = "Debug Labels
 "
 
+[node name="GameLabels" type="Label" parent="MainCam/CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 1307.0
+offset_top = 1008.0
+offset_right = 1401.0
+offset_bottom = 1045.0
+scale = Vector2(3.72487, 3.72487)
+theme_override_fonts/font = ExtResource("8_ikebx")
+text = "Game Labels
+"
+
 [node name="JuiceBar" type="TextureProgressBar" parent="MainCam/CanvasLayer"]
 unique_name_in_owner = true
 offset_left = 1836.0
@@ -936,9 +947,9 @@ stretch_margin_bottom = 3
 texture_under = ExtResource("4_4y61s")
 texture_progress = ExtResource("5_paa6i")
 
-[node name="JuiceTimer" type="Timer" parent="MainCam/CanvasLayer/JuiceBar"]
+[node name="JuiceRemoveTimer" type="Timer" parent="MainCam/CanvasLayer/JuiceBar"]
 process_callback = 0
-wait_time = 0.034
+wait_time = 0.089
 autostart = true
 
 [node name="GameTiles" type="Node" parent="."]
@@ -980,4 +991,4 @@ tile_set = SubResource("TileSet_q333y")
 unique_name_in_owner = true
 tile_set = SubResource("TileSet_lbq1w")
 
-[connection signal="timeout" from="MainCam/CanvasLayer/JuiceBar/JuiceTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
+[connection signal="timeout" from="MainCam/CanvasLayer/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]

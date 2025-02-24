@@ -59,7 +59,6 @@ func place_juice():
     var juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
     while is_snake(juice_pos) || %EnvironmentManager.is_wall(juice_pos) || !check_accessible(juice_pos):
         juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
-
     %appleLayer.set_cell(juice_pos, JUICE_ID, Vector2i(0, 0))
 
 func place_snake(pos):

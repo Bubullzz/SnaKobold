@@ -100,6 +100,12 @@ func _input(_event):
         while %SnakeManager.clock > 0:
             %SnakeManager._on_clock_tick()
 
+func update_game_labels():
+    %GameLabels.text = ""
+    var format = "%s : %s / %s"
+    %GameLabels.text += format % ["juice" , %SnakeManager.juice , %SnakeManager.max_juice ]+ '\n'
+
+
 func update_debug_labels():
     if !debug:
         %DebugLabels.text = ""
@@ -113,6 +119,7 @@ func update_debug_labels():
     %DebugLabels.text += format % ["body length", len(%SnakeManager.body)] + '\n'
     %DebugLabels.text += format % ["health", %SnakeManager.health_points] + '\n'
 
+
 func update_debug_boxes():
     for cell in %DebugLayer.get_used_cells():
         %DebugLayer.set_cell(cell, -1, Vector2i(0,0))
@@ -125,6 +132,7 @@ func update_debug_boxes():
 func _process(_delta: float) -> void:
     update_debug_labels()
     update_debug_boxes()
+    update_game_labels()
     return
 
 
