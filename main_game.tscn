@@ -1,19 +1,20 @@
-[gd_scene load_steps=30 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=31 format=4 uid="uid://bf3kugmhm0pqt"]
 
-[ext_resource type="Script" path="res://scripts/main_game.gd" id="1_c0m7j"]
+[ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
-[ext_resource type="Script" path="res://scripts/main_cam.gd" id="2_uddo3"]
+[ext_resource type="Script" uid="uid://dujoh4v75bp0a" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
 [ext_resource type="Texture2D" uid="uid://ddgs42iyee8iy" path="res://assets/canvas/under_juice.png" id="4_4y61s"]
-[ext_resource type="Script" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
+[ext_resource type="Script" uid="uid://cugpie3yoygwt" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
 [ext_resource type="Texture2D" uid="uid://b6dt3wmn574lq" path="res://assets/apples/apple1.png" id="5_hu78u"]
-[ext_resource type="Texture2D" uid="uid://csahrglnwsnpd" path="res://assets/canvas/over_juice.png" id="5_paa6i"]
+[ext_resource type="Texture2D" uid="uid://csahrglnwsnpd" path="res://assets/canvas/over_juice.png" id="5_jgkyn"]
 [ext_resource type="Texture2D" uid="uid://bj6ace68somk7" path="res://assets/snake/jump.png" id="6_n05t0"]
 [ext_resource type="Texture2D" uid="uid://r82u6xyycfia" path="res://assets/debug/debug_box.png" id="6_qp1ht"]
-[ext_resource type="Script" path="res://scripts/snake_manager.gd" id="7_ay4re"]
+[ext_resource type="Script" uid="uid://csoqij2ke52e3" path="res://scripts/snake_manager.gd" id="7_ay4re"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
 [ext_resource type="Texture2D" uid="uid://doqol7s06bexk" path="res://assets/environment/walls_kayouent.png" id="8_xtbsh"]
-[ext_resource type="Texture2D" uid="uid://b2n0k56gu2pi8" path="res://assets/apples/juice.png" id="10_naaqk"]
+[ext_resource type="Texture2D" uid="uid://cjv12u62lslnl" path="res://assets/apples/juice-Sheet.png" id="9_krmtw"]
+[ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -295,8 +296,38 @@ tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_lhim3")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7a2o8"]
-texture = ExtResource("10_naaqk")
+texture = ExtResource("9_krmtw")
 texture_region_size = Vector2i(32, 32)
+0:0/animation_columns = 28
+0:0/animation_speed = 5.0
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/animation_frame_4/duration = 1.0
+0:0/animation_frame_5/duration = 1.0
+0:0/animation_frame_6/duration = 1.0
+0:0/animation_frame_7/duration = 1.0
+0:0/animation_frame_8/duration = 1.0
+0:0/animation_frame_9/duration = 1.0
+0:0/animation_frame_10/duration = 1.0
+0:0/animation_frame_11/duration = 1.0
+0:0/animation_frame_12/duration = 1.0
+0:0/animation_frame_13/duration = 1.0
+0:0/animation_frame_14/duration = 1.0
+0:0/animation_frame_15/duration = 1.0
+0:0/animation_frame_16/duration = 1.0
+0:0/animation_frame_17/duration = 1.0
+0:0/animation_frame_18/duration = 1.0
+0:0/animation_frame_19/duration = 1.0
+0:0/animation_frame_20/duration = 1.0
+0:0/animation_frame_21/duration = 1.0
+0:0/animation_frame_22/duration = 1.0
+0:0/animation_frame_23/duration = 1.0
+0:0/animation_frame_24/duration = 1.0
+0:0/animation_frame_25/duration = 1.0
+0:0/animation_frame_26/duration = 1.0
+0:0/animation_frame_27/duration = 1.0
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ylei"]
@@ -923,10 +954,10 @@ text = "Debug Labels
 
 [node name="GameLabels" type="Label" parent="MainCam/CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 1412.0
-offset_top = 1017.0
-offset_right = 1506.0
-offset_bottom = 1054.0
+offset_left = 2019.0
+offset_top = 1442.0
+offset_right = 2113.0
+offset_bottom = 1479.0
 scale = Vector2(3.72487, 3.72487)
 theme_override_fonts/font = ExtResource("8_ikebx")
 text = "Game Labels
@@ -934,10 +965,10 @@ text = "Game Labels
 
 [node name="JuiceBar" type="TextureProgressBar" parent="MainCam/CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 1836.0
-offset_top = 55.0
-offset_right = 1916.0
-offset_bottom = 1073.0
+offset_left = 2468.0
+offset_top = 537.0
+offset_right = 2548.0
+offset_bottom = 1555.0
 fill_mode = 3
 nine_patch_stretch = true
 stretch_margin_left = 1
@@ -945,7 +976,7 @@ stretch_margin_top = 3
 stretch_margin_right = 1
 stretch_margin_bottom = 3
 texture_under = ExtResource("4_4y61s")
-texture_progress = ExtResource("5_paa6i")
+texture_progress = ExtResource("5_jgkyn")
 
 [node name="JuiceRemoveTimer" type="Timer" parent="MainCam/CanvasLayer/JuiceBar"]
 process_callback = 0
@@ -995,6 +1026,13 @@ tile_set = SubResource("TileSet_lbq1w")
 unique_name_in_owner = true
 wait_time = 2.0
 autostart = true
+
+[node name="Boom" parent="." instance=ExtResource("15_qpaub")]
+unique_name_in_owner = true
+position = Vector2(7074, 1247)
+scale = Vector2(6, 6)
+one_shot = true
+scale_amount_max = 7.0
 
 [connection signal="timeout" from="MainCam/CanvasLayer/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
 [connection signal="timeout" from="JuiceEntityRespawner" to="GameTiles/SnakeManager" method="_on_juice_entity_respawner_timeout"]

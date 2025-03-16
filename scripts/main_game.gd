@@ -68,6 +68,8 @@ func _input(_event):
        %SnakeManager. dir_buff_add(DIR.RIGHT)
     if Input.is_action_just_pressed("ui_left"):
         %SnakeManager.dir_buff_add(DIR.LEFT)
+    if Input.is_key_pressed(KEY_A):
+        %SnakeManager.activable_apple_spawn();
 
     # Debug
     if Input.is_key_pressed(KEY_C):

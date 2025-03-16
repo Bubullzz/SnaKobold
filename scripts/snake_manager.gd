@@ -101,6 +101,13 @@ func update_juice(value : int):
     juice = max(juice, 0)
     %JuiceBar.value = juice
 
+
+func consume_juice(value : int) -> bool:
+    if juice >= value:
+        update_juice(-value)
+        return true
+    return false
+
 func apple_check():
     if %appleLayer.get_cell_source_id(body[0]) == APPLE_ID:
         growth += 1
@@ -127,6 +134,9 @@ func pop_tail():
 
 
 func handle_collision():
+    var real_coor_hit_pos = %SnakeLayer.map_to_local(body[0])
+    %Boom.set_position(real_coor_hit_pos)
+    %Boom.set_emitting(true)
     health_points -= 1
     var send_back_amaount = 2
     if len(body) - send_back_amaount < 4:
@@ -223,6 +233,10 @@ func update_head_sp():
         layer = %SnakeLayer
     layer.set_cell(body[0], sprite_id, head, dir_to_atlas_transform(curr_dir))
 
+
+func activable_apple_spawn():
+    if consume_juice(1000):
+        place_apple()
 
 func smooth_actual_speed_step():
     if actual_speed != target_speed:
