@@ -101,6 +101,9 @@ func _input(_event):
         %SnakeManager._on_clock_tick()
         while %SnakeManager.clock > 0:
             %SnakeManager._on_clock_tick()
+    if Input.is_key_pressed(KEY_Z):
+        %MainCam.curr_state = %MainCam.STATE.DEBUG
+        %MainCam.set_both_zoom(%MainCam.zoom.x * 0.7)
 
 func update_game_labels():
     %GameLabels.text = ""

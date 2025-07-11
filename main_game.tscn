@@ -1031,7 +1031,6 @@ autostart = true
 unique_name_in_owner = true
 position = Vector2(7074, 1247)
 scale = Vector2(6, 6)
-one_shot = true
 scale_amount_max = 7.0
 
 [connection signal="timeout" from="MainCam/CanvasLayer/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]

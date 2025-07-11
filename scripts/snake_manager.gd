@@ -16,6 +16,8 @@ var health_points = 3
 var max_juice = 10000
 var juice = 0
 var juice_pos = Vector2i(0,0)
+var juice_combo = 1
+var max_juice_combo = 10
 
 func dir_to_atlas_transform(dir : Direction.DIR) -> int:
     # Uses Atlas transforms flags (godot hardcode) for mirror and/or flip
@@ -118,7 +120,7 @@ func juice_check():
     if %appleLayer.get_cell_source_id(body[0]) == JUICE_ID:
         %appleLayer.set_cell(body[0])
         place_juice()
-        update_juice(100)
+        update_juice(100 * juice_combo)
 
 func pop_tail():
     var old_tail_co = body.pop_back()
@@ -281,4 +283,5 @@ func _on_timer_timeout() -> void:
 
 func _on_juice_entity_respawner_timeout() -> void:
     %appleLayer.set_cell(juice_pos)
+    juice_combo = min(juice_combo + 1, max_juice_combo)
     place_juice()

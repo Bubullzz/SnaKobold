@@ -1,6 +1,6 @@
 extends Camera2D
 
-enum STATE {BASIC, TEMPORARY}
+enum STATE {BASIC, TEMPORARY, DEBUG}
 
 var curr_state = STATE.BASIC
 var lookahead : int = 2
@@ -51,6 +51,8 @@ func handle_shake(delta: float) -> void:
 
 func _process(delta: float) -> void:
     match curr_state:
+        STATE.DEBUG:
+            return
         STATE.TEMPORARY:
             if tmp_elapsed < tmp_window: # Currently in temporary scene such as collision
                 tmp_elapsed += delta
