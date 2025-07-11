@@ -121,6 +121,7 @@ func juice_check():
         %appleLayer.set_cell(body[0])
         place_juice()
         update_juice(100 * juice_combo)
+        juice_combo = min(juice_combo + 1, max_juice_combo)
 
 func pop_tail():
     var old_tail_co = body.pop_back()
@@ -283,5 +284,5 @@ func _on_timer_timeout() -> void:
 
 func _on_juice_entity_respawner_timeout() -> void:
     %appleLayer.set_cell(juice_pos)
-    juice_combo = min(juice_combo + 1, max_juice_combo)
+    juice_combo = 1
     place_juice()
