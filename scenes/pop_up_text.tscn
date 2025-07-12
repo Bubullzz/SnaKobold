@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu6a02aylet1n"]
+
+[ext_resource type="Script" uid="uid://cgi2l3qec4msq" path="res://scripts/pop_up_text.gd" id="1_86jrj"]
+[ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="2_nrw2i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_otsft"]
+font = ExtResource("2_nrw2i")
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PopUpText" type="Node2D"]
+z_index = 10
+script = ExtResource("1_86jrj")
+juice_text_color = Color(0.95418, 0.722749, 0.918378, 1)
+apple_text_color = Color(0.124942, 0.00219553, 0.0917599, 1)
+
+[node name="Text" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = -7.0
+offset_right = 14.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "+200"
+label_settings = SubResource("LabelSettings_otsft")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

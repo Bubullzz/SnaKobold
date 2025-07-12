@@ -115,13 +115,22 @@ func apple_check():
         growth += 1
         %appleLayer.set_cell(body[0])
         place_apple()
+        var t = preload("res://scenes/pop_up_text.tscn").instantiate()
+        t.initialize_apple("+1", %SnakeLayer.map_to_local(body[0]))
+        get_tree().root.add_child(t)
 
 func juice_check():
     if %appleLayer.get_cell_source_id(body[0]) == JUICE_ID:
         %appleLayer.set_cell(body[0])
         place_juice()
         update_juice(100 * juice_combo)
+        var t = preload("res://scenes/pop_up_text.tscn").instantiate()
+        t.initialize_juice("+%d" % [100 * juice_combo], %SnakeLayer.map_to_local(body[0]), juice_combo)
+        get_tree().root.add_child(t)
+
         juice_combo = min(juice_combo + 1, max_juice_combo)
+
+
 
 func pop_tail():
     var old_tail_co = body.pop_back()
@@ -284,5 +293,9 @@ func _on_timer_timeout() -> void:
 
 func _on_juice_entity_respawner_timeout() -> void:
     %appleLayer.set_cell(juice_pos)
+    if juice_combo > 4:
+        var t = preload("res://scenes/pop_up_text.tscn").instantiate()
+        t.initialize_combo_break(%SnakeLayer.map_to_local(juice_pos), juice_combo)
+        get_tree().root.add_child(t)
     juice_combo = 1
     place_juice()
