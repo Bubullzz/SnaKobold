@@ -82,7 +82,7 @@ func _input(_event):
         get_tree().reload_current_scene()
     if Input.is_key_pressed(KEY_P):
         %SnakeManager.growth += 3
-    if Input.is_key_pressed(KEY_J):
+    if Input.is_key_pressed(KEY_Z):
         %SnakeManager.update_juice(1000)
     if Input.is_key_pressed(KEY_H):
         %SnakeManager.health_points += 1

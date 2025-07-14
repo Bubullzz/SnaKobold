@@ -60,7 +60,7 @@ func place_juice():
     var spawn_height = 4
     var spawn_width = 4
     juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
-    while is_snake(juice_pos) || %EnvironmentManager.is_wall(juice_pos) || !check_accessible(juice_pos) || juice_pos in body:
+    while is_snake(juice_pos) || %EnvironmentManager.is_wall(juice_pos) || !check_accessible(juice_pos) || juice_pos in body ||%appleLayer.get_cell_source_id(juice_pos) == APPLE_ID:
         spawn_height += 1
         spawn_width += 1
         juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
