@@ -38,6 +38,12 @@ func dir_to_atlas_transform(dir : Direction.DIR) -> int:
 func is_snake(pos):
     return %SnakeLayer.get_cell_source_id(pos) == GROUND_ID || %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
 
+func is_ground_snake(pos):
+    return %SnakeLayer.get_cell_source_id(pos) == GROUND_ID
+
+func is_jump_snake(pos):
+    return %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
+
 func get_body_index(pos: Vector2i) -> int:
     var i = 0
     while i < len(body):
@@ -205,7 +211,7 @@ func step(jumped_last_frame : bool):
     # Update body data
     var expected_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
     if is_snake(expected_head_pos) || %EnvironmentManager.is_wall(expected_head_pos):
-        if juice > 500: 
+        if juice > 500 && ! is_jump_snake(expected_head_pos): 
             jumping_frame = true
             body.push_front(expected_head_pos) 
             update_juice(-500)
