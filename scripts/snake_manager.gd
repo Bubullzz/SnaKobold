@@ -18,6 +18,7 @@ var juice = 0
 var juice_pos = Vector2i(0,0)
 var juice_combo = 1
 var max_juice_combo = 10
+var jump_price = 500
 
 func dir_to_atlas_transform(dir : Direction.DIR) -> int:
     # Uses Atlas transforms flags (godot hardcode) for mirror and/or flip
@@ -43,6 +44,9 @@ func is_ground_snake(pos):
 
 func is_jump_snake(pos):
     return %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
+
+func is_free(pos):
+    return %SnakeLayer.get_cell_source_id(pos) == -1 && %snakeJumpingLayer.get_cell_source_id(pos) == -1 && !%EnvironmentManager.is_wall(pos)
 
 func get_body_index(pos: Vector2i) -> int:
     var i = 0
@@ -193,6 +197,15 @@ func handle_collision():
 
     dir_buffer = [null, null]
 
+func check_not_waisting(pos) -> bool:
+    # Check if we are not wating all juice to do 12 jumps in wall then die
+    var i = 0
+    while i * jump_price < juice:
+        if is_free(pos + Direction.dir_to_vec(curr_dir) * i):
+            return true
+        i += 1
+    return false
+
 func step(jumped_last_frame : bool):
     # First update the tail
     if growth == 0:
@@ -211,10 +224,10 @@ func step(jumped_last_frame : bool):
     # Update body data
     var expected_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
     if is_snake(expected_head_pos) || %EnvironmentManager.is_wall(expected_head_pos):
-        if juice > 500 && ! is_jump_snake(expected_head_pos): 
+        if juice > jump_price && ! is_jump_snake(expected_head_pos) && check_not_waisting(expected_head_pos): 
             jumping_frame = true
             body.push_front(expected_head_pos) 
-            update_juice(-500)
+            update_juice(-jump_price)
         else:
             handle_collision()
     else:
