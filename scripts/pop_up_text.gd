@@ -53,7 +53,7 @@ func _on_timer_timeout() -> void:
     queue_free()
 
 
-static func juice2(text: String, global_pos: Vector2, combo: int) -> PopUpText:
+static func juice2(context: Node, text: String, global_pos: Vector2, combo: int) -> void:
     var instance = preload("res://scenes/pop_up_text.tscn").instantiate()
     instance.initialize_juice(text, global_pos, combo)
-    return instance
+    context.get_tree().root.add_child(instance)

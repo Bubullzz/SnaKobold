@@ -142,8 +142,7 @@ func juice_check():
         %appleLayer.set_cell(body[0])
         place_juice()
         update_juice(100 * juice_combo)
-        var k = PopUpText.juice2("+%d" % [100 * juice_combo], %SnakeLayer.map_to_local(body[0]), juice_combo)
-        get_tree().root.add_child(k)
+        PopUpText.juice2(self, "+%d" % [100 * juice_combo], %SnakeLayer.map_to_local(body[0]), juice_combo)
 
         juice_combo = min(juice_combo + 1, max_juice_combo)
 
