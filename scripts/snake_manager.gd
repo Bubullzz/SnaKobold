@@ -133,16 +133,14 @@ func apple_check():
         growth += 1
         %appleLayer.set_cell(body[0])
         place_apple()
-        var t = preload("res://scenes/pop_up_text.tscn").instantiate()
-        t.initialize_apple("+1", %SnakeLayer.map_to_local(body[0]))
-        get_tree().root.add_child(t)
+        PopUpText.spawn_apple_popup(self, "+1", %SnakeLayer.map_to_local(body[0]))
 
 func juice_check():
     if %appleLayer.get_cell_source_id(body[0]) == JUICE_ID:
         %appleLayer.set_cell(body[0])
         place_juice()
         update_juice(100 * juice_combo)
-        PopUpText.juice2(self, "+%d" % [100 * juice_combo], %SnakeLayer.map_to_local(body[0]), juice_combo)
+        PopUpText.spawn_juice_popup(self, "+%d" % [100 * juice_combo], %SnakeLayer.map_to_local(body[0]), juice_combo)
 
         juice_combo = min(juice_combo + 1, max_juice_combo)
 

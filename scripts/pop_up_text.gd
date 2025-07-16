@@ -7,6 +7,7 @@ var direction : Vector2
 @export var speed : float = 100.0
 @export var juice_text_color : Color
 @export var apple_text_color : Color
+@export var apple_outline_color : Color
 
 func initialize(text: String, global_pos: Vector2) -> void:
     $Text.label_settings = $Text.label_settings.duplicate()
@@ -29,9 +30,9 @@ func initialize_juice(text: String, global_pos: Vector2, combo: int) -> void:
 func initialize_apple(text: String, global_pos: Vector2) -> void:
     initialize(text, global_pos)
     $Text.label_settings.font_color = apple_text_color
-    $Text.label_settings.outline_color = Color(1,1,1,1)
-    $Text.label_settings.font_size = 30
-    $Text.label_settings.outline_size = 0
+    $Text.label_settings.outline_color = apple_outline_color
+    $Text.label_settings.font_size = 50
+    $Text.label_settings.outline_size = 12
     speed = 20
 
 
@@ -53,7 +54,12 @@ func _on_timer_timeout() -> void:
     queue_free()
 
 
-static func juice2(context: Node, text: String, global_pos: Vector2, combo: int) -> void:
+static func spawn_juice_popup(context: Node, text: String, global_pos: Vector2, combo: int) -> void:
     var instance = preload("res://scenes/pop_up_text.tscn").instantiate()
     instance.initialize_juice(text, global_pos, combo)
+    context.get_tree().root.add_child(instance)
+
+static func spawn_apple_popup(context: Node, text: String, global_pos: Vector2) -> void:
+    var instance = preload("res://scenes/pop_up_text.tscn").instantiate()
+    instance.initialize_apple(text, global_pos)
     context.get_tree().root.add_child(instance)
