@@ -38,7 +38,15 @@ func dir_to_atlas_transform(dir : Direction.DIR) -> int:
 func is_snake(pos):
     return %SnakeLayer.get_cell_source_id(pos) == GROUND_ID || %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
 
-
+func get_body_index(pos: Vector2i) -> int:
+    var i = 0
+    while i < len(body):
+        if body[i] == pos:
+            return i
+        var diff : Vector2i = abs(body[i] - pos)
+        i += 1 #diff.x + diff.y
+    return -1
+    
 func check_accessible(pos):
     var sum = 0
     for dir in [Direction.DIR.UP, Direction.DIR.DOWN, Direction.DIR.LEFT, Direction.DIR.RIGHT]:
@@ -124,9 +132,8 @@ func juice_check():
         %appleLayer.set_cell(body[0])
         place_juice()
         update_juice(100 * juice_combo)
-        var t = preload("res://scenes/pop_up_text.tscn").instantiate()
-        t.initialize_juice("+%d" % [100 * juice_combo], %SnakeLayer.map_to_local(body[0]), juice_combo)
-        get_tree().root.add_child(t)
+        var k = PopUpText.juice2("+%d" % [100 * juice_combo], %SnakeLayer.map_to_local(body[0]), juice_combo)
+        get_tree().root.add_child(k)
 
         juice_combo = min(juice_combo + 1, max_juice_combo)
 
@@ -137,10 +144,21 @@ func pop_tail():
     if %snakeJumpingLayer.get_cell_source_id(old_tail_co) == (JUMP_ID):
         %snakeJumpingLayer.set_cell(old_tail_co)
         if ! %EnvironmentManager.is_wall(old_tail_co): # If not in wall then the tail is passing under body and needs update
-            var transform = 0
-            if Direction.ver(Direction.cells_to_dir(old_tail_co, body[-1])):
-                transform = dir_to_atlas_transform(Direction.DIR.LEFT)
-            %SnakeLayer.set_cell(old_tail_co, GROUND_ID, VERT_BODY, transform)
+            var index = get_body_index(old_tail_co)
+            if index == -1:
+                print("Error: Tail not found in body")
+                return
+            var pre_dir = Direction.cells_to_dir(body[index + 1], body[index])
+            var post_dir = Direction.cells_to_dir(body[index], body[index - 1])
+            if index == 0: # we just jumped, on the tail weird but happens
+                post_dir = curr_dir
+            if pre_dir == post_dir: # Going straight
+                %SnakeLayer.set_cell(body[index], GROUND_ID, PRE_HEAD_BASE + Vector2i(3, 0), dir_to_atlas_transform(pre_dir))
+            else: # Turning
+                var base_pos = PRE_HEAD_BASE # Where do we begin the table in the sprites sheet
+                var pre_head = base_pos + Vector2i(int(post_dir) * 4, int(pre_dir)) # start on top left of table then select right line and col using order up, down, left, right
+                %SnakeLayer.set_cell(body[1], GROUND_ID, pre_head + Vector2i(3, 0)) # Here we put 4 because we want the sprite at end of animation
+
     else:
         %SnakeLayer.set_cell(old_tail_co)
 

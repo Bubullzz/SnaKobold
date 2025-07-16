@@ -965,10 +965,10 @@ text = "Game Labels
 
 [node name="JuiceBar" type="TextureProgressBar" parent="MainCam/CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 1795.0
-offset_top = 23.0
-offset_right = 1875.0
-offset_bottom = 1041.0
+offset_left = 2391.0
+offset_top = 483.0
+offset_right = 2471.0
+offset_bottom = 1501.0
 fill_mode = 3
 nine_patch_stretch = true
 stretch_margin_left = 1

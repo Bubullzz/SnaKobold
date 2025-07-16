@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name PopUpText
+
 @export var time_alive : float = 1.0
 var direction : Vector2 
 @export var speed : float = 100.0
@@ -49,3 +51,9 @@ func _process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
     queue_free()
+
+
+static func juice2(text: String, global_pos: Vector2, combo: int) -> PopUpText:
+    var instance = preload("res://scenes/pop_up_text.tscn").instantiate()
+    instance.initialize_juice(text, global_pos, combo)
+    return instance
