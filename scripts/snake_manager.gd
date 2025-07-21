@@ -53,7 +53,7 @@ func get_body_index(pos: Vector2i) -> int:
     while i < len(body):
         if body[i] == pos:
             return i
-        var diff : Vector2i = abs(body[i] - pos)
+        var _diff : Vector2i = abs(body[i] - pos)
         i += 1 #diff.x + diff.y
     return -1
     
@@ -133,7 +133,12 @@ func apple_check():
         growth += 1
         %appleLayer.set_cell(body[0])
         place_apple()
-        PopUpText.spawn_apple_popup(self, "+1", %SnakeLayer.map_to_local(body[0]))
+        var apple_eat_particles_1 = preload("res://particles/apple_eat_particles.tscn").instantiate()
+        apple_eat_particles_1.global_position = %SnakeLayer.map_to_local(body[0])
+        apple_eat_particles_1.start()
+        get_tree().root.add_child(apple_eat_particles_1)
+        #PopUpText.spawn_apple_popup(self, "+1", %SnakeLayer.map_to_local(body[0]))
+
 
 func juice_check():
     if %appleLayer.get_cell_source_id(body[0]) == JUICE_ID:
@@ -141,7 +146,6 @@ func juice_check():
         place_juice()
         update_juice(100 * juice_combo)
         PopUpText.spawn_juice_popup(self, "+%d" % [100 * juice_combo], %SnakeLayer.map_to_local(body[0]), juice_combo)
-
         juice_combo = min(juice_combo + 1, max_juice_combo)
 
 
