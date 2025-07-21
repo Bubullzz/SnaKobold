@@ -13,7 +13,8 @@ var PRE_TAIL_BASE = Vector2i(0,6)
 
 var VERT_BODY = Vector2i(3,2) # Used when passing under body because of jump
 var health_points = 3
-var max_juice = 10000
+var max_juice = 0
+var absolute_max_juice = 10000
 var juice = 0
 var juice_pos = Vector2i(0,0)
 var juice_combo = 1
@@ -64,11 +65,11 @@ func check_accessible(pos):
             sum += 1
     return sum < 3
 #ok ok	
-func place_apple():
+func place_apple(forbidden_pos = null):
     var spawn_height = 15
     var spawn_width = 20
     var apple_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
-    while is_snake(apple_pos) || %EnvironmentManager.is_wall(apple_pos) || !check_accessible(apple_pos):
+    while is_snake(apple_pos) || apple_pos == forbidden_pos || %EnvironmentManager.is_wall(apple_pos) || !check_accessible(apple_pos):
         apple_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
 
     %appleLayer.set_cell(apple_pos, APPLE_ID, Vector2i(0, 0))
@@ -128,11 +129,11 @@ func consume_juice(value : int) -> bool:
         return true
     return false
 
-func apple_check():
+func apple_check(forbidden_pos = null):
     if %appleLayer.get_cell_source_id(body[0]) == APPLE_ID:
         growth += 1
         %appleLayer.set_cell(body[0])
-        place_apple()
+        place_apple(forbidden_pos)
         var apple_eat_particles_1 = preload("res://particles/apple_eat_particles.tscn").instantiate()
         apple_eat_particles_1.global_position = %SnakeLayer.map_to_local(body[0])
         apple_eat_particles_1.start()
@@ -190,6 +191,7 @@ func handle_collision():
         else:
             %SnakeLayer.set_cell(poped)
         send_back_amaount -= 1
+    update_max_juice() # makes juice bar smaller, based on lost size
     actual_speed = 0.1
     curr_dir = Direction.cells_to_dir(body[1], body[0])
     var ideal_cam_pos = body[0] + 1 * Direction.dir_to_vec(Direction.opp(curr_dir))
@@ -207,13 +209,23 @@ func check_not_waisting(pos) -> bool:
         i += 1
     return false
 
+func update_max_juice() -> void:
+    max_juice = min(len(body) * 100, absolute_max_juice)
+    %JuiceBar.max_value = max_juice
+    var ratio = float(max_juice) / float(absolute_max_juice)
+    print(ratio)
+    %FreeSpace.set_stretch_ratio(1 - ratio)
+    %JuiceBar.set_stretch_ratio(ratio)
+
+
+func growing() -> void:
+    growth -= 1
+    update_max_juice()
+
 func step(jumped_last_frame : bool):
-    # First update the tail
+    # needs to be done first 
     if growth == 0:
         pop_tail()
-    else:
-        growth -= 1
-
     # Update Direction from inputs in the last X frame
     if ! jumped_last_frame: # dont turn when jumping
         var d = dir_buff_consume()
@@ -234,7 +246,11 @@ func step(jumped_last_frame : bool):
     else:
         body.push_front(expected_head_pos)
 
-    apple_check()
+    # needs to be done after updated body 
+    if growth > 0:
+        growing()
+
+    apple_check(expected_head_pos)
     juice_check()
 
 
@@ -337,3 +353,6 @@ func _on_juice_entity_respawner_timeout() -> void:
         get_tree().root.add_child(t)
     juice_combo = 1
     place_juice()
+
+func _ready() -> void:
+    update_max_juice()

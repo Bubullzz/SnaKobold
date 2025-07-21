@@ -8,6 +8,8 @@ enum DIR {UP, DOWN, LEFT, RIGHT}
 
 var debug = false
 
+var nb_juice_frames = 15
+var juice_time = 2.0
 
 func middle() -> Vector2i:
     return Vector2i(width / 2, height / 2)
@@ -158,3 +160,5 @@ func _ready():
     await get_tree().create_timer(0.1).timeout 
     %MainCam.position_smoothing_enabled = true
     %MainCam.position_smoothing_speed = 1.
+    %JuiceEntityRespawner.wait_time = juice_time
+    %SnakeManager.update_max_juice()
