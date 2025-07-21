@@ -2,10 +2,13 @@ extends Node2D
 
 class_name Juice
 
-var base_wait_time = 2.
+var base_wait_time = 3.5
 var nb_frames = 16
 var fps = nb_frames / base_wait_time
+var max_spill_time = 8
+var start = Time.get_ticks_msec()
 var SM
+
 static func instantiate(context, base: Vector2i):
     var LOC_SM = context.get_node("%SnakeManager")
     var EM = context.get_node("%EnvironmentManager")
@@ -53,3 +56,9 @@ func _on_timer_timeout() -> void:
     $JuiceAnimated.visible = false
     $Spill.visible = true
     $CollisionZone.queue_free()
+
+func _process(_delta: float) -> void:
+    var elapsed = Time.get_ticks_msec() - start
+    if elapsed > base_wait_time * 1000: # spilled
+        var weight = (elapsed - base_wait_time * 1000) / (max_spill_time * 1000)
+        $Spill.self_modulate.a = lerp(1, 0, weight)

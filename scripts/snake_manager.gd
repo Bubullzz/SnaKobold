@@ -65,28 +65,6 @@ func check_accessible(pos):
             sum += 1
     return sum < 3
 
-func place_apple(forbidden_pos = null):
-    var spawn_height = 15
-    var spawn_width = 20
-    var apple_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
-    while is_snake(apple_pos) || apple_pos == forbidden_pos || %EnvironmentManager.is_wall(apple_pos) || !check_accessible(apple_pos):
-        spawn_height += 1
-        spawn_width += 1
-        apple_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
-
-    %appleLayer.set_cell(apple_pos, APPLE_ID, Vector2i(0, 0))
-
-
-func place_juice():
-    var spawn_height = 4
-    var spawn_width = 4
-    juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
-    while is_snake(juice_pos) || %EnvironmentManager.is_wall(juice_pos) || !check_accessible(juice_pos) || juice_pos in body ||%appleLayer.get_cell_source_id(juice_pos) == APPLE_ID:
-        spawn_height += 1
-        spawn_width += 1
-        juice_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
-    %appleLayer.set_cell(juice_pos, JUICE_ID, Vector2i(0, 0))
-    %JuiceEntityRespawner.start()
 
 func place_snake(pos):
     for i in range(4):
@@ -130,28 +108,6 @@ func consume_juice(value : int) -> bool:
         update_juice(-value)
         return true
     return false
-
-func apple_check(forbidden_pos = null):
-    if %appleLayer.get_cell_source_id(body[0]) == APPLE_ID:
-        growth += 1
-        %appleLayer.set_cell(body[0])
-        place_apple(forbidden_pos)
-        var apple_eat_particles_1 = preload("res://particles/apple_eat_particles.tscn").instantiate()
-        apple_eat_particles_1.global_position = %SnakeLayer.map_to_local(body[0])
-        apple_eat_particles_1.start()
-        get_tree().root.add_child(apple_eat_particles_1)
-        #PopUpText.spawn_apple_popup(self, "+1", %SnakeLayer.map_to_local(body[0]))
-
-
-func juice_check():
-    if %appleLayer.get_cell_source_id(body[0]) == JUICE_ID:
-        %appleLayer.set_cell(body[0])
-        place_juice()
-        update_juice(100 * juice_combo)
-        PopUpText.spawn_juice_popup(self, "+%d" % [100 * juice_combo], %SnakeLayer.map_to_local(body[0]), juice_combo)
-        juice_combo = min(juice_combo + 1, max_juice_combo)
-
-
 
 func pop_tail():
     var old_tail_co = body.pop_back()
@@ -253,8 +209,6 @@ func step(jumped_last_frame : bool):
         growing()
 
     %SnakeHeadCollision.set_position(%SnakeLayer.map_to_local(body[0]))
-    apple_check(expected_head_pos)
-    juice_check()
 
 
 func update_pre_head_sp() -> void :
@@ -305,7 +259,7 @@ func update_head_sp():
 
 func activable_apple_spawn():
     if consume_juice(1000):
-        place_apple()
+        Apple.instantiate(self, body[0])
 
 func smooth_actual_speed_step():
     if actual_speed != target_speed:
@@ -341,21 +295,8 @@ func _process(delta: float) -> void:
 
         clock_collector = int(clock_collector) % (int(clock_rate / actual_speed))
     
-
-
 func _on_timer_timeout() -> void:
     update_juice(-1)
-
-
-
-func _on_juice_entity_respawner_timeout() -> void:
-    %appleLayer.set_cell(juice_pos)
-    if juice_combo > 4:
-        var t = preload("res://scenes/pop_up_text.tscn").instantiate()
-        t.initialize_combo_break(%SnakeLayer.map_to_local(juice_pos), juice_combo)
-        get_tree().root.add_child(t)
-    juice_combo = 1
-    place_juice()
 
 func _ready() -> void:
     update_max_juice()

@@ -127,16 +127,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ys7ov"]
 
 [node name="Juice" type="Node2D"]
+z_index = 400
 script = ExtResource("1_aff67")
 
 [node name="Spill" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.890196)
 texture = ExtResource("2_8y0fe")
 
 [node name="JuiceAnimated" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2anho")
 frame = 15
 frame_progress = 1.0
-speed_scale = 8.0
 
 [node name="CollisionZone" type="Area2D" parent="."]
 collision_layer = 0

@@ -1,16 +1,17 @@
 extends Node
 
+enum DIR {UP, DOWN, LEFT, RIGHT}
+enum EAT {APPLE, JUICE}
+
+
 @export var width = 30
 @export var height = 20
 @export var noise_texture : NoiseTexture2D
 
-enum DIR {UP, DOWN, LEFT, RIGHT}
-enum EAT {APPLE, JUICE}
 var debug = false
-
-var nb_juice_frames = 15
-var juice_time = 2.0
 var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : EAT
+
+
 func middle() -> Vector2i:
     return Vector2i(width / 2, height / 2)
 
@@ -150,8 +151,6 @@ func _process(_delta: float) -> void:
 func _ready():
     proc_gen()
     %SnakeManager.place_snake(middle())
-    %SnakeManager.place_juice()
-
     %JuiceBar.max_value = %SnakeManager.max_juice
 
     %MainCam.position_smoothing_enabled = false
@@ -160,8 +159,8 @@ func _ready():
     await get_tree().create_timer(0.1).timeout 
     %MainCam.position_smoothing_enabled = true
     %MainCam.position_smoothing_speed = 1.
-    %JuiceEntityRespawner.wait_time = juice_time
     %SnakeManager.update_max_juice()
 
     Apple.instantiate(self, middle())
     Apple.instantiate(self, middle())
+    Juice.instantiate(self, middle())

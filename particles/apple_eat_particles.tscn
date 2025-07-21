@@ -15,6 +15,7 @@ point_count = 3
 script = ExtResource("1_djxf4")
 
 [node name="particles" type="CPUParticles2D" parent="."]
+z_index = 1100
 rotation = 3.14159
 emitting = false
 amount = 20

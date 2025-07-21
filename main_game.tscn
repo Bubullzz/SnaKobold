@@ -1,16 +1,14 @@
-[gd_scene load_steps=35 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=30 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
 [ext_resource type="Script" uid="uid://dujoh4v75bp0a" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
 [ext_resource type="Script" uid="uid://cugpie3yoygwt" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
-[ext_resource type="Texture2D" uid="uid://b6dt3wmn574lq" path="res://assets/apples/apple1.png" id="5_hu78u"]
 [ext_resource type="Texture2D" uid="uid://bj6ace68somk7" path="res://assets/snake/jump.png" id="6_n05t0"]
 [ext_resource type="Texture2D" uid="uid://r82u6xyycfia" path="res://assets/debug/debug_box.png" id="6_qp1ht"]
 [ext_resource type="Script" uid="uid://csoqij2ke52e3" path="res://scripts/snake_manager.gd" id="7_ay4re"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
-[ext_resource type="Texture2D" uid="uid://b6gt7tsqs46xk" path="res://assets/apples/juicev2-sheet.png" id="8_krmtw"]
 [ext_resource type="Texture2D" uid="uid://doqol7s06bexk" path="res://assets/environment/walls_kayouent.png" id="8_xtbsh"]
 [ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
 
@@ -305,37 +303,6 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_bucej"]
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_lhim3")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7a2o8"]
-texture = ExtResource("8_krmtw")
-texture_region_size = Vector2i(32, 32)
-0:0/animation_columns = 15
-0:0/animation_frame_0/duration = 1.0
-0:0/animation_frame_1/duration = 1.0
-0:0/animation_frame_2/duration = 1.0
-0:0/animation_frame_3/duration = 1.0
-0:0/animation_frame_4/duration = 1.0
-0:0/animation_frame_5/duration = 1.0
-0:0/animation_frame_6/duration = 1.0
-0:0/animation_frame_7/duration = 1.0
-0:0/animation_frame_8/duration = 1.0
-0:0/animation_frame_9/duration = 1.0
-0:0/animation_frame_10/duration = 1.0
-0:0/animation_frame_11/duration = 1.0
-0:0/animation_frame_12/duration = 1.0
-0:0/animation_frame_13/duration = 1.0
-0:0/animation_frame_14/duration = 1.0
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ylei"]
-texture = ExtResource("5_hu78u")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_df7od"]
-tile_size = Vector2i(32, 32)
-sources/1 = SubResource("TileSetAtlasSource_5ylei")
-sources/0 = SubResource("TileSetAtlasSource_7a2o8")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mt7ih"]
 texture = ExtResource("8_xtbsh")
@@ -1033,32 +1000,26 @@ rendering_quadrant_size = 32
 
 [node name="SnakeLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
+z_index = 600
 use_parent_material = true
 tile_set = SubResource("TileSet_bucej")
 
-[node name="appleLayer" type="TileMapLayer" parent="GameTiles"]
-unique_name_in_owner = true
-position = Vector2(0, -1)
-tile_set = SubResource("TileSet_df7od")
-
 [node name="WallsLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
+z_index = 800
 position = Vector2(-1, 0)
 tile_map_data = PackedByteArray("AABDAPn/AQABAAQAAABEAPn/AQACAAQAAABFAPn/AQADAAEAAABFAPj/AQABAAAAAABIAPj/AQAKAAAAAABHAPj/AQAFAAAAAABGAPj/AQACAAQAAABIAPn/AQAGAAIAAABIAPr/AQALAAMAAABHAPr/AQAFAAMAAABGAPr/AQACAAQAAABFAPr/AQABAAIAAABJAPn/AQALAAMAAABHAPn/AQAIAAEAAABJAPj/AQAGAAAAAABKAPj/AQACAAQAAABLAPj/AQADAAAAAABLAPn/AQAAAAEAAABLAPr/AQADAAIAAABKAPr/AQABAAQAAAA=")
 tile_set = SubResource("TileSet_ufdj2")
 
 [node name="snakeJumpingLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
+z_index = 1000
 tile_set = SubResource("TileSet_q333y")
 
 [node name="DebugLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
+z_index = 4096
 tile_set = SubResource("TileSet_lbq1w")
-
-[node name="JuiceEntityRespawner" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 2.0
-autostart = true
 
 [node name="Boom" parent="." instance=ExtResource("15_qpaub")]
 unique_name_in_owner = true
@@ -1074,4 +1035,3 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_krmtw")
 
 [connection signal="timeout" from="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
-[connection signal="timeout" from="JuiceEntityRespawner" to="GameTiles/SnakeManager" method="_on_juice_entity_respawner_timeout"]

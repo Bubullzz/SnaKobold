@@ -13,6 +13,7 @@ script = ExtResource("1_0i6tn")
 texture = ExtResource("2_bt1xp")
 
 [node name="Area2D" type="Area2D" parent="."]
+z_index = 400
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

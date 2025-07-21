@@ -11,7 +11,7 @@ outline_size = 20
 outline_color = Color(0, 0, 0, 1)
 
 [node name="PopUpText" type="Node2D"]
-z_index = 10
+z_index = 1100
 script = ExtResource("1_86jrj")
 juice_text_color = Color(0.95418, 0.722749, 0.918378, 1)
 apple_text_color = Color(0.180392, 0.00784314, 0.239216, 1)
