@@ -5,12 +5,12 @@ extends Node
 @export var noise_texture : NoiseTexture2D
 
 enum DIR {UP, DOWN, LEFT, RIGHT}
-
+enum EAT {APPLE, JUICE}
 var debug = false
 
 var nb_juice_frames = 15
 var juice_time = 2.0
-var apples_pos = {} # Dictionary of all the apples positions in the form Vector2i : true
+var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : EAT
 func middle() -> Vector2i:
     return Vector2i(width / 2, height / 2)
 
@@ -81,7 +81,7 @@ func _input(_event):
     if Input.is_key_pressed(KEY_D):
         debug = !debug
     if Input.is_key_pressed(KEY_N):
-        Apple.instantiate(self, middle())
+        Juice.instantiate(self, middle())
     if Input.is_key_pressed(KEY_R):
         get_tree().reload_current_scene()
     if Input.is_key_pressed(KEY_P):
@@ -150,8 +150,6 @@ func _process(_delta: float) -> void:
 func _ready():
     proc_gen()
     %SnakeManager.place_snake(middle())
-    %SnakeManager.place_apple()
-    %SnakeManager.place_apple()
     %SnakeManager.place_juice()
 
     %JuiceBar.max_value = %SnakeManager.max_juice
@@ -164,3 +162,6 @@ func _ready():
     %MainCam.position_smoothing_speed = 1.
     %JuiceEntityRespawner.wait_time = juice_time
     %SnakeManager.update_max_juice()
+
+    Apple.instantiate(self, middle())
+    Apple.instantiate(self, middle())

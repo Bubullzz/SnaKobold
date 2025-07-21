@@ -64,7 +64,7 @@ func check_accessible(pos):
         if %EnvironmentManager.is_wall(pos + Direction.dir_to_vec(dir)):
             sum += 1
     return sum < 3
-#ok ok	
+
 func place_apple(forbidden_pos = null):
     var spawn_height = 15
     var spawn_width = 20

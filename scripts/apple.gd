@@ -6,7 +6,7 @@ static func instantiate(context, base: Vector2i):
     var SM = context.get_node("%SnakeManager")
     var EM = context.get_node("%EnvironmentManager")
     var MAP = context.get_node("%WallsLayer")
-    var apples_dict = context.get_node("/root/MainGame").apples_pos
+    var apples_dict = context.get_node("/root/MainGame").eatables_pos
     var instance = load("res://scenes/apple.tscn").instantiate()
     var spawn_height = 15
     var spawn_width = 20
@@ -14,17 +14,13 @@ static func instantiate(context, base: Vector2i):
     while apples_dict.has(apple_pos) or \
                 SM.is_snake(apple_pos) or \
                 EM.is_wall(apple_pos) or \
-                false:
+                ! SM.check_accessible(apple_pos):
         spawn_height += 1
         spawn_width += 1
         apple_pos = Vector2i(base.x + (randi() % spawn_width) - spawn_width/2, base.y + (randi() % spawn_height) - spawn_height/2)
-        if spawn_height > 50 or spawn_width > 50:
-            print("Failed to find a position for apple, giving uppppp")
-            return
-    print("Apple spawned at ", apple_pos)
-    print("base", base)
+
     instance.position = MAP.map_to_local(apple_pos)
-    apples_dict[apple_pos] = true
+    apples_dict[apple_pos] = context.get_node("/root/MainGame").EAT.APPLE
     context.get_tree().root.add_child(instance)
 
 
