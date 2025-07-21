@@ -39,8 +39,8 @@ func initialize_apple(text: String, global_pos: Vector2) -> void:
 func initialize_combo_break(global_pos: Vector2, combo) -> void:
     initialize("COMBO\nBREAK", global_pos)
     $Text.label_settings.font_color = Color(1, 1,1, 1)
-    $Text.label_settings.outline_color = Color(0, 0, 0, 1)
-    $Text.label_settings.outline_size = 2
+    $Text.label_settings.outline_color = apple_outline_color
+    $Text.label_settings.outline_size = 10
     $Text.label_settings.font_size = 10
     $Text.label_settings.font_size += combo * 4
     speed = 0

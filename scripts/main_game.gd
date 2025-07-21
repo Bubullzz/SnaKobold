@@ -110,7 +110,7 @@ func _input(_event):
 func update_game_labels():
     %GameLabels.text = ""
     var format = "%s : %s / %s"
-    %GameLabels.text += format % ["juice" , %SnakeManager.juice , %SnakeManager.max_juice ]+ '\n'
+    %GameLabels.text += format % ["juice" , %SnakeManager.juice , %SnakeManager.max_juice ]
 
 
 func update_debug_labels():
