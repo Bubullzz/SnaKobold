@@ -31,7 +31,7 @@ static func instantiate(context, base: Vector2i):
 func _on_area_2d_area_entered(area:Area2D) -> void:
     var SM = area.get_node("%SnakeManager")
     SM.growth += 1
-    instantiate(area, SM.body[0])
+    call_deferred("instantiate", area, SM.body[0])
     var apple_eat_particles_1 = preload("res://particles/apple_eat_particles.tscn").instantiate()
     apple_eat_particles_1.global_position = global_position
     apple_eat_particles_1.start()
