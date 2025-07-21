@@ -9,6 +9,16 @@ var direction : Vector2
 @export var apple_text_color : Color
 @export var apple_outline_color : Color
 
+var combo_break_texts = [
+    "COMBO\nBREAK",
+    "COMBO\nBREAK",
+    "COMBO\nBREAK",
+    "COMBO\nBREAK",
+    "COMBO\nBREAK",
+    "Uh Oh\n:(",
+    "Skill\nIssue",
+    "SPILLED\nEVERYWHERE",
+]
 func initialize(text: String, global_pos: Vector2) -> void:
     $Text.label_settings = $Text.label_settings.duplicate()
     direction = Vector2(randf() * 2 - 1, randf() * 2 - 1).normalized()
@@ -37,7 +47,7 @@ func initialize_apple(text: String, global_pos: Vector2) -> void:
 
 
 func initialize_combo_break(global_pos: Vector2, combo) -> void:
-    initialize("COMBO\nBREAK", global_pos)
+    initialize(combo_break_texts[randi() % len(combo_break_texts)], global_pos)
     $Text.label_settings.font_color = Color(1, 1,1, 1)
     $Text.label_settings.outline_color = apple_outline_color
     $Text.label_settings.outline_size = 10

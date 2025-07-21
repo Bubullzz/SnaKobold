@@ -31,6 +31,8 @@ grow_vertical = 2
 rotation = 0.00668335
 text = "+1"
 label_settings = SubResource("LabelSettings_otsft")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
