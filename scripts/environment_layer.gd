@@ -7,6 +7,7 @@ var _cell_to_id = {
     CELL_TYPE.FLOOR : 2
 }
 
+
 @warning_ignore("unused_private_class_variable")
 var _id_to_cell = Utils.reverse_dict(_cell_to_id)
 

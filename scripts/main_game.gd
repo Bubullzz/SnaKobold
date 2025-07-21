@@ -10,7 +10,7 @@ var debug = false
 
 var nb_juice_frames = 15
 var juice_time = 2.0
-
+var apples_pos = {} # Dictionary of all the apples positions in the form Vector2i : true
 func middle() -> Vector2i:
     return Vector2i(width / 2, height / 2)
 
@@ -80,6 +80,8 @@ func _input(_event):
 
     if Input.is_key_pressed(KEY_D):
         debug = !debug
+    if Input.is_key_pressed(KEY_N):
+        Apple.instantiate(self, middle())
     if Input.is_key_pressed(KEY_R):
         get_tree().reload_current_scene()
     if Input.is_key_pressed(KEY_P):

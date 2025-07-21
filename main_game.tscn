@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=35 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
@@ -310,7 +310,6 @@ sources/1 = SubResource("TileSetAtlasSource_lhim3")
 texture = ExtResource("8_krmtw")
 texture_region_size = Vector2i(32, 32)
 0:0/animation_columns = 15
-0:0/animation_speed = 6.0
 0:0/animation_frame_0/duration = 1.0
 0:0/animation_frame_1/duration = 1.0
 0:0/animation_frame_2/duration = 1.0
@@ -923,6 +922,8 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_w58h2")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krmtw"]
+
 [node name="MainGame" type="Node"]
 script = ExtResource("1_c0m7j")
 width = 100
@@ -1064,6 +1065,13 @@ unique_name_in_owner = true
 position = Vector2(7074, 1247)
 scale = Vector2(6, 6)
 scale_amount_max = 7.0
+
+[node name="SnakeHeadCollision" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SnakeHeadCollision"]
+shape = SubResource("RectangleShape2D_krmtw")
 
 [connection signal="timeout" from="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
 [connection signal="timeout" from="JuiceEntityRespawner" to="GameTiles/SnakeManager" method="_on_juice_entity_respawner_timeout"]

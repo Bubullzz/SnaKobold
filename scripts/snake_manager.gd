@@ -70,6 +70,8 @@ func place_apple(forbidden_pos = null):
     var spawn_width = 20
     var apple_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
     while is_snake(apple_pos) || apple_pos == forbidden_pos || %EnvironmentManager.is_wall(apple_pos) || !check_accessible(apple_pos):
+        spawn_height += 1
+        spawn_width += 1
         apple_pos = Vector2i(body[0].x + (randi() % spawn_width) - spawn_width/2, %SnakeManager.body[0].y + (randi() % spawn_height) - spawn_height/2)
 
     %appleLayer.set_cell(apple_pos, APPLE_ID, Vector2i(0, 0))
@@ -250,6 +252,7 @@ func step(jumped_last_frame : bool):
     if growth > 0:
         growing()
 
+    %SnakeHeadCollision.set_position(%SnakeLayer.map_to_local(body[0]))
     apple_check(expected_head_pos)
     juice_check()
 
