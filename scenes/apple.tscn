@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlu8a1l8l6xv5"]
+[gd_scene load_steps=5 format=3 uid="uid://dlu8a1l8l6xv5"]
 
 [ext_resource type="Script" uid="uid://cp26w6jcb177l" path="res://scripts/apple.gd" id="1_0i6tn"]
-[ext_resource type="Texture2D" uid="uid://b6dt3wmn574lq" path="res://assets/apples/apple1.png" id="2_bt1xp"]
+[ext_resource type="Texture2D" uid="uid://b7urwolk2f6vb" path="res://assets/apples/apple.png" id="2_3dmh2"]
+[ext_resource type="Texture2D" uid="uid://d0bluh4mvb4nh" path="res://assets/apples/shadow.png" id="3_pg1xk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0i6tn"]
 size = Vector2(2, 2)
@@ -9,8 +10,11 @@ size = Vector2(2, 2)
 [node name="Apple" type="Node2D"]
 script = ExtResource("1_0i6tn")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_bt1xp")
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_pg1xk")
+
+[node name="AppleSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_3dmh2")
 
 [node name="Area2D" type="Area2D" parent="."]
 z_index = 400
