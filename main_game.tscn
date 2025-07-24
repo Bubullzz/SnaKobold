@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=31 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://csoqij2ke52e3" path="res://scripts/snake_manager.gd" id="7_ay4re"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
 [ext_resource type="Texture2D" uid="uid://doqol7s06bexk" path="res://assets/environment/walls_kayouent.png" id="8_xtbsh"]
+[ext_resource type="PackedScene" uid="uid://cc0eyljq0xmg2" path="res://particles/tail_particles.tscn" id="12_aomqu"]
 [ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
@@ -1033,5 +1034,8 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SnakeHeadCollision"]
 shape = SubResource("RectangleShape2D_krmtw")
+
+[node name="TailParticles" parent="." instance=ExtResource("12_aomqu")]
+position = Vector2(653, 312)
 
 [connection signal="timeout" from="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]

@@ -44,3 +44,11 @@ static func ver(dir):
         Direction.DIR.UP: return -1
         Direction.DIR.DOWN: return 1
     return 0
+
+static func angle_rot(dir):
+    match dir:
+        Direction.DIR.UP: return 0
+        Direction.DIR.DOWN: return 180
+        Direction.DIR.LEFT: return -90
+        Direction.DIR.RIGHT: return 90
+    return 0

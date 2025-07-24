@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc0eyljq0xmg2"]
+
+[ext_resource type="Script" uid="uid://lw4b6csnlvn5" path="res://scripts/tail_particles.gd" id="1_j1ipr"]
+
+[sub_resource type="Curve" id="Curve_x1a3f"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.778626, 0.7712), 0.0, 0.0, 0, 0, Vector2(1, 0.0536001), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="TailParticles" type="Node2D"]
+script = ExtResource("1_j1ipr")
+
+[node name="Part" type="CPUParticles2D" parent="."]
+lifetime = 0.3
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(26, 10)
+direction = Vector2(0, -1)
+spread = 64.38
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_x1a3f")
+color = Color(0.219608, 0.192157, 0.141176, 1)
