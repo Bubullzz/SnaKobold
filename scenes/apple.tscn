@@ -8,6 +8,7 @@
 size = Vector2(2, 2)
 
 [node name="Apple" type="Node2D"]
+z_index = 400
 script = ExtResource("1_0i6tn")
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
@@ -17,7 +18,6 @@ texture = ExtResource("3_pg1xk")
 texture = ExtResource("2_3dmh2")
 
 [node name="Area2D" type="Area2D" parent="."]
-z_index = 400
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

@@ -14,7 +14,7 @@ static func instantiate(context, base: Vector2i):
     var EM = context.get_node("%EnvironmentManager")
     var MAP = context.get_node("%WallsLayer")
     var apples_dict = context.get_node("/root/MainGame").eatables_pos
-    var instance = load("res://scenes/juice.tscn").instantiate()
+    var instance = load("res://scenes/juice.tscn").instantiate().duplicate()
     instance.get_node("Timer").wait_time = instance.base_wait_time
     instance.get_node("JuiceAnimated").speed_scale = instance.fps
     instance.get_node("JuiceAnimated").frame = 0
@@ -54,11 +54,18 @@ func _on_timer_timeout() -> void:
         get_tree().root.add_child(t)
     SM.juice_combo = 1
     $JuiceAnimated.visible = false
-    $Spill.visible = true
     $CollisionZone.queue_free()
+    $ShaderSpill.set_instance_shader_parameter("end_time", Time.get_ticks_msec() / 1000.0 - .3)
+
 
 func _process(_delta: float) -> void:
     var elapsed = Time.get_ticks_msec() - start
     if elapsed > base_wait_time * 1000: # spilled
         var weight = (elapsed - base_wait_time * 1000) / (max_spill_time * 1000)
-        $Spill.self_modulate.a = lerp(1, 0, weight)
+        $ShaderSpill.set_instance_shader_parameter("spill_transparency", weight)
+
+
+func _ready() -> void:
+    $ShaderSpill.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
+    $ShaderSpill.set_instance_shader_parameter("end_time", -1.)
+    $ShaderSpill.material.get_shader_parameter("perlin").noise.seed = randi()

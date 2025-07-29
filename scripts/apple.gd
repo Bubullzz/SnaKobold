@@ -34,7 +34,7 @@ func _on_area_2d_area_entered(area:Area2D) -> void:
     get_tree().root.add_child(apple_eat_particles_1)
     queue_free()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     var random_value = global_position.x * global_position.y 
     var s = sin(Time.get_ticks_msec() / 3000.0 * 2.0 * PI + random_value * 9999)
     s = s / 2 + 0.5
