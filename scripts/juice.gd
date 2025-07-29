@@ -55,7 +55,7 @@ func _on_timer_timeout() -> void:
     SM.juice_combo = 1
     $JuiceAnimated.visible = false
     $CollisionZone.queue_free()
-    $ShaderSpill.set_instance_shader_parameter("end_time", Time.get_ticks_msec() / 1000.0 - .3)
+    $ShaderSpill.set_instance_shader_parameter("end_time", Time.get_ticks_msec() / 1000.0 - .2)
 
 
 func _process(_delta: float) -> void:
@@ -68,4 +68,5 @@ func _process(_delta: float) -> void:
 func _ready() -> void:
     $ShaderSpill.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
     $ShaderSpill.set_instance_shader_parameter("end_time", -1.)
+    $ShaderSpill.set_instance_shader_parameter("base_wait_time", base_wait_time)
     $ShaderSpill.material.get_shader_parameter("perlin").noise.seed = randi()
