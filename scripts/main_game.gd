@@ -164,3 +164,6 @@ func _ready():
     Apple.instantiate(self, middle())
     Apple.instantiate(self, middle())
     Juice.instantiate(self, middle())
+
+    %OpeningRect.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
+

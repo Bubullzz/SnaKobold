@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=33 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
 [ext_resource type="Script" uid="uid://dujoh4v75bp0a" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
+[ext_resource type="Shader" uid="uid://bjsr0upeha5oa" path="res://scripts/opening.gdshader" id="4_krmtw"]
 [ext_resource type="Script" uid="uid://cugpie3yoygwt" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
 [ext_resource type="Texture2D" uid="uid://bj6ace68somk7" path="res://assets/snake/jump.png" id="6_n05t0"]
 [ext_resource type="Texture2D" uid="uid://r82u6xyycfia" path="res://assets/debug/debug_box.png" id="6_qp1ht"]
@@ -31,6 +32,9 @@ bg_color = Color(0.239216, 0.12549, 0.203922, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_an1vu"]
 bg_color = Color(0.631373, 0.262745, 0.52549, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jgkyn"]
+shader = ExtResource("4_krmtw")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by0jw"]
 texture = ExtResource("2_w6ewh")
@@ -983,6 +987,21 @@ show_percentage = false
 process_callback = 0
 wait_time = 0.089
 autostart = true
+
+[node name="OpeningRect" type="ColorRect" parent="MainCam/CanvasLayer/Control"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_jgkyn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="MainCam"]
 
 [node name="GameTiles" type="Node" parent="."]
 
