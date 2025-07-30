@@ -15,6 +15,7 @@ var VERT_BODY = Vector2i(3,2) # Used when passing under body because of jump
 var health_points = 3
 var max_juice = 0
 var absolute_max_juice = 1000
+var max_juice_step = 1000
 var juice = 0
 var juice_pos = Vector2i(0,0)
 var juice_combo = 1
@@ -103,7 +104,6 @@ func update_juice(value : int):
 
     var tween = get_tree().create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
     tween.tween_property(%JuiceBar, "value", juice, 0.5)
-    %JuiceBar.value = juice
 
 
 func consume_juice(value : int) -> bool:
@@ -170,8 +170,22 @@ func check_not_waisting(pos) -> bool:
         i += 1
     return false
 
+
+func get_uppgrade() -> void:
+    print("Upgrade not implemented yet")
+
+func get_next_absolute_max_juice() -> int:
+    if absolute_max_juice >= 5 * max_juice_step:
+        max_juice_step *= 5
+    return absolute_max_juice + max_juice_step
+
+
 func update_max_juice() -> void:
-    max_juice = min(len(body) * 100, absolute_max_juice)
+    if len(body) * 100 >= absolute_max_juice:
+        absolute_max_juice = get_next_absolute_max_juice()
+        get_uppgrade()
+    max_juice = len(body) * 100
+    
     var ratio = float(max_juice) / float(absolute_max_juice)
 
     var trans_time = 0.5
@@ -181,9 +195,6 @@ func update_max_juice() -> void:
     tween_1.tween_property(%JuiceBar, "max_value", max_juice, trans_time)
     tween_2.tween_property(%JuiceBar, "size_flags_stretch_ratio", ratio, trans_time)
     tween_3.tween_property(%FreeSpace, "size_flags_stretch_ratio", 1 - ratio, trans_time)
-    #%JuiceBar.max_value = max_juice
-    #%FreeSpace.set_stretch_ratio(1 - ratio)
-    #%JuiceBar.set_stretch_ratio(ratio)
 
 
 func growing() -> void:
