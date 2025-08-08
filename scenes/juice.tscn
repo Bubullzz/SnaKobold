@@ -147,6 +147,7 @@ z_index = 400
 script = ExtResource("1_aff67")
 
 [node name="ShaderSpill" type="ColorRect" parent="."]
+visible = false
 modulate = Color(1, 1, 0, 1)
 self_modulate = Color(0, 1, 1, 1)
 z_index = -10

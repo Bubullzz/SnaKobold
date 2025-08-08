@@ -39,20 +39,20 @@ static func instantiate(context, base: Vector2i):
 
 func _on_collision_zone_area_entered(area:Area2D) -> void:
     call_deferred("instantiate", area, SM.body[0])
-    SM.update_juice(100 * SM.juice_combo)
-    var jc = SM.juice_combo
+    SnakeProps.update_juice(100 * SnakeProps.juice_combo)
+    var jc = SnakeProps.juice_combo
     PopUpText.spawn_juice_popup(self, "+%d" % [100 * jc], global_position, jc)
-    SM.juice_combo = min(jc + 1, SM.max_juice_combo)
+    SnakeProps.juice_combo = min(jc + 1, SnakeProps.max_juice_combo)
     queue_free()
 
 
 func _on_timer_timeout() -> void:
     instantiate(SM, SM.body[0])
-    if SM.juice_combo > 4:
+    if SnakeProps.juice_combo > 4:
         var t = preload("res://scenes/pop_up_text.tscn").instantiate()
-        t.initialize_combo_break(global_position, SM.juice_combo)
+        t.initialize_combo_break(global_position, SnakeProps.juice_combo)
         get_tree().root.add_child(t)
-    SM.juice_combo = 1
+    SnakeProps.juice_combo = 1
     $JuiceAnimated.visible = false
     $CollisionZone.queue_free()
     $ShaderSpill.set_instance_shader_parameter("end_time", Time.get_ticks_msec() / 1000.0 - .2)

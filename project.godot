@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 [autoload]
 
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
+SnakeProps="*res://scripts/snake_props.gd"
 
 [debug]
 

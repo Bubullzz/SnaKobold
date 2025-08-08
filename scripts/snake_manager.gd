@@ -1,6 +1,5 @@
 extends Node
 
-enum GAME_STATE {RUNNING, PAUSED, GAME_OVER, DEBUG}
 enum BODY_PART {HEAD, PRE_HEAD, BODY, PRE_TAIL, TAIL}
 var GROUND_ID = 1
 var JUMP_ID = 1 
@@ -10,17 +9,71 @@ var HEAD_BASE = Vector2i(0,0)
 var TAIL_BASE = Vector2i(0,1)
 var PRE_HEAD_BASE = Vector2i(0,2)
 var PRE_TAIL_BASE = Vector2i(0,6)
-
 var VERT_BODY = Vector2i(3,2) # Used when passing under body because of jump
-var health_points = 3
-var max_juice = 0
-var absolute_max_juice = 1000
-var max_juice_step = 1000
-var juice = 0
-var juice_pos = Vector2i(0,0)
-var juice_combo = 1
-var max_juice_combo = 10
-var jump_price = 500
+
+var dir_buffer = [null, null] 
+var jumping_frame = false
+
+# All snake pos in the TileMap
+var body : Array[Vector2i] = []
+var curr_dir : Direction.DIR = Direction.DIR.RIGHT
+var clock : int = 0 # The clock used for updating the snake. One pixel per tick
+var clock_collector : float = 0.0
+var actual_speed = SnakeProps.target_speed
+
+
+func is_snake(pos):
+    return %SnakeLayer.get_cell_source_id(pos) == GROUND_ID || %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
+
+
+func is_ground_snake(pos):
+    return %SnakeLayer.get_cell_source_id(pos) == GROUND_ID
+
+
+func is_jump_snake(pos):
+    return %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
+
+
+func is_free(pos):
+    return %SnakeLayer.get_cell_source_id(pos) == -1 && %snakeJumpingLayer.get_cell_source_id(pos) == -1 && !%EnvironmentManager.is_wall(pos)
+
+
+func get_body_index(pos: Vector2i) -> int:
+    var i = 0
+    while i < len(body):
+        if body[i] == pos:
+            return i
+        var _diff : Vector2i = abs(body[i] - pos)
+        i += 1 #diff.x + diff.y
+    return -1
+    
+
+func check_accessible(pos):
+    var sum = 0
+    for dir in [Direction.DIR.UP, Direction.DIR.DOWN, Direction.DIR.LEFT, Direction.DIR.RIGHT]:
+        if %EnvironmentManager.is_wall(pos + Direction.dir_to_vec(dir)):
+            sum += 1
+    return sum < 3
+
+
+func place_snake(pos):
+    for i in range(4):
+        body.push_back(pos + Direction.dir_to_vec(Direction.DIR.LEFT) * i)
+        %SnakeLayer.set_cell(body[-1], GROUND_ID, Vector2i(0, 0))
+
+
+func dir_buff_add(dir):
+    if dir_buffer[0] == null:
+        dir_buffer[0] = dir
+    else: dir_buffer[1] = dir
+
+
+func dir_buff_consume():
+    var tmp = dir_buffer[0]
+    dir_buffer[0] = dir_buffer[1]
+    dir_buffer[1] = null
+    return tmp
+
 
 func dir_to_atlas_transform(dir : Direction.DIR) -> int:
     # Uses Atlas transforms flags (godot hardcode) for mirror and/or flip
@@ -37,80 +90,6 @@ func dir_to_atlas_transform(dir : Direction.DIR) -> int:
             push_error("Invalid direction")
             return -1
 
-
-func is_snake(pos):
-    return %SnakeLayer.get_cell_source_id(pos) == GROUND_ID || %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
-
-func is_ground_snake(pos):
-    return %SnakeLayer.get_cell_source_id(pos) == GROUND_ID
-
-func is_jump_snake(pos):
-    return %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
-
-func is_free(pos):
-    return %SnakeLayer.get_cell_source_id(pos) == -1 && %snakeJumpingLayer.get_cell_source_id(pos) == -1 && !%EnvironmentManager.is_wall(pos)
-
-func get_body_index(pos: Vector2i) -> int:
-    var i = 0
-    while i < len(body):
-        if body[i] == pos:
-            return i
-        var _diff : Vector2i = abs(body[i] - pos)
-        i += 1 #diff.x + diff.y
-    return -1
-    
-func check_accessible(pos):
-    var sum = 0
-    for dir in [Direction.DIR.UP, Direction.DIR.DOWN, Direction.DIR.LEFT, Direction.DIR.RIGHT]:
-        if %EnvironmentManager.is_wall(pos + Direction.dir_to_vec(dir)):
-            sum += 1
-    return sum < 3
-
-
-func place_snake(pos):
-    for i in range(4):
-        body.push_back(pos + Direction.dir_to_vec(Direction.DIR.LEFT) * i)
-        %SnakeLayer.set_cell(body[-1], GROUND_ID, Vector2i(0, 0))
-
-var dir_buffer = [null, null] 
-var game_state : GAME_STATE = GAME_STATE.RUNNING
-var jumping_frame = false
-
-
-# All snake pos in the TileMap
-var body : Array[Vector2i]
-var curr_dir : Direction.DIR = Direction.DIR.RIGHT
-var growth : int = 0
-var clock : int = 0 # The clock used for updating the snake. One pixel per tick
-var clock_collector : float = 0.0
-var target_speed = 2
-var actual_speed = target_speed
-
-func dir_buff_add(dir):
-    if dir_buffer[0] == null:
-        dir_buffer[0] = dir
-    else: dir_buffer[1] = dir
-
-func dir_buff_consume():
-    var tmp = dir_buffer[0]
-    dir_buffer[0] = dir_buffer[1]
-    dir_buffer[1] = null
-    return tmp
-
-func update_juice(value : int):
-    juice += value
-    juice = min(juice, max_juice)
-    juice = max(juice, 0)
-
-    var tween = get_tree().create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-    tween.tween_property(%JuiceBar, "value", juice, 0.5)
-
-
-func consume_juice(value : int) -> bool:
-    if juice >= value:
-        update_juice(-value)
-        return true
-    return false
 
 func pop_tail():
     var old_tail_co = body.pop_back()
@@ -140,11 +119,8 @@ func handle_collision():
     var real_coor_hit_pos = %SnakeLayer.map_to_local(body[0])
     %Boom.set_position(real_coor_hit_pos)
     %Boom.set_emitting(true)
-    health_points -= 1
+    SnakeProps.health_points -= 1
     var send_back_amaount = 2
-    if len(body) - send_back_amaount < 4:
-        game_state = GAME_STATE.GAME_OVER
-        return
     while send_back_amaount > 0 or %snakeJumpingLayer.get_cell_source_id(body[0]) == JUMP_ID: # Pop until we reach a non-jumping cell
         var poped = body.pop_front()
         if %snakeJumpingLayer.get_cell_source_id(poped) == JUMP_ID:
@@ -152,7 +128,7 @@ func handle_collision():
         else:
             %SnakeLayer.set_cell(poped)
         send_back_amaount -= 1
-    update_max_juice() # makes juice bar smaller, based on lost size
+    SnakeProps.update_max_juice() # makes juice bar smaller, based on lost size
     actual_speed = 0.1
     curr_dir = Direction.cells_to_dir(body[1], body[0])
     var ideal_cam_pos = body[0] + 1 * Direction.dir_to_vec(Direction.opp(curr_dir))
@@ -163,47 +139,18 @@ func handle_collision():
 
 func check_not_waisting(pos) -> bool:
     # Check if we are not wating all juice to do 12 jumps in wall then die
-    var i = 0
-    while i * jump_price < juice:
+    # also accidentaly check if we can jump at all
+    var i = 1
+    while i * SnakeProps.jump_price <= SnakeProps.juice:
         if is_free(pos + Direction.dir_to_vec(curr_dir) * i):
             return true
         i += 1
     return false
 
 
-func get_uppgrade() -> void:
-    print("Upgrade not implemented yet")
-
-func get_next_absolute_max_juice() -> int:
-    if absolute_max_juice >= 5 * max_juice_step:
-        max_juice_step *= 5
-    return absolute_max_juice + max_juice_step
-
-
-func update_max_juice() -> void:
-    if len(body) * 100 >= absolute_max_juice:
-        absolute_max_juice = get_next_absolute_max_juice()
-        get_uppgrade()
-    max_juice = len(body) * 100
-    
-    var ratio = float(max_juice) / float(absolute_max_juice)
-
-    var trans_time = 0.5
-    var tween_1 = get_tree().create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-    var tween_2 = get_tree().create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-    var tween_3 = get_tree().create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-    tween_1.tween_property(%JuiceBar, "max_value", max_juice, trans_time)
-    tween_2.tween_property(%JuiceBar, "size_flags_stretch_ratio", ratio, trans_time)
-    tween_3.tween_property(%FreeSpace, "size_flags_stretch_ratio", 1 - ratio, trans_time)
-
-
-func growing() -> void:
-    growth -= 1
-    update_max_juice()
-
 func step(jumped_last_frame : bool):
     # needs to be done first 
-    if growth == 0:
+    if SnakeProps.growth == 0:
         pop_tail()
     # Update Direction from inputs in the last X frame
     if ! jumped_last_frame: # dont turn when jumping
@@ -216,18 +163,17 @@ func step(jumped_last_frame : bool):
     # Update body data
     var expected_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
     if is_snake(expected_head_pos) || %EnvironmentManager.is_wall(expected_head_pos):
-        if juice > jump_price && ! is_jump_snake(expected_head_pos) && check_not_waisting(expected_head_pos): 
+        if ! is_jump_snake(expected_head_pos) && check_not_waisting(expected_head_pos): # && juice > jump_price // this may solve bug
             jumping_frame = true
             body.push_front(expected_head_pos) 
-            update_juice(-jump_price)
+            SnakeProps.update_juice(-SnakeProps.jump_price)
         else:
             handle_collision()
     else:
         body.push_front(expected_head_pos)
 
     # needs to be done after updated body 
-    if growth > 0:
-        growing()
+    SnakeProps.growing()
 
     %SnakeHeadCollision.set_position(%SnakeLayer.map_to_local(body[0]))
 
@@ -279,12 +225,12 @@ func update_head_sp():
 
 
 func activable_apple_spawn():
-    if consume_juice(1000):
+    if SnakeProps.consume_juice(1000):
         Apple.instantiate(self, body[0])
 
 func smooth_actual_speed_step():
-    if actual_speed != target_speed:
-        actual_speed = min(target_speed, actual_speed + 0.02)
+    if actual_speed != SnakeProps.target_speed:
+        actual_speed = min(SnakeProps.target_speed, actual_speed + 0.02)
 
 
 func _on_clock_tick() -> void:
@@ -293,14 +239,14 @@ func _on_clock_tick() -> void:
         var last_jump_frame = jumping_frame
         jumping_frame = false
         step(last_jump_frame)
-    if game_state == GAME_STATE.GAME_OVER:
+    if SnakeProps.game_state == SnakeProps.GAME_STATE.GAME_OVER:
         return
     smooth_actual_speed_step()
     if clock < 4:
         update_pre_head_sp()
-    if growth == 0 && clock >= 12:
+    if SnakeProps.growth == 0 && clock >= 12:
         update_pre_tail_sp()
-    if growth == 0 || clock == 0:
+    if SnakeProps.growth == 0 || clock == 0:
         update_tail_sp()
     update_head_sp()
 
@@ -310,14 +256,13 @@ func _process(delta: float) -> void:
     delta = delta * 1000 # get it in ms
     delta = delta * 1000 # get it in ns
     clock_collector += delta
-    if game_state == GAME_STATE.RUNNING && clock_collector * actual_speed > clock_rate:
+    if SnakeProps.game_state == SnakeProps.GAME_STATE.RUNNING && clock_collector * actual_speed > clock_rate:
         for i in range(int(clock_collector * actual_speed / clock_rate)):
             _on_clock_tick()
 
         clock_collector = int(clock_collector) % (int(clock_rate / actual_speed))
-    
-func _on_timer_timeout() -> void:
-    update_juice(-1)
+
 
 func _ready() -> void:
-    update_max_juice()
+    SnakeProps.SM = self
+    pass # SnakeProps.update_max_juice()

@@ -1,9 +1,10 @@
-[gd_scene load_steps=33 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=34 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
 [ext_resource type="Script" uid="uid://dujoh4v75bp0a" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
+[ext_resource type="Script" uid="uid://dd5bubhlbxguu" path="res://scripts/juice_bar.gd" id="4_jgkyn"]
 [ext_resource type="Shader" uid="uid://bjsr0upeha5oa" path="res://scripts/opening.gdshader" id="4_krmtw"]
 [ext_resource type="Script" uid="uid://cugpie3yoygwt" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
 [ext_resource type="Texture2D" uid="uid://bj6ace68somk7" path="res://assets/snake/jump.png" id="6_n05t0"]
@@ -960,18 +961,19 @@ layout_mode = 2
 theme_override_constants/separation = 30
 theme_override_styles/separator = SubResource("StyleBoxEmpty_qpaub")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer"]
+[node name="JuiceBar" type="VBoxContainer" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
+script = ExtResource("4_jgkyn")
 
-[node name="FreeSpace" type="Panel" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="FreeSpace" type="Panel" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/JuiceBar"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_krmtw")
 
-[node name="JuiceBar" type="ProgressBar" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="JuiceBar" type="ProgressBar" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/JuiceBar"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
@@ -983,7 +985,7 @@ value = 50.0
 fill_mode = 3
 show_percentage = false
 
-[node name="JuiceRemoveTimer" type="Timer" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/JuiceBar"]
+[node name="JuiceRemoveTimer" type="Timer" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar"]
 process_callback = 0
 wait_time = 0.089
 autostart = true
@@ -1057,4 +1059,4 @@ shape = SubResource("RectangleShape2D_krmtw")
 [node name="TailParticles" parent="." instance=ExtResource("12_aomqu")]
 position = Vector2(653, 312)
 
-[connection signal="timeout" from="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
+[connection signal="timeout" from="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]

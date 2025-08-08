@@ -77,7 +77,7 @@ func _input(_event):
     # Debug
     if Input.is_key_pressed(KEY_C):
         %SnakeManager.clock_collector = 0.0
-        %SnakeManager.game_state = %SnakeManager.GAME_STATE.RUNNING
+        SnakeProps.game_state = SnakeProps.GAME_STATE.RUNNING
 
     if Input.is_key_pressed(KEY_D):
         debug = !debug
@@ -86,25 +86,25 @@ func _input(_event):
     if Input.is_key_pressed(KEY_R):
         get_tree().reload_current_scene()
     if Input.is_key_pressed(KEY_P):
-        %SnakeManager.growth += 3
+        SnakeProps.growth += 3
     if Input.is_key_pressed(KEY_V):
-        %SnakeManager.update_juice(5000)
+        SnakeProps.update_juice(5000)
     if Input.is_key_pressed(KEY_Z):
-        %SnakeManager.update_juice(1000)
+        SnakeProps.update_juice(1000)
     if Input.is_key_pressed(KEY_H):
-        %SnakeManager.health_points += 1
+        SnakeProps.health_points += 1
     if Input.is_key_pressed(KEY_S):
         %SnakeManager.actual_speed += 1
-        %SnakeManager.target_speed += 1
+        SnakeProps.target_speed += 1
     if Input.is_key_pressed(KEY_Q):
         %SnakeManager.actual_speed -= 1
-        %SnakeManager.target_speed -= 1
+        SnakeProps.target_speed -= 1
     if Input.is_key_pressed(KEY_W):
-        %SnakeManager.game_state = %SnakeManager.GAME_STATE.DEBUG
+        SnakeProps.game_state = SnakeProps.GAME_STATE.DEBUG
         %SnakeManager._on_clock_tick()
         print("current clock : ",%SnakeManager.clock)
     if Input.is_key_pressed(KEY_X):
-        %SnakeManager.game_state = %SnakeManager.GAME_STATE.DEBUG
+        SnakeProps.game_state = SnakeProps.GAME_STATE.DEBUG
         %SnakeManager._on_clock_tick()
         while %SnakeManager.clock > 0:
             %SnakeManager._on_clock_tick()
@@ -115,7 +115,7 @@ func _input(_event):
 func update_game_labels():
     %GameLabels.text = ""
     var format = "%s: %s / %s"
-    %GameLabels.text += format % ["juice" , %SnakeManager.juice , %SnakeManager.max_juice ]
+    %GameLabels.text += format % ["juice" , SnakeProps.juice , SnakeProps.max_juice ]
 
 
 func update_debug_labels():
@@ -126,10 +126,10 @@ func update_debug_labels():
     %DebugLabels.text = ""
     %DebugLabels.text += format % ["head_pos", %SnakeManager.body[0]] + '\n'
     %DebugLabels.text += format % ["actual_speed", %SnakeManager.actual_speed] + '\n'
-    %DebugLabels.text += format % ["target_speed", %SnakeManager.target_speed] + '\n'
+    %DebugLabels.text += format % ["target_speed", SnakeProps.target_speed] + '\n'
     %DebugLabels.text += format % ["clock", %SnakeManager.clock] + '\n'
     %DebugLabels.text += format % ["body length", len(%SnakeManager.body)] + '\n'
-    %DebugLabels.text += format % ["health", %SnakeManager.health_points] + '\n'
+    %DebugLabels.text += format % ["health", SnakeProps.health_points] + '\n'
 
 
 func update_debug_boxes():
@@ -151,7 +151,7 @@ func _process(_delta: float) -> void:
 func _ready():
     proc_gen()
     %SnakeManager.place_snake(middle())
-    %JuiceBar.max_value = %SnakeManager.max_juice
+    %JuiceBar.max_value = SnakeProps.max_juice
 
     %MainCam.position_smoothing_enabled = false
     %MainCam.position = %SnakeLayer.map_to_local(%SnakeManager.body[0])
@@ -159,11 +159,10 @@ func _ready():
     await get_tree().create_timer(0.1).timeout 
     %MainCam.position_smoothing_enabled = true
     %MainCam.position_smoothing_speed = 1.
-    %SnakeManager.update_max_juice()
+    SnakeProps.update_max_juice()
 
     Apple.instantiate(self, middle())
     Apple.instantiate(self, middle())
     Juice.instantiate(self, middle())
 
     %OpeningRect.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
-

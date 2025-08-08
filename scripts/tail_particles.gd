@@ -8,7 +8,7 @@ func _process(_delta):
     var tail_pos = MAP.map_to_local(SM.body[SM.body.size() - 1])
     $Part.rotation_degrees = Direction.angle_rot(tail_dir)
     global_position = tail_pos
-    if SM.growth > 0:
+    if SnakeProps.growth > 0:
         $Part.emitting = false
     else:
         $Part.emitting = true
