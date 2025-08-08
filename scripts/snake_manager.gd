@@ -140,10 +140,12 @@ func handle_collision():
 func check_not_waisting(pos) -> bool:
     # Check if we are not wating all juice to do 12 jumps in wall then die
     # also accidentaly check if we can jump at all
-    var i = 1
+    var i = 0
     while i * SnakeProps.jump_price <= SnakeProps.juice:
         if is_free(pos + Direction.dir_to_vec(curr_dir) * i):
             return true
+        if %EnvironmentManager.is_wall(pos + Direction.dir_to_vec(curr_dir) * i): # or is_jump_snake(pos + Direction.dir_to_vec(curr_dir) * i):
+            return false
         i += 1
     return false
 
