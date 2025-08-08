@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlu8a1l8l6xv5"]
+[gd_scene load_steps=7 format=3 uid="uid://dlu8a1l8l6xv5"]
 
 [ext_resource type="Script" uid="uid://cp26w6jcb177l" path="res://scripts/apple.gd" id="1_0i6tn"]
 [ext_resource type="Texture2D" uid="uid://b7urwolk2f6vb" path="res://assets/apples/apple.png" id="2_3dmh2"]
+[ext_resource type="Shader" uid="uid://dcba07epoyb3d" path="res://scripts/spawn_flicker.gdshader" id="3_a7wfc"]
 [ext_resource type="Texture2D" uid="uid://d0bluh4mvb4nh" path="res://assets/apples/shadow.png" id="3_pg1xk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kxxqw"]
+shader = ExtResource("3_a7wfc")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0i6tn"]
 size = Vector2(2, 2)
@@ -15,6 +19,7 @@ script = ExtResource("1_0i6tn")
 texture = ExtResource("3_pg1xk")
 
 [node name="AppleSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_kxxqw")
 texture = ExtResource("2_3dmh2")
 
 [node name="Area2D" type="Area2D" parent="."]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://i5y6bbdqnceq"]
+[gd_scene load_steps=27 format=3 uid="uid://i5y6bbdqnceq"]
 
 [ext_resource type="Script" uid="uid://c340yvs0n4034" path="res://scripts/juice.gd" id="1_aff67"]
 [ext_resource type="Shader" uid="uid://vdwatpnyn5x5" path="res://scripts/spill.gdshader" id="2_trhbi"]
+[ext_resource type="Shader" uid="uid://cohheif66x15i" path="res://scripts/diagonal_white_spawn.gdshader" id="3_8y0fe"]
 [ext_resource type="Texture2D" uid="uid://b6gt7tsqs46xk" path="res://assets/apples/juicev2-sheet.png" id="3_trhbi"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_j007e"]
@@ -19,6 +20,9 @@ resource_local_to_scene = true
 shader = ExtResource("2_trhbi")
 shader_parameter/color = Color(0.631373, 0.262745, 0.52549, 1)
 shader_parameter/perlin = SubResource("NoiseTexture2D_cpygh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trhbi"]
+shader = ExtResource("3_8y0fe")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j007e"]
 atlas = ExtResource("3_trhbi")
@@ -147,7 +151,6 @@ z_index = 400
 script = ExtResource("1_aff67")
 
 [node name="ShaderSpill" type="ColorRect" parent="."]
-visible = false
 modulate = Color(1, 1, 0, 1)
 self_modulate = Color(0, 1, 1, 1)
 z_index = -10
@@ -158,6 +161,7 @@ offset_right = 28.0
 offset_bottom = 27.0
 
 [node name="JuiceAnimated" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_trhbi")
 sprite_frames = SubResource("SpriteFrames_2anho")
 
 [node name="CollisionZone" type="Area2D" parent="."]

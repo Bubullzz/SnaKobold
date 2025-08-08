@@ -70,3 +70,6 @@ func _ready() -> void:
     $ShaderSpill.set_instance_shader_parameter("end_time", -1.)
     $ShaderSpill.set_instance_shader_parameter("base_wait_time", base_wait_time)
     $ShaderSpill.material.get_shader_parameter("perlin").noise.seed = randi()
+
+    $JuiceAnimated.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
+

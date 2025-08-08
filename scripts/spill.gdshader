@@ -31,4 +31,3 @@ void fragment() {
     if (TIME - start_time > base_wait_time)
         COLOR.a = mix(1,0,spill_transparency);
 }
-

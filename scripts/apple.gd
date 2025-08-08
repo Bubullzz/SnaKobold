@@ -39,3 +39,7 @@ func _process(_delta: float) -> void:
     var s = sin(Time.get_ticks_msec() / 3000.0 * 2.0 * PI + random_value * 9999)
     s = s / 2 + 0.5
     $AppleSprite.position.y = -s * 2
+
+
+func _ready() -> void:
+    $AppleSprite.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
