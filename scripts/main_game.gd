@@ -84,7 +84,7 @@ func _input(_event):
     if Input.is_key_pressed(KEY_N):
         Juice.instantiate(self, middle())
     if Input.is_key_pressed(KEY_R):
-        get_tree().reload_current_scene()
+        get_tree().change_scene_to_file("res://main_game.tscn")
     if Input.is_key_pressed(KEY_P):
         SnakeProps.growth += 3
     if Input.is_key_pressed(KEY_V):

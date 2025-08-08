@@ -7,7 +7,7 @@ instance uniform float start_time;
 
 void fragment() {
     if (COLOR.a == 0.)
-        discard; 
+        discard;
     float elapsed = TIME - start_time + .1;
     float trans_time = .2;
 	float band_width = 0.13;

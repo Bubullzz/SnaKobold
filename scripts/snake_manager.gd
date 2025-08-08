@@ -128,7 +128,6 @@ func handle_collision():
         else:
             %SnakeLayer.set_cell(poped)
         send_back_amaount -= 1
-    SnakeProps.update_max_juice() # makes juice bar smaller, based on lost size
     actual_speed = 0.1
     curr_dir = Direction.cells_to_dir(body[1], body[0])
     var ideal_cam_pos = body[0] + 1 * Direction.dir_to_vec(Direction.opp(curr_dir))
@@ -136,6 +135,11 @@ func handle_collision():
     %MainCam.start_shake()
 
     dir_buffer = [null, null]
+
+    SnakeProps.juice_combo = 1
+    SnakeProps.update_max_juice() # makes juice bar smaller, based on lost size
+    SnakeProps.update_juice(0) 
+    %SnakeAdditionnalVisuals.clear_additional_visuals()
 
 func check_not_waisting(pos) -> bool:
     # Check if we are not wating all juice to do 12 jumps in wall then die
@@ -193,10 +197,14 @@ func update_pre_head_sp() -> void :
             layer = %SnakeLayer
             sprite_id = GROUND_ID
         layer.set_cell(body[1], sprite_id, PRE_HEAD_BASE + Vector2i(clock, 0), dir_to_atlas_transform(pre_dir))
+        %SnakeAdditionnalVisuals.update(body[1], jumping_frame, PRE_HEAD_BASE + Vector2i(clock, 0), dir_to_atlas_transform(curr_dir))
+
     else: # Turning, so no jump management
         var base_pos = PRE_HEAD_BASE # Where do we begin the table in the sprites sheet
         var pre_head = base_pos + Vector2i(int(post_dir) * 4, int(pre_dir)) # start on top left of table then select right line and col using order up, down, left, right
         %SnakeLayer.set_cell(body[1], GROUND_ID, pre_head + Vector2i(clock, 0))
+        %SnakeAdditionnalVisuals.update(body[1], jumping_frame, pre_head + Vector2i(clock, 0), 0)
+    
 
 func update_pre_tail_sp() -> void :
     var pre_tail = Direction.cells_to_dir(body[-3], body[-2])
@@ -224,6 +232,7 @@ func update_head_sp():
         sprite_id = GROUND_ID
         layer = %SnakeLayer
     layer.set_cell(body[0], sprite_id, head, dir_to_atlas_transform(curr_dir))
+    %SnakeAdditionnalVisuals.update(body[0], jumping_frame, head, dir_to_atlas_transform(curr_dir))
 
 
 func activable_apple_spawn():

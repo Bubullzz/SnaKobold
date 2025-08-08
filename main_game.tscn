@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=40 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
@@ -12,6 +12,9 @@
 [ext_resource type="Script" uid="uid://csoqij2ke52e3" path="res://scripts/snake_manager.gd" id="7_ay4re"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
 [ext_resource type="Texture2D" uid="uid://doqol7s06bexk" path="res://assets/environment/walls_kayouent.png" id="8_xtbsh"]
+[ext_resource type="Texture2D" uid="uid://yytd6x6ypki1" path="res://assets/snake/head_can_jump.png" id="10_an1vu"]
+[ext_resource type="Script" uid="uid://wbfaxe2cnpoi" path="res://scripts/snake_additionnal_visuals.gd" id="11_borgi"]
+[ext_resource type="Texture2D" uid="uid://csaltvemdqev1" path="res://assets/snake/jump_eyes_can_jump.png" id="11_ih6an"]
 [ext_resource type="PackedScene" uid="uid://cc0eyljq0xmg2" path="res://particles/tail_particles.tscn" id="12_aomqu"]
 [ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
 
@@ -309,6 +312,203 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_bucej"]
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_lhim3")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1aqwx"]
+texture = ExtResource("6_n05t0")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+12:4/0 = 0
+13:4/0 = 0
+14:4/0 = 0
+15:4/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+14:3/0 = 0
+15:3/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+14:5/0 = 0
+15:5/0 = 0
+15:6/0 = 0
+14:6/0 = 0
+13:6/0 = 0
+7:6/0 = 0
+6:6/0 = 0
+5:6/0 = 0
+4:6/0 = 0
+3:6/0 = 0
+2:6/0 = 0
+1:6/0 = 0
+0:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+10:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+13:7/0 = 0
+14:7/0 = 0
+15:7/0 = 0
+15:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_q333y"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_1aqwx")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_an1vu"]
+texture = ExtResource("10_an1vu")
+texture_region_size = Vector2i(32, 32)
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_umrn2"]
+texture = ExtResource("11_ih6an")
+texture_region_size = Vector2i(32, 32)
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_borgi"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_an1vu")
+sources/2 = SubResource("TileSetAtlasSource_umrn2")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mt7ih"]
 texture = ExtResource("8_xtbsh")
@@ -750,142 +950,6 @@ metadata/_better_terrain = {
 "version": "0.2"
 }
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1aqwx"]
-texture = ExtResource("6_n05t0")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:1/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-6:0/0 = 0
-7:0/0 = 0
-8:0/0 = 0
-9:0/0 = 0
-10:0/0 = 0
-11:0/0 = 0
-12:0/0 = 0
-13:0/0 = 0
-14:0/0 = 0
-15:0/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-6:1/0 = 0
-7:1/0 = 0
-8:1/0 = 0
-9:1/0 = 0
-10:1/0 = 0
-11:1/0 = 0
-12:1/0 = 0
-13:1/0 = 0
-14:1/0 = 0
-15:1/0 = 0
-0:4/0 = 0
-1:4/0 = 0
-2:4/0 = 0
-3:4/0 = 0
-4:4/0 = 0
-5:4/0 = 0
-6:4/0 = 0
-7:4/0 = 0
-8:4/0 = 0
-9:4/0 = 0
-10:4/0 = 0
-11:4/0 = 0
-12:4/0 = 0
-13:4/0 = 0
-14:4/0 = 0
-15:4/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-3:3/0 = 0
-4:3/0 = 0
-5:3/0 = 0
-6:3/0 = 0
-7:3/0 = 0
-8:3/0 = 0
-9:3/0 = 0
-10:3/0 = 0
-11:3/0 = 0
-12:3/0 = 0
-13:3/0 = 0
-14:3/0 = 0
-15:3/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-8:2/0 = 0
-9:2/0 = 0
-10:2/0 = 0
-11:2/0 = 0
-12:2/0 = 0
-13:2/0 = 0
-14:2/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-3:5/0 = 0
-4:5/0 = 0
-8:6/0 = 0
-9:6/0 = 0
-10:6/0 = 0
-11:6/0 = 0
-12:6/0 = 0
-5:5/0 = 0
-6:5/0 = 0
-7:5/0 = 0
-8:5/0 = 0
-9:5/0 = 0
-10:5/0 = 0
-11:5/0 = 0
-12:5/0 = 0
-13:5/0 = 0
-14:5/0 = 0
-15:5/0 = 0
-15:6/0 = 0
-14:6/0 = 0
-13:6/0 = 0
-7:6/0 = 0
-6:6/0 = 0
-5:6/0 = 0
-4:6/0 = 0
-3:6/0 = 0
-2:6/0 = 0
-1:6/0 = 0
-0:6/0 = 0
-0:7/0 = 0
-1:7/0 = 0
-2:7/0 = 0
-3:7/0 = 0
-4:7/0 = 0
-5:7/0 = 0
-6:7/0 = 0
-7:7/0 = 0
-8:7/0 = 0
-9:7/0 = 0
-10:7/0 = 0
-11:7/0 = 0
-12:7/0 = 0
-13:7/0 = 0
-14:7/0 = 0
-15:7/0 = 0
-15:2/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_q333y"]
-tile_size = Vector2i(32, 32)
-sources/1 = SubResource("TileSetAtlasSource_1aqwx")
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w58h2"]
 texture = ExtResource("6_qp1ht")
 texture_region_size = Vector2i(32, 32)
@@ -1026,17 +1090,23 @@ z_index = 600
 use_parent_material = true
 tile_set = SubResource("TileSet_bucej")
 
-[node name="WallsLayer" type="TileMapLayer" parent="GameTiles"]
+[node name="snakeJumpingLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
 z_index = 800
+tile_set = SubResource("TileSet_q333y")
+
+[node name="SnakeAdditionnalVisuals" type="TileMapLayer" parent="GameTiles"]
+unique_name_in_owner = true
+z_index = 810
+tile_set = SubResource("TileSet_borgi")
+script = ExtResource("11_borgi")
+
+[node name="WallsLayer" type="TileMapLayer" parent="GameTiles"]
+unique_name_in_owner = true
+z_index = 1000
 position = Vector2(-1, 0)
 tile_map_data = PackedByteArray("AABDAPn/AQABAAQAAABEAPn/AQACAAQAAABFAPn/AQADAAEAAABFAPj/AQABAAAAAABIAPj/AQAKAAAAAABHAPj/AQAFAAAAAABGAPj/AQACAAQAAABIAPn/AQAGAAIAAABIAPr/AQALAAMAAABHAPr/AQAFAAMAAABGAPr/AQACAAQAAABFAPr/AQABAAIAAABJAPn/AQALAAMAAABHAPn/AQAIAAEAAABJAPj/AQAGAAAAAABKAPj/AQACAAQAAABLAPj/AQADAAAAAABLAPn/AQAAAAEAAABLAPr/AQADAAIAAABKAPr/AQABAAQAAAA=")
 tile_set = SubResource("TileSet_ufdj2")
-
-[node name="snakeJumpingLayer" type="TileMapLayer" parent="GameTiles"]
-unique_name_in_owner = true
-z_index = 1000
-tile_set = SubResource("TileSet_q333y")
 
 [node name="DebugLayer" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
