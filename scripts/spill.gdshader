@@ -17,7 +17,8 @@ void fragment() {
     float d_to_middle = length(uv - vec2(0.5, 0.5));
     perlin_value += 1. - d_to_middle*3.;
     float elapsed_time = min(base_wait_time, TIME - start_time);
-
+    if (end_time > 0.)
+        elapsed_time = min(base_wait_time, end_time - start_time);
     float t = 1.5 - elapsed_time / 3.;
     if (perlin_value > t)
     {

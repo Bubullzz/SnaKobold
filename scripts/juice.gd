@@ -4,10 +4,14 @@ class_name Juice
 
 var base_wait_time = 3.5
 var nb_frames = 16
-var fps = nb_frames / base_wait_time
+var last_frame_duration = 4
+var tot_frames = nb_frames + last_frame_duration - 1
+var fps = tot_frames / base_wait_time
 var max_spill_time = 8
 var start = Time.get_ticks_msec()
 var SM
+
+var end_animationT_time = 0.5 # Time to make the juice disappear
 
 static func instantiate(context, base: Vector2i):
     var LOC_SM = context.get_node("%SnakeManager")
@@ -15,7 +19,9 @@ static func instantiate(context, base: Vector2i):
     var MAP = context.get_node("%WallsLayer")
     var apples_dict = context.get_node("/root/MainGame").eatables_pos
     var instance = load("res://scenes/juice.tscn").instantiate().duplicate()
-    instance.get_node("Timer").wait_time = instance.base_wait_time
+    instance.get_node("JuiceDespawnTimer").wait_time = instance.base_wait_time
+    instance.get_node("JuiceEndAnimationTimer").wait_time = instance.base_wait_time - instance.end_animationT_time
+    instance.get_node("SpillingStopper").wait_time = instance.base_wait_time - instance.end_animationT_time - 0.2
     instance.get_node("JuiceAnimated").speed_scale = instance.fps
     instance.get_node("JuiceAnimated").frame = 0
     instance.get_node("JuiceAnimated").play()
@@ -55,7 +61,6 @@ func _on_timer_timeout() -> void:
     SnakeProps.juice_combo = 1
     $JuiceAnimated.visible = false
     $CollisionZone.queue_free()
-    $ShaderSpill.set_instance_shader_parameter("end_time", Time.get_ticks_msec() / 1000.0 - .2)
 
 
 func _process(_delta: float) -> void:
@@ -72,3 +77,20 @@ func _ready() -> void:
     $ShaderSpill.material.get_shader_parameter("perlin").noise.seed = randi()
 
     $JuiceAnimated.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
+
+
+func _on_juice_end_animation_timer_timeout() -> void:
+
+    const OSCILLATIONS := 5
+    const DISTANCE:= 1.5
+    var t := create_tween()
+    var init_pos = $JuiceAnimated.position.x
+    t.tween_method(func(x): $JuiceAnimated.position.x = init_pos + sin(x * 2) * DISTANCE, 0.0, PI * OSCILLATIONS, end_animationT_time)
+
+    var t2 := create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
+    t2.tween_property($JuiceAnimated, "modulate", Color(1, 1, 1, 0), end_animationT_time)
+    
+
+
+func _on_spilling_stopper_timeout() -> void:
+    $ShaderSpill.set_instance_shader_parameter("end_time", Time.get_ticks_msec() / 1000.0 - .2)
