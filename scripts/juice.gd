@@ -47,7 +47,7 @@ func _on_collision_zone_area_entered(area:Area2D) -> void:
     call_deferred("instantiate", area, SM.body[0])
     SnakeProps.update_juice(100 * SnakeProps.juice_combo)
     var jc = SnakeProps.juice_combo
-    PopUpText.spawn_juice_popup(self, "+%d" % [100 * jc], global_position, jc)
+    PopUpText.spawn_juice_popup(self, "x%d" % [jc], global_position, jc)
     SnakeProps.juice_combo = min(jc + 1, SnakeProps.max_juice_combo)
     queue_free()
 

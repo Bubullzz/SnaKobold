@@ -57,6 +57,7 @@ func initialize_combo_break(global_pos: Vector2, combo) -> void:
 
 func _process(delta: float) -> void:
     position += direction * speed * delta
+    speed *= 0.98
     $Text.modulate.a = clamp($Text.modulate.a - delta / time_alive, 0, 1)
 
 
