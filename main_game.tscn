@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=49 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cugpie3yoygwt" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
 [ext_resource type="Texture2D" uid="uid://bj6ace68somk7" path="res://assets/snake/jump.png" id="6_n05t0"]
 [ext_resource type="Texture2D" uid="uid://r82u6xyycfia" path="res://assets/debug/debug_box.png" id="6_qp1ht"]
+[ext_resource type="Script" uid="uid://cnm65hmuvyqlm" path="res://scripts/upgrades_manager.gd" id="6_vn0ol"]
 [ext_resource type="Script" uid="uid://csoqij2ke52e3" path="res://scripts/snake_manager.gd" id="7_ay4re"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
 [ext_resource type="Texture2D" uid="uid://doqol7s06bexk" path="res://assets/environment/walls_kayouent.png" id="8_xtbsh"]
@@ -43,6 +44,14 @@ bg_color = Color(0.631373, 0.262745, 0.52549, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jgkyn"]
 shader = ExtResource("4_krmtw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_euc45"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_euc45"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vn0ol"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wt57k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by0jw"]
 texture = ExtResource("2_w6ewh")
@@ -1071,9 +1080,12 @@ size_flags_horizontal = 2
 size_flags_vertical = 3
 color = Color(0, 0, 0, 1)
 
-[node name="ButtonsOverlay" type="CanvasLayer" parent="MainCam"]
+[node name="UpgradesManager" type="CanvasLayer" parent="MainCam"]
+unique_name_in_owner = true
+visible = false
+script = ExtResource("6_vn0ol")
 
-[node name="Control3" type="Control" parent="MainCam/ButtonsOverlay"]
+[node name="Control" type="Control" parent="MainCam/UpgradesManager"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1082,7 +1094,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="VBoxContainer" type="HBoxContainer" parent="MainCam/ButtonsOverlay/Control3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainCam/UpgradesManager/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1090,15 +1102,47 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" parent="MainCam/ButtonsOverlay/Control3/VBoxContainer" node_paths=PackedStringArray("upgrade") instance=ExtResource("3_ih6an")]
+[node name="TopMargin" type="HSeparator" parent="MainCam/UpgradesManager/Control/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-upgrade = NodePath("../../../../../AllUpgradesList/MaxJuiceComboUpgrade")
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxTexture_euc45")
 
-[node name="Control2" parent="MainCam/ButtonsOverlay/Control3/VBoxContainer" node_paths=PackedStringArray("upgrade") instance=ExtResource("3_ih6an")]
+[node name="Upgrades" type="HBoxContainer" parent="MainCam/UpgradesManager/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftSeparator" type="VSeparator" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades"]
+layout_mode = 2
+theme_override_constants/separation = 70
+theme_override_styles/separator = SubResource("StyleBoxEmpty_euc45")
+
+[node name="Upgrade1" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
 layout_mode = 2
 size_flags_horizontal = 3
-upgrade = NodePath("../../../../../AllUpgradesList/ProuteUpgrade")
+upgrade = NodePath("../../../../../../AllUpgradesList/MaxJuiceComboUpgrade")
+manager = NodePath("../../../..")
+
+[node name="Upgrade2" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
+layout_mode = 2
+size_flags_horizontal = 3
+upgrade = NodePath("../../../../../../AllUpgradesList/ProuteUpgrade")
+manager = NodePath("../../../..")
+
+[node name="Upgrade3" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
+layout_mode = 2
+size_flags_horizontal = 3
+upgrade = NodePath("../../../../../../AllUpgradesList/ProuteUpgrade")
+manager = NodePath("../../../..")
+
+[node name="RightSeparator" type="VSeparator" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades"]
+layout_mode = 2
+theme_override_constants/separation = 70
+theme_override_styles/separator = SubResource("StyleBoxEmpty_vn0ol")
+
+[node name="BotMargin" type="HSeparator" parent="MainCam/UpgradesManager/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 150
+theme_override_styles/separator = SubResource("StyleBoxEmpty_wt57k")
 
 [node name="GameTiles" type="Node" parent="."]
 

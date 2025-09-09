@@ -16,40 +16,40 @@ var target_speed = 2
 var growth : int = 0
 var SM : Node # The SnakeManager
 var JuiceBar : Node
-
+var UM : UpgradesManager
 
 func growing() -> bool:
-    if growth > 0:
-        growth -= 1
-        update_max_juice()
-        return true
-    return false
+	if growth > 0:
+		growth -= 1
+		update_max_juice()
+		return true
+	return false
 
 
 func update_juice(value : int):
-    juice += value
-    juice = min(juice, max_juice)
-    juice = max(juice, 0)
-    JuiceBar.update_bar_value()
+	juice += value
+	juice = min(juice, max_juice)
+	juice = max(juice, 0)
+	JuiceBar.update_bar_value()
 
 
 func consume_juice(value : int) -> bool:
-    if juice >= value:
-        update_juice(-value)
-        return true
-    return false
+	if juice >= value:
+		update_juice(-value)
+		return true
+	return false
 
 
 func get_next_juice_update_thresh() -> int:
-    if juice_update_thresh >= 5 * max_juice_step:
-        max_juice_step *= 5
-    return juice_update_thresh + max_juice_step
+	if juice_update_thresh >= 5 * max_juice_step:
+		max_juice_step *= 5
+	return juice_update_thresh + max_juice_step
 
 
 func update_max_juice() -> void:
-    if len(SM.body) * 100 >= juice_update_thresh:
-        juice_update_thresh = get_next_juice_update_thresh()
-        #get_uppgrade()
-    max_juice = len(SM.body) * 100
-    
-    JuiceBar.update_bar_shape()
+	if len(SM.body) * 100 >= juice_update_thresh:
+		juice_update_thresh = get_next_juice_update_thresh()
+		UM.start_upgrade_sequence()
+	max_juice = len(SM.body) * 100
+	
+	JuiceBar.update_bar_shape()
