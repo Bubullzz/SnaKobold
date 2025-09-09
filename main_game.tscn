@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=44 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
 [ext_resource type="PackedScene" uid="uid://bgdivgbr4qomh" path="res://scenes/base_uppgrade.tscn" id="19_2i4tw"]
 [ext_resource type="PackedScene" uid="uid://ct76mdbg1wvgl" path="res://scenes/proute_upgrade.tscn" id="20_euc45"]
+[ext_resource type="PackedScene" uid="uid://clnww3o11qs42" path="res://scenes/max_juice_combo_upgrade.tscn" id="21_euc45"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -1092,12 +1093,12 @@ grow_vertical = 2
 [node name="Control" parent="MainCam/ButtonsOverlay/Control3/VBoxContainer" node_paths=PackedStringArray("upgrade") instance=ExtResource("3_ih6an")]
 layout_mode = 2
 size_flags_horizontal = 3
-upgrade = NodePath("../../../../../AllUpgrades/BaseUppgrade")
+upgrade = NodePath("../../../../../AllUpgradesList/MaxJuiceComboUpgrade")
 
 [node name="Control2" parent="MainCam/ButtonsOverlay/Control3/VBoxContainer" node_paths=PackedStringArray("upgrade") instance=ExtResource("3_ih6an")]
 layout_mode = 2
 size_flags_horizontal = 3
-upgrade = NodePath("../../../../../AllUpgrades/ProuteUpgrade")
+upgrade = NodePath("../../../../../AllUpgradesList/ProuteUpgrade")
 
 [node name="GameTiles" type="Node" parent="."]
 
@@ -1159,10 +1160,12 @@ shape = SubResource("RectangleShape2D_krmtw")
 [node name="TailParticles" parent="." instance=ExtResource("12_aomqu")]
 position = Vector2(653, 312)
 
-[node name="AllUpgrades" type="Node" parent="."]
+[node name="AllUpgradesList" type="Node" parent="."]
 
-[node name="BaseUppgrade" parent="AllUpgrades" instance=ExtResource("19_2i4tw")]
+[node name="BaseUppgrade" parent="AllUpgradesList" instance=ExtResource("19_2i4tw")]
 
-[node name="ProuteUpgrade" parent="AllUpgrades" instance=ExtResource("20_euc45")]
+[node name="ProuteUpgrade" parent="AllUpgradesList" instance=ExtResource("20_euc45")]
+
+[node name="MaxJuiceComboUpgrade" parent="AllUpgradesList" instance=ExtResource("21_euc45")]
 
 [connection signal="timeout" from="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
