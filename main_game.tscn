@@ -1,9 +1,10 @@
-[gd_scene load_steps=40 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=43 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
 [ext_resource type="Script" uid="uid://dujoh4v75bp0a" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
+[ext_resource type="PackedScene" uid="uid://ckv0w7wxajg7f" path="res://scenes/UpgradeButton.tscn" id="3_ih6an"]
 [ext_resource type="Script" uid="uid://dd5bubhlbxguu" path="res://scripts/juice_bar.gd" id="4_jgkyn"]
 [ext_resource type="Shader" uid="uid://bjsr0upeha5oa" path="res://scripts/opening.gdshader" id="4_krmtw"]
 [ext_resource type="Script" uid="uid://cugpie3yoygwt" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
@@ -17,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://csaltvemdqev1" path="res://assets/snake/jump_eyes_can_jump.png" id="11_ih6an"]
 [ext_resource type="PackedScene" uid="uid://cc0eyljq0xmg2" path="res://particles/tail_particles.tscn" id="12_aomqu"]
 [ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
+[ext_resource type="PackedScene" uid="uid://bgdivgbr4qomh" path="res://scenes/base_uppgrade.tscn" id="19_2i4tw"]
+[ext_resource type="PackedScene" uid="uid://ct76mdbg1wvgl" path="res://scenes/proute_upgrade.tscn" id="20_euc45"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -975,9 +978,9 @@ process_callback = 0
 position_smoothing_speed = 2.0
 script = ExtResource("2_uddo3")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="MainCam"]
+[node name="BaseUI" type="CanvasLayer" parent="MainCam"]
 
-[node name="DebugLabels" type="Label" parent="MainCam/CanvasLayer"]
+[node name="DebugLabels" type="Label" parent="MainCam/BaseUI"]
 unique_name_in_owner = true
 offset_left = 6.0
 offset_top = 5.0
@@ -988,7 +991,7 @@ theme_override_fonts/font = ExtResource("8_ikebx")
 text = "Debug Labels
 "
 
-[node name="Control" type="Control" parent="MainCam/CanvasLayer"]
+[node name="Control" type="Control" parent="MainCam/BaseUI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -996,7 +999,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainCam/CanvasLayer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="MainCam/BaseUI/Control"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1009,10 +1012,10 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainCam/CanvasLayer/Control/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainCam/BaseUI/Control/MarginContainer"]
 layout_mode = 2
 
-[node name="GameLabels" type="Label" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer"]
+[node name="GameLabels" type="Label" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
@@ -1020,24 +1023,24 @@ theme_override_fonts/font = ExtResource("8_ikebx")
 text = "Game Labels"
 label_settings = SubResource("LabelSettings_an1vu")
 
-[node name="VSeparator" type="VSeparator" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 30
 theme_override_styles/separator = SubResource("StyleBoxEmpty_qpaub")
 
-[node name="JuiceBar" type="VBoxContainer" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer"]
+[node name="JuiceBar" type="VBoxContainer" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 script = ExtResource("4_jgkyn")
 
-[node name="FreeSpace" type="Panel" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/JuiceBar"]
+[node name="FreeSpace" type="Panel" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/JuiceBar"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_krmtw")
 
-[node name="JuiceBar" type="ProgressBar" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/JuiceBar"]
+[node name="JuiceBar" type="ProgressBar" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/JuiceBar"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
@@ -1049,12 +1052,12 @@ value = 50.0
 fill_mode = 3
 show_percentage = false
 
-[node name="JuiceRemoveTimer" type="Timer" parent="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar"]
+[node name="JuiceRemoveTimer" type="Timer" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar"]
 process_callback = 0
 wait_time = 0.089
 autostart = true
 
-[node name="OpeningRect" type="ColorRect" parent="MainCam/CanvasLayer/Control"]
+[node name="OpeningRect" type="ColorRect" parent="MainCam/BaseUI/Control"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_jgkyn")
 layout_mode = 1
@@ -1067,7 +1070,34 @@ size_flags_horizontal = 2
 size_flags_vertical = 3
 color = Color(0, 0, 0, 1)
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="MainCam"]
+[node name="ButtonsOverlay" type="CanvasLayer" parent="MainCam"]
+
+[node name="Control3" type="Control" parent="MainCam/ButtonsOverlay"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MainCam/ButtonsOverlay/Control3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" parent="MainCam/ButtonsOverlay/Control3/VBoxContainer" node_paths=PackedStringArray("upgrade") instance=ExtResource("3_ih6an")]
+layout_mode = 2
+size_flags_horizontal = 3
+upgrade = NodePath("../../../../../AllUpgrades/BaseUppgrade")
+
+[node name="Control2" parent="MainCam/ButtonsOverlay/Control3/VBoxContainer" node_paths=PackedStringArray("upgrade") instance=ExtResource("3_ih6an")]
+layout_mode = 2
+size_flags_horizontal = 3
+upgrade = NodePath("../../../../../AllUpgrades/ProuteUpgrade")
 
 [node name="GameTiles" type="Node" parent="."]
 
@@ -1129,4 +1159,10 @@ shape = SubResource("RectangleShape2D_krmtw")
 [node name="TailParticles" parent="." instance=ExtResource("12_aomqu")]
 position = Vector2(653, 312)
 
-[connection signal="timeout" from="MainCam/CanvasLayer/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
+[node name="AllUpgrades" type="Node" parent="."]
+
+[node name="BaseUppgrade" parent="AllUpgrades" instance=ExtResource("19_2i4tw")]
+
+[node name="ProuteUpgrade" parent="AllUpgrades" instance=ExtResource("20_euc45")]
+
+[connection signal="timeout" from="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]

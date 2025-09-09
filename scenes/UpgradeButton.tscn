@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckv0w7wxajg7f"]
+
+[ext_resource type="Script" uid="uid://xp72yxb70mk2" path="res://scripts/upgrade_button.gd" id="1_uok10"]
+[ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="2_t8uck"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uok10")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_t8uck")
+theme_override_font_sizes/font_size = 20
+text = "TEST"
+
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

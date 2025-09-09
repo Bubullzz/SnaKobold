@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct76mdbg1wvgl"]
+
+[ext_resource type="Script" uid="uid://chd6qpv5t8mty" path="res://scripts/proute_upgrade.gd" id="1_rg6wj"]
+
+[node name="ProuteUpgrade" type="Node2D"]
+script = ExtResource("1_rg6wj")
