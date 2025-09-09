@@ -1082,10 +1082,10 @@ color = Color(0, 0, 0, 1)
 
 [node name="UpgradesManager" type="CanvasLayer" parent="MainCam"]
 unique_name_in_owner = true
-visible = false
 script = ExtResource("6_vn0ol")
 
-[node name="Control" type="Control" parent="MainCam/UpgradesManager"]
+[node name="Controller" type="Control" parent="MainCam/UpgradesManager"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1094,7 +1094,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainCam/UpgradesManager/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainCam/UpgradesManager/Controller"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1102,47 +1102,52 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TopMargin" type="HSeparator" parent="MainCam/UpgradesManager/Control/VBoxContainer"]
+[node name="TopMargin" type="HSeparator" parent="MainCam/UpgradesManager/Controller/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxTexture_euc45")
 
-[node name="Upgrades" type="HBoxContainer" parent="MainCam/UpgradesManager/Control/VBoxContainer"]
+[node name="Upgrades" type="HBoxContainer" parent="MainCam/UpgradesManager/Controller/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LeftSeparator" type="VSeparator" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades"]
+[node name="LeftSeparator" type="VSeparator" parent="MainCam/UpgradesManager/Controller/VBoxContainer/Upgrades"]
 layout_mode = 2
 theme_override_constants/separation = 70
 theme_override_styles/separator = SubResource("StyleBoxEmpty_euc45")
 
-[node name="Upgrade1" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
+[node name="Upgrade1" parent="MainCam/UpgradesManager/Controller/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 upgrade = NodePath("../../../../../../AllUpgradesList/MaxJuiceComboUpgrade")
 manager = NodePath("../../../..")
 
-[node name="Upgrade2" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
+[node name="Upgrade2" parent="MainCam/UpgradesManager/Controller/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 upgrade = NodePath("../../../../../../AllUpgradesList/ProuteUpgrade")
 manager = NodePath("../../../..")
 
-[node name="Upgrade3" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
+[node name="Upgrade3" parent="MainCam/UpgradesManager/Controller/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 upgrade = NodePath("../../../../../../AllUpgradesList/ProuteUpgrade")
 manager = NodePath("../../../..")
 
-[node name="RightSeparator" type="VSeparator" parent="MainCam/UpgradesManager/Control/VBoxContainer/Upgrades"]
+[node name="RightSeparator" type="VSeparator" parent="MainCam/UpgradesManager/Controller/VBoxContainer/Upgrades"]
 layout_mode = 2
 theme_override_constants/separation = 70
 theme_override_styles/separator = SubResource("StyleBoxEmpty_vn0ol")
 
-[node name="BotMargin" type="HSeparator" parent="MainCam/UpgradesManager/Control/VBoxContainer"]
+[node name="BotMargin" type="HSeparator" parent="MainCam/UpgradesManager/Controller/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 150
 theme_override_styles/separator = SubResource("StyleBoxEmpty_wt57k")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="MainCam/UpgradesManager"]
 
 [node name="GameTiles" type="Node" parent="."]
 
