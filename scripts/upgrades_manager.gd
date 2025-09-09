@@ -4,7 +4,7 @@ class_name UpgradesManager
 
 var curr_alpha_tween : Tween
 var curr_time_scale_tween : Tween
-
+var upgrading = false
 
 #Useful to prevent problems when end_upgrade sequence is called before tweens from start are done
 func flush_tweens():
@@ -12,8 +12,10 @@ func flush_tweens():
 		curr_alpha_tween.stop()
 	if curr_time_scale_tween:
 		curr_time_scale_tween.stop()
+		
 func start_upgrade_sequence():
 	enable_buttons()
+	upgrading = true
 	var alpha_tween = get_tree().create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	alpha_tween.tween_property($Controller, "modulate:a", 1, .4)	
 	var trans_time = 1
@@ -25,6 +27,7 @@ func start_upgrade_sequence():
 	
 func end_upgrade_sequence():
 	flush_tweens()
+	upgrading = false
 	var alpha_tween = get_tree().create_tween().set_trans(Tween.TRANS_QUINT)#.set_ease(Tween.EASE_OUT)
 	alpha_tween.tween_property($Controller, "modulate:a", 0, .1)	
 	

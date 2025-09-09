@@ -63,16 +63,17 @@ func proc_gen():
 
 
 func _input(_event):
-	if Input.is_action_just_pressed("ui_up"):
-		%SnakeManager.dir_buff_add(DIR.UP)
-	if Input.is_action_just_pressed("ui_down"):
-		%SnakeManager.dir_buff_add(DIR.DOWN)
-	if Input.is_action_just_pressed("ui_right"):
-		%SnakeManager. dir_buff_add(DIR.RIGHT)
-	if Input.is_action_just_pressed("ui_left"):
-		%SnakeManager.dir_buff_add(DIR.LEFT)
-	if  Input.is_action_just_pressed("Action"):
-		%SnakeManager.activable_apple_spawn();
+	if ! SnakeProps.UM.upgrading: #Only register Inputs when not in upgrading menu
+		if Input.is_action_just_pressed("ui_up"):
+			%SnakeManager.dir_buff_add(DIR.UP)
+		if Input.is_action_just_pressed("ui_down"):
+			%SnakeManager.dir_buff_add(DIR.DOWN)
+		if Input.is_action_just_pressed("ui_right"):
+			%SnakeManager. dir_buff_add(DIR.RIGHT)
+		if Input.is_action_just_pressed("ui_left"):
+			%SnakeManager.dir_buff_add(DIR.LEFT)
+		if  Input.is_action_just_pressed("Action"):
+			%SnakeManager.activable_apple_spawn();
 
 	# Debug
 	if Input.is_key_pressed(KEY_C):
