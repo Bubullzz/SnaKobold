@@ -13,8 +13,15 @@ func flush_tweens():
 	if curr_time_scale_tween:
 		curr_time_scale_tween.stop()
 		
+
+func choose_all_upgrades():
+	var AllUpgradesList = %AllUpgradesList.get_children()
+	for b:UpgradeButton in [%Upgrade1, %Upgrade2, %Upgrade3]:
+		b.set_upgrade(AllUpgradesList.pick_random())
+		
 func start_upgrade_sequence():
 	enable_buttons()
+	choose_all_upgrades()
 	upgrading = true
 	var alpha_tween = get_tree().create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	alpha_tween.tween_property($Controller, "modulate:a", 1, .4)	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=50 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
@@ -19,7 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://csaltvemdqev1" path="res://assets/snake/jump_eyes_can_jump.png" id="11_ih6an"]
 [ext_resource type="PackedScene" uid="uid://cc0eyljq0xmg2" path="res://particles/tail_particles.tscn" id="12_aomqu"]
 [ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
-[ext_resource type="PackedScene" uid="uid://bgdivgbr4qomh" path="res://scenes/upgrades/base_uppgrade.tscn" id="19_2i4tw"]
 [ext_resource type="PackedScene" uid="uid://clnww3o11qs42" path="res://scenes/upgrades/max_juice_combo_upgrade.tscn" id="21_euc45"]
 [ext_resource type="PackedScene" uid="uid://del46oh3slfr0" path="res://scenes/upgrades/min_juice_combo_upgrade.tscn" id="23_wt57k"]
 [ext_resource type="PackedScene" uid="uid://bk5p8mxyn8g3r" path="res://scenes/upgrades/collect_apples_upgrade.tscn" id="24_lght5"]
@@ -1212,8 +1211,7 @@ shape = SubResource("RectangleShape2D_krmtw")
 position = Vector2(653, 312)
 
 [node name="AllUpgradesList" type="Node" parent="."]
-
-[node name="BaseUppgrade" parent="AllUpgradesList" instance=ExtResource("19_2i4tw")]
+unique_name_in_owner = true
 
 [node name="MaxJuiceComboUpgrade" parent="AllUpgradesList" instance=ExtResource("21_euc45")]
 
