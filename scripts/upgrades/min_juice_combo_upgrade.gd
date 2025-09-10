@@ -1,6 +1,6 @@
 extends Upgrade
 
-var add_amount = 3
+var add_amount = 2
 
 func on_selected():
 	SnakeProps.min_juice_combo += add_amount

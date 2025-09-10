@@ -45,20 +45,25 @@ static func instantiate(context, base: Vector2i):
 
 func _on_collision_zone_area_entered(area:Area2D) -> void:
 	call_deferred("instantiate", area, SM.body[0])
-	SnakeProps.update_juice(100 * SnakeProps.juice_combo)
+	SnakeProps.on_juice_consumed()
 	var jc = SnakeProps.juice_combo
 	PopUpText.spawn_juice_popup(self, "x%d" % [jc], global_position, jc)
-	SnakeProps.juice_combo = min(jc + 1, SnakeProps.max_juice_combo)
 	queue_free()
 
 
 func _on_timer_timeout() -> void:
 	instantiate(SM, SM.body[0])
-	if SnakeProps.juice_combo > 4:
-		var t = preload("res://scenes/pop_up_text.tscn").instantiate()
-		t.initialize_combo_break(global_position, SnakeProps.juice_combo)
-		get_tree().root.add_child(t)
-	SnakeProps.on_juice_spilled()
+	var jc = SnakeProps.juice_combo # Stocking it before the potential reset
+	if SnakeProps.on_juice_spilled(): # Reseted combo
+		if jc > 4:
+			var t = preload("res://scenes/pop_up_text.tscn").instantiate()
+			t.initialize_combo_break(global_position, jc)
+			get_tree().root.add_child(t)
+	else:
+		if jc > 4:
+			var t = preload("res://scenes/pop_up_text.tscn").instantiate()
+			t.initialize("%d misses left !" % [SnakeProps.max_allowed_misses - SnakeProps.nb_juices_missed - 1], global_position)
+			get_tree().root.add_child(t)
 	$JuiceAnimated.visible = false
 	$CollisionZone.queue_free()
 

@@ -12,6 +12,8 @@ var juice = 0
 var juice_combo = 1
 var max_juice_combo = 10
 var min_juice_combo = 1
+var nb_juices_missed = 0
+var max_allowed_misses = 3
 var jump_price = 500
 var target_speed = 2
 var growth : int = 0
@@ -26,8 +28,20 @@ func growing() -> bool:
 		return true
 	return false
 
-func on_juice_spilled():
-	juice_combo = min(min_juice_combo, max_juice_combo)
+
+func on_juice_consumed():
+	nb_juices_missed = 0
+	update_juice(100 * juice_combo)
+	juice_combo = min(juice_combo + 1, max_juice_combo)
+
+	
+func on_juice_spilled() -> bool:
+	nb_juices_missed += 1
+	if nb_juices_missed >= max_allowed_misses:
+		juice_combo = min(min_juice_combo, max_juice_combo)
+		return true
+	return false
+	
 	
 func update_juice(value : int):
 	juice += value
