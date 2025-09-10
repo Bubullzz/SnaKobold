@@ -20,9 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://cc0eyljq0xmg2" path="res://particles/tail_particles.tscn" id="12_aomqu"]
 [ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
 [ext_resource type="PackedScene" uid="uid://bgdivgbr4qomh" path="res://scenes/upgrades/base_uppgrade.tscn" id="19_2i4tw"]
-[ext_resource type="PackedScene" uid="uid://ct76mdbg1wvgl" path="res://scenes/upgrades/proute_upgrade.tscn" id="20_euc45"]
 [ext_resource type="PackedScene" uid="uid://clnww3o11qs42" path="res://scenes/upgrades/max_juice_combo_upgrade.tscn" id="21_euc45"]
 [ext_resource type="PackedScene" uid="uid://del46oh3slfr0" path="res://scenes/upgrades/min_juice_combo_upgrade.tscn" id="23_wt57k"]
+[ext_resource type="PackedScene" uid="uid://x65kddtglbg2" path="res://scenes/upgrades/allowed_misses_upgrade.tscn" id="24_pk5u2"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -1128,7 +1128,7 @@ manager = NodePath("../../../..")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-upgrade = NodePath("../../../../../../AllUpgradesList/ProuteUpgrade")
+upgrade = NodePath("../../../../../../AllUpgradesList/AllowedMissesUpgrade")
 manager = NodePath("../../../..")
 
 [node name="Upgrade3" parent="MainCam/UpgradesManager/Controller/VBoxContainer/Upgrades" node_paths=PackedStringArray("upgrade", "manager") instance=ExtResource("3_ih6an")]
@@ -1214,10 +1214,10 @@ position = Vector2(653, 312)
 
 [node name="BaseUppgrade" parent="AllUpgradesList" instance=ExtResource("19_2i4tw")]
 
-[node name="ProuteUpgrade" parent="AllUpgradesList" instance=ExtResource("20_euc45")]
-
 [node name="MaxJuiceComboUpgrade" parent="AllUpgradesList" instance=ExtResource("21_euc45")]
 
 [node name="MinJuiceComboUpgrade" parent="AllUpgradesList" instance=ExtResource("23_wt57k")]
+
+[node name="AllowedMissesUpgrade" parent="AllUpgradesList" instance=ExtResource("24_pk5u2")]
 
 [connection signal="timeout" from="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]

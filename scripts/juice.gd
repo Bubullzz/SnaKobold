@@ -55,14 +55,14 @@ func _on_timer_timeout() -> void:
 	instantiate(SM, SM.body[0])
 	var jc = SnakeProps.juice_combo # Stocking it before the potential reset
 	if SnakeProps.on_juice_spilled(): # Reseted combo
-		if jc > 4:
+		if jc > 3:
 			var t = preload("res://scenes/pop_up_text.tscn").instantiate()
 			t.initialize_combo_break(global_position, jc)
 			get_tree().root.add_child(t)
 	else:
-		if jc > 4:
+		if jc > 3:
 			var t = preload("res://scenes/pop_up_text.tscn").instantiate()
-			t.initialize("%d misses left !" % [SnakeProps.max_allowed_misses - SnakeProps.nb_juices_missed - 1], global_position)
+			t.initialize("%d misses left !" % [SnakeProps.max_allowed_misses - SnakeProps.nb_juices_missed], global_position)
 			get_tree().root.add_child(t)
 	$JuiceAnimated.visible = false
 	$CollisionZone.queue_free()

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://x65kddtglbg2"]
+
+[ext_resource type="Script" uid="uid://b1o8nk0limb08" path="res://scripts/upgrades/allowed_misses_upgrade.gd" id="1_sa847"]
+
+[node name="AllowedMissesUpgrade" type="Node2D"]
+script = ExtResource("1_sa847")
