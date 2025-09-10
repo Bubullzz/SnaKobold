@@ -19,9 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://csaltvemdqev1" path="res://assets/snake/jump_eyes_can_jump.png" id="11_ih6an"]
 [ext_resource type="PackedScene" uid="uid://cc0eyljq0xmg2" path="res://particles/tail_particles.tscn" id="12_aomqu"]
 [ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
-[ext_resource type="PackedScene" uid="uid://bgdivgbr4qomh" path="res://scenes/base_uppgrade.tscn" id="19_2i4tw"]
-[ext_resource type="PackedScene" uid="uid://ct76mdbg1wvgl" path="res://scenes/proute_upgrade.tscn" id="20_euc45"]
-[ext_resource type="PackedScene" uid="uid://clnww3o11qs42" path="res://scenes/max_juice_combo_upgrade.tscn" id="21_euc45"]
+[ext_resource type="PackedScene" uid="uid://bgdivgbr4qomh" path="res://scenes/upgrades/base_uppgrade.tscn" id="19_2i4tw"]
+[ext_resource type="PackedScene" uid="uid://ct76mdbg1wvgl" path="res://scenes/upgrades/proute_upgrade.tscn" id="20_euc45"]
+[ext_resource type="PackedScene" uid="uid://clnww3o11qs42" path="res://scenes/upgrades/max_juice_combo_upgrade.tscn" id="21_euc45"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808

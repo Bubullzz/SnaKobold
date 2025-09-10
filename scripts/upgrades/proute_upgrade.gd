@@ -1,7 +1,7 @@
 extends Upgrade
 
-func _init():
-	text = "Proute upgrade text"
-
 func on_selected():
 	print("prouted ?")
+
+func get_text()->String:
+	return "Proute upgrade text"

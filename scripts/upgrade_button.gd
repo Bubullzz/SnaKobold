@@ -13,7 +13,7 @@ func focus_me():
 	%Button.grab_focus()
 
 func _ready():
-	%Button.text = upgrade.text
+	%Button.text = upgrade.get_text()
 
 func _on_button_pressed() -> void:
 	upgrade.on_selected()
