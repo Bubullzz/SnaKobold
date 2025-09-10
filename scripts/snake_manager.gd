@@ -234,6 +234,9 @@ func update_head_sp():
 	%SnakeAdditionnalVisuals.update(body[0], jumping_frame, head, dir_to_atlas_transform(curr_dir))
 
 
+func get_head_world_pos():
+	return %SnakeLayer.map_to_local(body[0])
+
 func activable_apple_spawn():
 	if SnakeProps.consume_juice(1000):
 		Apple.instantiate(self, body[0])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=51 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bgdivgbr4qomh" path="res://scenes/upgrades/base_uppgrade.tscn" id="19_2i4tw"]
 [ext_resource type="PackedScene" uid="uid://clnww3o11qs42" path="res://scenes/upgrades/max_juice_combo_upgrade.tscn" id="21_euc45"]
 [ext_resource type="PackedScene" uid="uid://del46oh3slfr0" path="res://scenes/upgrades/min_juice_combo_upgrade.tscn" id="23_wt57k"]
+[ext_resource type="PackedScene" uid="uid://bk5p8mxyn8g3r" path="res://scenes/upgrades/collect_apples_upgrade.tscn" id="24_lght5"]
 [ext_resource type="PackedScene" uid="uid://x65kddtglbg2" path="res://scenes/upgrades/allowed_misses_upgrade.tscn" id="24_pk5u2"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
@@ -1135,7 +1136,7 @@ manager = NodePath("../../../..")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-upgrade = NodePath("../../../../../../AllUpgradesList/MinJuiceComboUpgrade")
+upgrade = NodePath("../../../../../../AllUpgradesList/CollectApplesUpgrade")
 manager = NodePath("../../../..")
 
 [node name="RightSeparator" type="VSeparator" parent="MainCam/UpgradesManager/Controller/VBoxContainer/Upgrades"]
@@ -1219,5 +1220,11 @@ position = Vector2(653, 312)
 [node name="MinJuiceComboUpgrade" parent="AllUpgradesList" instance=ExtResource("23_wt57k")]
 
 [node name="AllowedMissesUpgrade" parent="AllUpgradesList" instance=ExtResource("24_pk5u2")]
+
+[node name="CollectApplesUpgrade" parent="AllUpgradesList" node_paths=PackedStringArray("ApplesList") instance=ExtResource("24_lght5")]
+ApplesList = NodePath("../../ApplesList")
+
+[node name="ApplesList" type="Node" parent="."]
+unique_name_in_owner = true
 
 [connection signal="timeout" from="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]

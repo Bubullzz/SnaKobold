@@ -167,3 +167,6 @@ func _ready():
 	Juice.instantiate(self, middle())
 
 	%OpeningRect.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
+	
+	for i in range(40):
+		Apple.instantiate(self, %SnakeManager.body[0])

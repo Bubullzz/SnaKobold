@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk5p8mxyn8g3r"]
+
+[ext_resource type="Script" uid="uid://bs1iul8t35ocv" path="res://scripts/upgrades/collect_apples_upgrade.gd" id="1_ue7kv"]
+
+[node name="CollectApplesUpgrade" type="Node2D"]
+script = ExtResource("1_ue7kv")
