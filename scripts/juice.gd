@@ -58,7 +58,7 @@ func _on_timer_timeout() -> void:
 		var t = preload("res://scenes/pop_up_text.tscn").instantiate()
 		t.initialize_combo_break(global_position, SnakeProps.juice_combo)
 		get_tree().root.add_child(t)
-	SnakeProps.juice_combo = 1
+	SnakeProps.on_juice_spilled()
 	$JuiceAnimated.visible = false
 	$CollisionZone.queue_free()
 

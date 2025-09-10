@@ -136,7 +136,6 @@ func handle_collision():
 
 	dir_buffer = [null, null]
 
-	SnakeProps.juice_combo = 1
 	SnakeProps.update_max_juice() # makes juice bar smaller, based on lost size
 	SnakeProps.update_juice(0) 
 	%SnakeAdditionnalVisuals.clear_additional_visuals()

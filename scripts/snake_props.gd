@@ -11,6 +11,7 @@ var max_juice_step = 1000
 var juice = 0
 var juice_combo = 1
 var max_juice_combo = 10
+var min_juice_combo = 1
 var jump_price = 500
 var target_speed = 2
 var growth : int = 0
@@ -25,7 +26,9 @@ func growing() -> bool:
 		return true
 	return false
 
-
+func on_juice_spilled():
+	juice_combo = min(min_juice_combo, max_juice_combo)
+	
 func update_juice(value : int):
 	juice += value
 	juice = min(juice, max_juice)

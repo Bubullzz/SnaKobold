@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://del46oh3slfr0"]
+
+[ext_resource type="Script" uid="uid://bbgp8rxbecsmm" path="res://scripts/upgrades/min_juice_combo_upgrade.gd" id="1_ss7jb"]
+
+[node name="MinJuiceComboUpgrade" type="Node2D"]
+script = ExtResource("1_ss7jb")
