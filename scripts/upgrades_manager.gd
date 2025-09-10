@@ -16,8 +16,10 @@ func flush_tweens():
 
 func choose_all_upgrades():
 	var AllUpgradesList = %AllUpgradesList.get_children()
-	for b:UpgradeButton in [%Upgrade1, %Upgrade2, %Upgrade3]:
-		b.set_upgrade(AllUpgradesList.pick_random())
+	AllUpgradesList.shuffle()
+	%Upgrade1.set_upgrade(AllUpgradesList[0])
+	%Upgrade2.set_upgrade(AllUpgradesList[1])
+	%Upgrade3.set_upgrade(AllUpgradesList[2])
 		
 func start_upgrade_sequence():
 	enable_buttons()
