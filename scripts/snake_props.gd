@@ -1,7 +1,8 @@
 extends Node
 
-enum GAME_STATE {RUNNING, PAUSED, GAME_OVER, DEBUG}
+signal juice_combo_updated
 
+enum GAME_STATE {RUNNING, PAUSED, GAME_OVER, DEBUG}
 
 var game_state : GAME_STATE = GAME_STATE.RUNNING
 var health_points = 3
@@ -29,16 +30,21 @@ func growing() -> bool:
 	return false
 
 
+func update_juice_combo(value: int) -> void:
+	juice_combo = min(value, max_juice_combo)
+	juice_combo_updated.emit(juice_combo)
+	
+	
 func on_juice_consumed():
 	nb_juices_missed = 0
 	update_juice(100 * juice_combo)
-	juice_combo = min(juice_combo + 1, max_juice_combo)
+	update_juice_combo(juice_combo + 1)
 
 	
 func on_juice_spilled() -> bool:
 	nb_juices_missed += 1
 	if nb_juices_missed > max_allowed_misses:
-		juice_combo = min(min_juice_combo, max_juice_combo)
+		update_juice_combo(min_juice_combo)
 		return true
 	return false
 	

@@ -1,10 +1,11 @@
-[gd_scene load_steps=50 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=52 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
 [ext_resource type="Script" uid="uid://dujoh4v75bp0a" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
 [ext_resource type="PackedScene" uid="uid://ckv0w7wxajg7f" path="res://scenes/UpgradeButton.tscn" id="3_ih6an"]
+[ext_resource type="Script" uid="uid://dot621t2hyt0" path="res://base_ui.gd" id="3_pk5u2"]
 [ext_resource type="Script" uid="uid://dd5bubhlbxguu" path="res://scripts/juice_bar.gd" id="4_jgkyn"]
 [ext_resource type="Shader" uid="uid://bjsr0upeha5oa" path="res://scripts/opening.gdshader" id="4_krmtw"]
 [ext_resource type="Script" uid="uid://cugpie3yoygwt" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
@@ -29,6 +30,13 @@ frequency = 0.0808
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rk40v"]
 noise = SubResource("FastNoiseLite_r51s0")
+
+[sub_resource type="LabelSettings" id="LabelSettings_wt57k"]
+font = ExtResource("8_ikebx")
+font_size = 160
+font_color = Color(0.627451, 0.262745, 0.521569, 1)
+outline_size = 20
+outline_color = Color(0.180392, 0.00784314, 0.239216, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_an1vu"]
 font_size = 40
@@ -990,6 +998,7 @@ position_smoothing_speed = 2.0
 script = ExtResource("2_uddo3")
 
 [node name="BaseUI" type="CanvasLayer" parent="MainCam"]
+script = ExtResource("3_pk5u2")
 
 [node name="DebugLabels" type="Label" parent="MainCam/BaseUI"]
 unique_name_in_owner = true
@@ -1026,12 +1035,25 @@ theme_override_constants/margin_bottom = 20
 [node name="HBoxContainer" type="HBoxContainer" parent="MainCam/BaseUI/Control/MarginContainer"]
 layout_mode = 2
 
-[node name="GameLabels" type="Label" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="VBoxContainer" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+
+[node name="ComboIndicator" type="Label" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+text = "X1"
+label_settings = SubResource("LabelSettings_wt57k")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="GameLabels" type="Label" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
 theme_override_fonts/font = ExtResource("8_ikebx")
-text = "Game Labels"
+text = "juice : xx / xx"
 label_settings = SubResource("LabelSettings_an1vu")
 
 [node name="VSeparator" type="VSeparator" parent="MainCam/BaseUI/Control/MarginContainer/HBoxContainer"]
