@@ -1,6 +1,5 @@
 extends Node
 
-signal juice_combo_updated
 
 enum GAME_STATE {RUNNING, PAUSED, GAME_OVER, DEBUG}
 
@@ -31,8 +30,9 @@ func growing() -> bool:
 
 
 func update_juice_combo(value: int) -> void:
+	var old = juice_combo
 	juice_combo = min(value, max_juice_combo)
-	juice_combo_updated.emit(juice_combo)
+	Signals.juice_combo_updated.emit(old, juice_combo)
 	
 	
 func on_juice_consumed():

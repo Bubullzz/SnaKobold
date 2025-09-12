@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 SnakeProps="*res://scripts/snake_props.gd"
+Signals="*res://signals.gd"
 
 [debug]
 
