@@ -990,8 +990,12 @@ noise_texture = SubResource("NoiseTexture2D_rk40v")
 
 [node name="MapGenerator" type="Node" parent="."]
 script = ExtResource("2_lght5")
-height = 50
-width = 50
+height = 150
+width = 150
+nb_rectangles = 10
+min_side = 5
+max_side = 30
+tunnels_per_rectangle = 8
 
 [node name="MainCam" type="Camera2D" parent="."]
 unique_name_in_owner = true

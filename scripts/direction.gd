@@ -11,6 +11,10 @@ static func get_all_directions():
 	return [Direction.DIR.UP, Direction.DIR.DOWN, Direction.DIR.LEFT, Direction.DIR.RIGHT]
 
 
+static func get_random_direction():
+	return get_all_directions()[randi() % 4]
+	
+
 static func opp(dir):
 	match dir:
 		Direction.DIR.UP: return Direction.DIR.DOWN
