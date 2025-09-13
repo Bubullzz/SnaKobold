@@ -25,7 +25,6 @@ static func instantiate(context, base: Vector2i):
 	instance.position = MAP.map_to_local(apple_pos)
 	apples_dict[apple_pos] = context.get_node("/root/MainGame").EAT.APPLE
 	AL.add_child(instance)
-	print(AL)
 
 
 func _on_area_2d_area_entered(area:Area2D) -> void:
@@ -56,5 +55,16 @@ func _process(_delta: float) -> void:
 	handle_attraction(_delta)
 
 
+func animate_entry():
+	$ShadowSprite.scale.x = 0
+	$AppleSprite.scale = Vector2(0,0)
+	
+	var t1 = create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	var t2 = create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	
+	t1.tween_property($AppleSprite, "scale", Vector2(1,1), 1)
+
 func _ready() -> void:
-	$AppleSprite.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
+	#$AppleSprite.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
+	animate_entry()
+	

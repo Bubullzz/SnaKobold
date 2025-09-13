@@ -83,8 +83,7 @@ func maze_gen():
 	for i in range(1,width - 1):
 		for j in range(1, height -1):
 			var val = noise.get_noise_2d(i, j)
-			val += pow(Vector2i(i,j).distance_to(mid), 2.) * 0.003
-			if val < 0.5:
+			if val > 0.1:
 				%EnvironmentManager.remove_wall(Vector2i(i,j))
 	
 	
