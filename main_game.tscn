@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=54 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://del46oh3slfr0" path="res://scenes/upgrades/min_juice_combo_upgrade.tscn" id="23_wt57k"]
 [ext_resource type="PackedScene" uid="uid://bk5p8mxyn8g3r" path="res://scenes/upgrades/collect_apples_upgrade.tscn" id="24_lght5"]
 [ext_resource type="PackedScene" uid="uid://x65kddtglbg2" path="res://scenes/upgrades/allowed_misses_upgrade.tscn" id="24_pk5u2"]
+[ext_resource type="PackedScene" uid="uid://45snk7d5y5m4" path="res://scenes/upgrades/additional_juice.tscn" id="26_lfj8l"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -990,17 +991,16 @@ noise_texture = SubResource("NoiseTexture2D_rk40v")
 
 [node name="MapGenerator" type="Node" parent="."]
 script = ExtResource("2_lght5")
-height = 150
-width = 150
-nb_rectangles = 10
-min_side = 5
-max_side = 30
-tunnels_per_rectangle = 8
+height = 300
+width = 300
+nb_rectangles = 6
+min_side = 20
+max_side = 40
+tunnels_per_rectangle = 2
 
 [node name="MainCam" type="Camera2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(28, 17)
-zoom = Vector2(6, 6)
 process_callback = 0
 position_smoothing_speed = 2.0
 script = ExtResource("2_uddo3")
@@ -1251,6 +1251,8 @@ unique_name_in_owner = true
 
 [node name="CollectApplesUpgrade" parent="AllUpgradesList" node_paths=PackedStringArray("ApplesList") instance=ExtResource("24_lght5")]
 ApplesList = NodePath("../../ApplesList")
+
+[node name="AdditionalJuice" parent="AllUpgradesList" instance=ExtResource("26_lfj8l")]
 
 [node name="ApplesList" type="Node" parent="."]
 unique_name_in_owner = true

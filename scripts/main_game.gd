@@ -24,58 +24,6 @@ func array_to_map(arr): # Array2d of height * width
 				%EnvironmentManager.set_wall(Vector2i(i,j))
 				walls.append(Vector2i(i,j))
 	%EnvironmentManager.update_terrain_cells(walls)
-	
-
-	
-func is_good(arr, pos) -> bool:
-	var sum = 0
-	for i in range(-1,2):
-		for j in range(-1,2):
-			sum += int(arr[pos.x + i][pos.y + j])
-	return sum <= 2
-		
-
-func rec_exploration(arr, pos: Vector2i):
-	if arr[pos.x][pos.y] == true: # Already visited
-		return
-	if !is_good(arr, pos): # Not a good spot
-		return
-	arr[pos.x][pos.y] = true # Good spot, let's expore neighbours
-	var shuffled_dirs = Direction.get_all_directions()
-	shuffled_dirs.shuffle()
-	for dir in shuffled_dirs:
-		var explored = pos + Direction.dir_to_vec(dir)
-		if explored.x > 0 and explored.x < height - 1 and explored.y > 0 and explored.y < width - 1:
-			rec_exploration(arr, explored)
-	
-
-func maze_gen():
-	var arr = []
-	var mid = middle()
-	for i in range(height):
-		arr.append([])
-		for _j in range(width):
-			arr[i].append(false)
-
-	rec_exploration(arr, mid)
-	
-	# Free the middle for the snake
-	for i in range(mid.x - 10, mid.x + 10):
-		for j in range(mid.y - 10, mid.y + 10):
-			arr[i][j] = true
-			
-		
-	var noise = noise_texture.noise
-	noise.seed = randi()  
-	for i in range(1,width - 1):
-		for j in range(1, height -1):
-			var val = noise.get_noise_2d(i, j)
-			if val > 0.1:
-				%EnvironmentManager.remove_wall(Vector2i(i,j))
-	
-	array_to_map(arr)
-	
-
 
 
 func _input(_event):

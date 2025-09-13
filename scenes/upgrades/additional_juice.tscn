@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://45snk7d5y5m4"]
+
+[ext_resource type="Script" uid="uid://nayobq1flsad" path="res://scripts/upgrades/additional_juice_upgrade.gd" id="1_3x77v"]
+
+[node name="AdditionalJuice" type="Node2D"]
+script = ExtResource("1_3x77v")

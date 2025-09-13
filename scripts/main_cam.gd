@@ -62,7 +62,7 @@ func _process(delta: float) -> void:
 				curr_state = STATE.BASIC
 				position_smoothing_enabled = true
 		STATE.BASIC:
-			var target_zoom = zoom_k / (log(%SnakeManager.body.size()) / log(3))
+			var target_zoom = zoom_k / (log(%SnakeManager.body.size()) / log(2))
 			set_both_zoom(lerp(zoom.x, target_zoom, basic_zoom_speed_factor * delta))
 			var snake_head_pos = %SnakeLayer.map_to_local(%SnakeManager.body[0])
 			var anchor = %SnakeLayer.map_to_local(%SnakeManager.body[0] + Direction.dir_to_vec(%SnakeManager.curr_dir)) # One tile after head
