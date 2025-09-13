@@ -56,13 +56,14 @@ func _process(_delta: float) -> void:
 
 
 func animate_entry():
-	$ShadowSprite.scale.x = 0
+	$ShadowSprite.scale= Vector2(0,0)
 	$AppleSprite.scale = Vector2(0,0)
 	
 	var t1 = create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
-	var t2 = create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	var t2 = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 	
 	t1.tween_property($AppleSprite, "scale", Vector2(1,1), 1)
+	t2.tween_property($ShadowSprite, "scale", Vector2(1,1), .2)
 
 func _ready() -> void:
 	#$AppleSprite.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)

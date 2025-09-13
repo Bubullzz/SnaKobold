@@ -1,6 +1,7 @@
-[gd_scene load_steps=52 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=53 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
+[ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
 [ext_resource type="Texture2D" uid="uid://dgorcyshc620" path="res://assets/snake/head_animated.png" id="2_myy0b"]
 [ext_resource type="Script" uid="uid://dujoh4v75bp0a" path="res://scripts/main_cam.gd" id="2_uddo3"]
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
@@ -985,9 +986,12 @@ sources/0 = SubResource("TileSetAtlasSource_w58h2")
 
 [node name="MainGame" type="Node"]
 script = ExtResource("1_c0m7j")
-width = 50
-height = 50
 noise_texture = SubResource("NoiseTexture2D_rk40v")
+
+[node name="MapGenerator" type="Node" parent="."]
+script = ExtResource("2_lght5")
+height = 50
+width = 50
 
 [node name="MainCam" type="Camera2D" parent="."]
 unique_name_in_owner = true
