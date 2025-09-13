@@ -985,8 +985,8 @@ sources/0 = SubResource("TileSetAtlasSource_w58h2")
 
 [node name="MainGame" type="Node"]
 script = ExtResource("1_c0m7j")
-width = 100
-height = 100
+width = 50
+height = 50
 noise_texture = SubResource("NoiseTexture2D_rk40v")
 
 [node name="MainCam" type="Camera2D" parent="."]

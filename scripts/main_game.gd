@@ -4,8 +4,8 @@ enum DIR {UP, DOWN, LEFT, RIGHT}
 enum EAT {APPLE, JUICE}
 
 
-@export var width = 30
-@export var height = 20
+@export var width: int
+@export var height: int
 @export var noise_texture : NoiseTexture2D
 
 var debug = false
@@ -27,6 +27,70 @@ func lakes(lake : Array[Vector2i], pos : Vector2i) -> void:
 	lakes(lake, pos + Vector2i(0,-1))
 
 
+func is_good(arr, pos) -> bool:
+	var sum = 0
+	for i in range(-1,2):
+		for j in range(-1,2):
+			sum += int(arr[pos.x + i][pos.y + j])
+	return sum <= 2
+		
+
+func rec_exploration(arr, pos: Vector2i):
+	if arr[pos.x][pos.y] == true: # Already visited
+		return
+	if !is_good(arr, pos): # Not a good spot
+		return
+	arr[pos.x][pos.y] = true # Good spot, let's expore neighbours
+	var shuffled_dirs = Direction.get_all_directions()
+	shuffled_dirs.shuffle()
+	for dir in shuffled_dirs:
+		var explored = pos + Direction.dir_to_vec(dir)
+		if explored.x > 0 and explored.x < height - 1 and explored.y > 0 and explored.y < width - 1:
+			rec_exploration(arr, explored)
+	
+
+func maze_gen():
+	var arr = []
+	var mid = middle()
+	for i in range(height):
+		arr.append([])
+		for _j in range(width):
+			arr[i].append(false)
+		
+	rec_exploration(arr, mid)
+	
+	# Free the middle for the snake
+	for i in range(mid.x - 10, mid.x + 10):
+		for j in range(mid.y - 10, mid.y + 10):
+			arr[i][j] = true
+			
+	var walls : Array[Vector2i] = []
+	
+	for i in range(height):
+		var s = ''
+		for j in range(width):
+			%EnvironmentManager.set_floor(Vector2i(i,j))
+			if arr[i][j]:
+				s += 'X'
+			else:
+				%EnvironmentManager.set_wall(Vector2i(i,j))
+				walls.append(Vector2i(i,j))
+				s += '.'
+		print(s)
+		
+	var noise = noise_texture.noise
+	noise.seed = randi()  
+	for i in range(1,width - 1):
+		for j in range(1, height -1):
+			var val = noise.get_noise_2d(i, j)
+			val += pow(Vector2i(i,j).distance_to(mid), 2.) * 0.003
+			if val < 0.5:
+				%EnvironmentManager.remove_wall(Vector2i(i,j))
+	
+	
+	%EnvironmentManager.update_terrain_cells(walls)
+	
+
 func proc_gen():
 	var noise = noise_texture.noise
 	noise.seed = randi()    
@@ -43,9 +107,6 @@ func proc_gen():
 			%EnvironmentManager.set_floor(Vector2i(i,j))
 	
 	# Make sure there is space for the snake to spawn
-	for i in range(mid_width - 15, mid_width + 15):
-		for j in range(mid_height - 15, mid_height + 15):
-			%EnvironmentManager.remove_wall(Vector2i(i,j))
 
 	# Filling unreachable holes
 	var accessible : Array[Vector2i] = [] 
@@ -150,7 +211,8 @@ func _process(_delta: float) -> void:
 
 
 func _ready():
-	proc_gen()
+	#proc_gen()
+	maze_gen()
 	%SnakeManager.place_snake(middle())
 	%JuiceBar.max_value = SnakeProps.max_juice
 
