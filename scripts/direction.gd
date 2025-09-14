@@ -33,7 +33,7 @@ static func cells_to_dir(c1,c2) -> Direction.DIR:
 		_: push_error("Error when getting Direction")
 	return Direction.DIR.UP
 
-static func dir_to_vec(dir):
+static func dir_to_vec(dir)-> Vector2i:
 	var dict = {
 	DIR.UP : Vector2i(0,-1),
 	DIR.DOWN : Vector2i(0,1),
@@ -42,6 +42,18 @@ static func dir_to_vec(dir):
 	}
 	return dict[dir]
 
+
+static func vec_to_dir(vec: Vector2i):
+	var dict = {
+	DIR.UP : Vector2i(0,-1),
+	DIR.DOWN : Vector2i(0,1),
+	DIR.LEFT : Vector2i(-1,0),
+	DIR.RIGHT : Vector2i(1,0)
+	}
+	var dict2 = Utils.reverse_dict(dict)
+	return dict2[vec]
+	
+	
 static func hor(dir):
 	match dir:
 		Direction.DIR.LEFT: return -1

@@ -993,10 +993,10 @@ noise_texture = SubResource("NoiseTexture2D_rk40v")
 script = ExtResource("2_lght5")
 height = 300
 width = 300
-nb_rectangles = 6
+nb_rectangles = 40
 min_side = 20
 max_side = 40
-tunnels_per_rectangle = 2
+tunnels_per_rectangle = 6
 
 [node name="MainCam" type="Camera2D" parent="."]
 unique_name_in_owner = true
