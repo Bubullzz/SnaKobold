@@ -27,7 +27,7 @@ static func instantiate(context, base: Vector2i):
 	SnakeProps.eatables_pos[apple_pos] = instance
 	AL.add_child(instance)
 
-func collect(area:Area2D) -> void:
+func collect(area:Node) -> void:
 	Signals.apple_eaten.emit(self)
 	var SM = area.get_node("%SnakeManager")
 	SnakeProps.growth += 1
