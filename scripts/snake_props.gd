@@ -21,6 +21,8 @@ var SM : Node # The SnakeManager
 var JuiceBar : Node
 var UM : UpgradesManager
 
+var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : instance
+
 func growing() -> bool:
 	if growth > 0:
 		growth -= 1

@@ -9,6 +9,7 @@ var tot_frames = nb_frames + last_frame_duration - 1
 var fps = tot_frames / base_wait_time
 var max_spill_time = 8
 var start = Time.get_ticks_msec()
+var tiles_pos: Vector2i
 var SM
 
 var end_animationT_time = 0.5 # Time to make the juice disappear
@@ -17,8 +18,7 @@ static func instantiate(context, base: Vector2i):
 	var LOC_SM = context.get_node("%SnakeManager")
 	var EM = context.get_node("%EnvironmentManager")
 	var MAP = context.get_node("%WallsLayer")
-	var apples_dict = context.get_node("/root/MainGame").eatables_pos
-	var instance = load("res://scenes/juice.tscn").instantiate().duplicate()
+	var instance: Juice = load("res://scenes/juice.tscn").instantiate().duplicate()
 	instance.get_node("JuiceDespawnTimer").wait_time = instance.base_wait_time
 	instance.get_node("JuiceEndAnimationTimer").wait_time = instance.base_wait_time - instance.end_animationT_time
 	instance.get_node("SpillingStopper").wait_time = instance.base_wait_time - instance.end_animationT_time - 0.2
@@ -29,7 +29,7 @@ static func instantiate(context, base: Vector2i):
 	var spawn_height = 4
 	var spawn_width = 4
 	var juice_pos = Vector2i(base.x + (randi() % spawn_width) - spawn_width/2, base.y + (randi() % spawn_height) - spawn_height/2)
-	while apples_dict.has(juice_pos) or \
+	while SnakeProps.eatables_pos.has(juice_pos) or \
 				LOC_SM.is_snake(juice_pos) or \
 				EM.is_wall(juice_pos) or \
 				! LOC_SM.check_accessible(juice_pos):
@@ -37,13 +37,15 @@ static func instantiate(context, base: Vector2i):
 		spawn_width += 1
 		juice_pos = Vector2i(base.x + (randi() % spawn_width) - spawn_width/2, base.y + (randi() % spawn_height) - spawn_height/2)
 
+	
 	instance.position = MAP.map_to_local(juice_pos)
-	apples_dict[juice_pos] = true
-	apples_dict[juice_pos] = context.get_node("/root/MainGame").EAT.JUICE
+	instance.tiles_pos = juice_pos
+	SnakeProps.eatables_pos[juice_pos] = instance
 	context.get_tree().root.add_child(instance)
 
 
 func _on_collision_zone_area_entered(area:Area2D) -> void:
+	SnakeProps.eatables_pos.erase(tiles_pos)
 	call_deferred("instantiate", area, SM.body[0])
 	SnakeProps.on_juice_consumed()
 	var jc = SnakeProps.juice_combo
@@ -51,7 +53,8 @@ func _on_collision_zone_area_entered(area:Area2D) -> void:
 	queue_free()
 
 
-func _on_timer_timeout() -> void:
+func _on_timer_timeout() -> void: # The juice is spilled
+	SnakeProps.eatables_pos.erase(tiles_pos)
 	instantiate(SM, SM.body[0])
 	var jc = SnakeProps.juice_combo # Stocking it before the potential reset
 	if SnakeProps.on_juice_spilled(): # Reseted combo
@@ -64,7 +67,6 @@ func _on_timer_timeout() -> void:
 			var t = preload("res://scenes/pop_up_text.tscn").instantiate()
 			t.initialize("%d misses left !" % [SnakeProps.max_allowed_misses - SnakeProps.nb_juices_missed], global_position)
 			get_tree().root.add_child(t)
-	$JuiceAnimated.visible = false
 	$CollisionZone.queue_free()
 
 
@@ -85,7 +87,6 @@ func _ready() -> void:
 
 
 func _on_juice_end_animation_timer_timeout() -> void:
-
 	const OSCILLATIONS := 5
 	const DISTANCE:= 1.5
 	var t := create_tween()

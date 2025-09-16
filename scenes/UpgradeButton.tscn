@@ -30,5 +30,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_t8uck")
 theme_override_font_sizes/font_size = 30
 text = "TEST"
+autowrap_mode = 3
 
 [connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

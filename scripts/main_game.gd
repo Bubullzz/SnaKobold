@@ -9,8 +9,6 @@ var height
 @export var noise_texture : NoiseTexture2D
 
 var debug = false
-var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : EAT
-
 
 func middle() -> Vector2i:
 	return Vector2i(width / 2, height / 2)
