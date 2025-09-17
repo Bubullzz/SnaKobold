@@ -130,7 +130,6 @@ func _ready():
 	SnakeProps.update_max_juice()
 
 	Apple.instantiate(middle())
-	Apple.instantiate(middle())
 	Juice.instantiate(self, middle())
 
 	%OpeningRect.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
