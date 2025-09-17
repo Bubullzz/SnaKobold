@@ -6,11 +6,6 @@ var is_attracted = false
 var tiles_pos: Vector2i
 var collecting = false
 
-
-static func is_golden_spawn()-> bool:
-	return SnakeProps.OwnedUpgradesList.has_node("CollectApplesUpgrade") and \
-			randi() % GoldenApple.probability == 0
-
 static func instantiate(base: Vector2i):
 	var SM = SnakeProps.SM
 	var EM = SnakeProps.GameTiles.find_child("EnvironmentManager")
@@ -18,7 +13,7 @@ static func instantiate(base: Vector2i):
 	var AL = SnakeProps.ApplesList
 	
 	var instance: Apple = load("res://scenes/apple.tscn").instantiate()
-	if is_golden_spawn():
+	if GoldenApple.is_gapple_spawn():
 		instance = load("res://scenes/golden_apple.tscn").instantiate()
 	var spawn_height = 15
 	var spawn_width = 20

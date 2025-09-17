@@ -1261,7 +1261,6 @@ unique_name_in_owner = true
 
 [node name="CollectApplesUpgrade" parent="AllUpgradesList" node_paths=PackedStringArray("ApplesList") instance=ExtResource("24_lght5")]
 ApplesList = NodePath("../../ApplesList")
-auto_select = false
 
 [node name="AdditionalJuice" parent="AllUpgradesList" instance=ExtResource("26_lfj8l")]
 

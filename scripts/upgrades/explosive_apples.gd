@@ -10,7 +10,7 @@ func start_particles(pos: Vector2i):
 	p.get_child(0).emitting = true
 	get_tree().root.add_child(p)
 
-
+	
 func on_apple_eaten(apple: Apple):
 	SnakeProps.eatables_pos.erase(apple.tiles_pos)
 	var pos = apple.tiles_pos
@@ -32,6 +32,8 @@ func on_apple_eaten(apple: Apple):
 func on_selected():
 	activated = true
 	Signals.apple_eaten.connect(on_apple_eaten)
+	self.get_parent().remove_child(self)
+	SnakeProps.OwnedUpgradesList.add_child(self)
 
 func get_text()->String:
 	return "Apples explode and collect all the other apples Around !"

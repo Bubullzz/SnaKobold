@@ -9,7 +9,7 @@ func on_selected():
 	SnakeProps.OwnedUpgradesList.add_child(self)
 
 
-func collect_everything(a):
+func collect_everything(a): # a is needed there because emitted signal has one parameter
 	var sleep_time = 0.1
 	for apple in ApplesList.get_children():
 		if apple:
