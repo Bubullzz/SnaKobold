@@ -57,8 +57,9 @@ func create_one_tunnel(rec: Rectangle, target_rec: Rectangle):
 	while not is_path_finished(curr_path, curr, rec):
 		curr_path[curr] = null
 		map[curr.x][curr.y] = true
-		var curr_to_last = Direction.dir_to_vec(Direction.cells_to_dir(curr, last))
-		map[curr.x + curr_to_last.y][curr.y + curr_to_last.x] = true
+		if last != Vector2i(-1,-1):
+			var curr_to_last = Direction.dir_to_vec(Direction.cells_to_dir(curr, last))
+			map[curr.x + curr_to_last.y][curr.y + curr_to_last.x] = true
 		
 		var vec_towards = Utils.unit_vec(target - curr)
 		if vec_towards.length() == 0: # Vector2i(0,0)

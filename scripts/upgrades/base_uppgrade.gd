@@ -2,6 +2,14 @@ extends Node2D
 
 class_name Upgrade
 
+@export var auto_select = false
+
+
+func _ready() -> void:
+	if auto_select:
+		print("auto-selected : ", self)
+		on_selected()
+
 func on_selected():
 	print("selected Dummy")
 	

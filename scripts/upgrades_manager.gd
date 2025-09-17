@@ -27,7 +27,6 @@ func start_upgrade_sequence():
 	upgrading = true
 	var alpha_tween = get_tree().create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	alpha_tween.tween_property($Controller, "modulate:a", 1, .4)	
-	var trans_time = 1
 	var time_scale_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)#.set_ease(Tween.EASE_OUT)
 	time_scale_tween.tween_property(Engine, "time_scale", 0, .2)	
 	
@@ -41,7 +40,6 @@ func end_upgrade_sequence():
 	var alpha_tween = get_tree().create_tween().set_trans(Tween.TRANS_QUINT)#.set_ease(Tween.EASE_OUT)
 	alpha_tween.tween_property($Controller, "modulate:a", 0, .1)	
 	
-	var trans_time = .3
 	var tween_1 = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)#.set_ease(Tween.EASE_OUT)
 	tween_1.tween_property(Engine, "time_scale", 1, .2)	
 

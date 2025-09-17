@@ -47,8 +47,8 @@ static func instantiate(context, base: Vector2i):
 func _on_collision_zone_area_entered(area:Area2D) -> void:
 	SnakeProps.eatables_pos.erase(tiles_pos)
 	call_deferred("instantiate", area, SM.body[0])
-	SnakeProps.on_juice_consumed()
 	var jc = SnakeProps.juice_combo
+	SnakeProps.on_juice_consumed()
 	PopUpText.spawn_juice_popup(self, "x%d" % [jc], global_position, jc)
 	queue_free()
 

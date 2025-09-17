@@ -18,9 +18,11 @@ var jump_price = 500
 var target_speed = 2
 var growth : int = 0
 var SM : Node # The SnakeManager
+var ApplesList : Node
 var JuiceBar : Node
+var GameTiles : Node
 var UM : UpgradesManager
-
+var OwnedUpgradesList : Node
 var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : instance
 
 func growing() -> bool:

@@ -4,13 +4,22 @@ class_name Apple
 
 var is_attracted = false
 var tiles_pos: Vector2i
+var collecting = false
 
-static func instantiate(context, base: Vector2i):
-	var SM = context.get_node("%SnakeManager")
-	var EM = context.get_node("%EnvironmentManager")
-	var MAP = context.get_node("%WallsLayer")
-	var AL = context.get_node("%ApplesList")
+
+static func is_golden_spawn()-> bool:
+	return SnakeProps.OwnedUpgradesList.has_node("CollectApplesUpgrade") and \
+			randi() % GoldenApple.probability == 0
+
+static func instantiate(base: Vector2i):
+	var SM = SnakeProps.SM
+	var EM = SnakeProps.GameTiles.find_child("EnvironmentManager")
+	var MAP = SnakeProps.GameTiles.find_child("WallsLayer")
+	var AL = SnakeProps.ApplesList
+	
 	var instance: Apple = load("res://scenes/apple.tscn").instantiate()
+	if is_golden_spawn():
+		instance = load("res://scenes/golden_apple.tscn").instantiate()
 	var spawn_height = 15
 	var spawn_width = 20
 	var apple_pos = Vector2i(base.x + (randi() % spawn_width) - spawn_width/2, base.y + (randi() % spawn_height) - spawn_height/2)
@@ -27,20 +36,24 @@ static func instantiate(context, base: Vector2i):
 	SnakeProps.eatables_pos[apple_pos] = instance
 	AL.add_child(instance)
 
-func collect(area:Node) -> void:
-	Signals.apple_eaten.emit(self)
-	var SM = area.get_node("%SnakeManager")
-	SnakeProps.growth += 1
-	call_deferred("instantiate", area, SM.body[0])
-	var apple_eat_particles_1 = preload("res://particles/apple_eat_particles.tscn").instantiate()
-	apple_eat_particles_1.global_position = global_position
-	apple_eat_particles_1.start()
-	get_tree().root.add_child(apple_eat_particles_1)
-	SnakeProps.eatables_pos.erase(tiles_pos)
-	queue_free()
+func collect() -> void:
+	if !collecting:
+		collecting = true
+		#print("collected", self.tiles_pos)
+		Signals.apple_eaten.emit(self)
+		var SM = SnakeProps.SM
+		SnakeProps.growth += 1
+		#call_deferred("instantiate", SM.body[0])
+		Apple.instantiate(SnakeProps.SM.body[0])
+		var apple_eat_particles_1 = preload("res://particles/apple_eat_particles.tscn").instantiate()
+		apple_eat_particles_1.global_position = global_position
+		apple_eat_particles_1.start()
+		get_tree().root.add_child(apple_eat_particles_1)
+		SnakeProps.eatables_pos.erase(tiles_pos)
+		queue_free()
 	
 func _on_area_2d_area_entered(area:Area2D) -> void:
-	collect(area)
+	collect()
 
 
 func handle_attraction(delta):

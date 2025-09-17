@@ -239,7 +239,7 @@ func get_head_world_pos():
 
 func activable_apple_spawn():
 	if SnakeProps.consume_juice(1000):
-		Apple.instantiate(self, body[0])
+		Apple.instantiate(body[0])
 
 func smooth_actual_speed_step():
 	if actual_speed != SnakeProps.target_speed:

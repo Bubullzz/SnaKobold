@@ -2,7 +2,14 @@ extends Upgrade
 
 @export var ApplesList: Node #Node containing all the Apples on the Screen
 
+
 func on_selected():
+	Signals.golden_apple_eaten.connect(collect_everything)
+	self.get_parent().remove_child(self)
+	SnakeProps.OwnedUpgradesList.add_child(self)
+
+
+func collect_everything(a):
 	var sleep_time = 0.1
 	for apple in ApplesList.get_children():
 		if apple:
@@ -12,4 +19,4 @@ func on_selected():
 		
 
 func get_text()->String:
-	return "Collects ALL the apples on the Map !!!!!!"
+	return "Sometimes spawn Golden Apples... What could they do ? "

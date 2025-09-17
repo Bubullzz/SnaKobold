@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=58 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -16,17 +16,20 @@
 [ext_resource type="Script" uid="uid://csoqij2ke52e3" path="res://scripts/snake_manager.gd" id="7_ay4re"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="8_ikebx"]
 [ext_resource type="Texture2D" uid="uid://doqol7s06bexk" path="res://assets/environment/walls_kayouent.png" id="8_xtbsh"]
+[ext_resource type="Script" uid="uid://cxuqe2nlglvpx" path="res://game_tiles.gd" id="10_8slmw"]
 [ext_resource type="Texture2D" uid="uid://yytd6x6ypki1" path="res://assets/snake/head_can_jump.png" id="10_an1vu"]
 [ext_resource type="Script" uid="uid://wbfaxe2cnpoi" path="res://scripts/snake_additionnal_visuals.gd" id="11_borgi"]
 [ext_resource type="Texture2D" uid="uid://csaltvemdqev1" path="res://assets/snake/jump_eyes_can_jump.png" id="11_ih6an"]
 [ext_resource type="PackedScene" uid="uid://cc0eyljq0xmg2" path="res://particles/tail_particles.tscn" id="12_aomqu"]
 [ext_resource type="PackedScene" uid="uid://ct72d7078b807" path="res://particles/violetboomtscn.tscn" id="15_qpaub"]
 [ext_resource type="PackedScene" uid="uid://clnww3o11qs42" path="res://scenes/upgrades/max_juice_combo_upgrade.tscn" id="21_euc45"]
+[ext_resource type="Script" uid="uid://36oaieyglrwi" path="res://scripts/owned_upgrades_list.gd" id="23_u7wvl"]
 [ext_resource type="PackedScene" uid="uid://del46oh3slfr0" path="res://scenes/upgrades/min_juice_combo_upgrade.tscn" id="23_wt57k"]
 [ext_resource type="PackedScene" uid="uid://bk5p8mxyn8g3r" path="res://scenes/upgrades/collect_apples_upgrade.tscn" id="24_lght5"]
 [ext_resource type="PackedScene" uid="uid://x65kddtglbg2" path="res://scenes/upgrades/allowed_misses_upgrade.tscn" id="24_pk5u2"]
 [ext_resource type="PackedScene" uid="uid://45snk7d5y5m4" path="res://scenes/upgrades/additional_juice.tscn" id="26_lfj8l"]
 [ext_resource type="PackedScene" uid="uid://cw7i81e55qrv6" path="res://scenes/upgrades/explosive_apples.tscn" id="27_ac0cv"]
+[ext_resource type="Script" uid="uid://b74kinv5vdhup" path="res://apples_list.gd" id="28_6krrg"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -1184,6 +1187,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_wt57k")
 [node name="CanvasModulate" type="CanvasModulate" parent="MainCam/UpgradesManager"]
 
 [node name="GameTiles" type="Node" parent="."]
+script = ExtResource("10_8slmw")
 
 [node name="EnvironmentManager" type="Node" parent="GameTiles"]
 unique_name_in_owner = true
@@ -1243,6 +1247,9 @@ shape = SubResource("RectangleShape2D_krmtw")
 [node name="TailParticles" parent="." instance=ExtResource("12_aomqu")]
 position = Vector2(653, 312)
 
+[node name="OwnedUpgradesList" type="Node" parent="."]
+script = ExtResource("23_u7wvl")
+
 [node name="AllUpgradesList" type="Node" parent="."]
 unique_name_in_owner = true
 
@@ -1254,6 +1261,7 @@ unique_name_in_owner = true
 
 [node name="CollectApplesUpgrade" parent="AllUpgradesList" node_paths=PackedStringArray("ApplesList") instance=ExtResource("24_lght5")]
 ApplesList = NodePath("../../ApplesList")
+auto_select = false
 
 [node name="AdditionalJuice" parent="AllUpgradesList" instance=ExtResource("26_lfj8l")]
 
@@ -1261,5 +1269,6 @@ ApplesList = NodePath("../../ApplesList")
 
 [node name="ApplesList" type="Node" parent="."]
 unique_name_in_owner = true
+script = ExtResource("28_6krrg")
 
 [connection signal="timeout" from="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
