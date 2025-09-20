@@ -19,8 +19,9 @@ var body : Array[Vector2i] = []
 var curr_dir : Direction.DIR = Direction.DIR.RIGHT
 var clock : int = 0 # The clock used for updating the snake. One pixel per tick
 var clock_collector : float = 0.0
-var actual_speed = SnakeProps.target_speed
-
+var target_speed = 2
+var speed = target_speed
+var speed_tweener: Tween
 
 func is_snake(pos):
 	return %SnakeLayer.get_cell_source_id(pos) == GROUND_ID || %snakeJumpingLayer.get_cell_source_id(pos) == JUMP_ID
@@ -54,7 +55,6 @@ func check_accessible(pos):
 		if %EnvironmentManager.is_wall(pos + Direction.dir_to_vec(dir)):
 			sum += 1
 	return sum < 3
-
 
 func place_snake(pos):
 	for i in range(4):
@@ -114,6 +114,14 @@ func pop_tail():
 	else:
 		%SnakeLayer.set_cell(old_tail_co)
 
+func tween_speed(start:float, end:float, duration: float):
+	if start > 0.:
+		speed = start
+	if speed_tweener:
+		speed_tweener.kill()
+	speed_tweener = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+	speed_tweener.tween_property(self, "speed", end, duration)
+	
 
 func handle_collision():
 	var real_coor_hit_pos = %SnakeLayer.map_to_local(body[0])
@@ -128,7 +136,7 @@ func handle_collision():
 		else:
 			%SnakeLayer.set_cell(poped)
 		send_back_amaount -= 1
-	actual_speed = 0.1
+	tween_speed(.1, target_speed, 2.5)
 	curr_dir = Direction.cells_to_dir(body[1], body[0])
 	var ideal_cam_pos = body[0] + 1 * Direction.dir_to_vec(Direction.opp(curr_dir))
 	%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 1, 4.)
@@ -241,10 +249,6 @@ func activable_apple_spawn():
 	if SnakeProps.consume_juice(1000):
 		Apple.instantiate(body[0])
 
-func smooth_actual_speed_step():
-	if actual_speed != SnakeProps.target_speed:
-		actual_speed = min(SnakeProps.target_speed, actual_speed + 0.02)
-
 
 func _on_clock_tick() -> void:
 	clock = (clock + 1) % 16
@@ -254,7 +258,6 @@ func _on_clock_tick() -> void:
 		step(last_jump_frame)
 	if SnakeProps.game_state == SnakeProps.GAME_STATE.GAME_OVER:
 		return
-	smooth_actual_speed_step()
 	if clock < 4:
 		update_pre_head_sp()
 	if SnakeProps.growth == 0 && clock >= 12:
@@ -269,11 +272,11 @@ func _process(delta: float) -> void:
 	delta = delta * 1000 # get it in ms
 	delta = delta * 1000 # get it in ns
 	clock_collector += delta
-	if SnakeProps.game_state == SnakeProps.GAME_STATE.RUNNING && clock_collector * actual_speed > clock_rate:
-		for i in range(int(clock_collector * actual_speed / clock_rate)):
+	if SnakeProps.game_state == SnakeProps.GAME_STATE.RUNNING && clock_collector * speed > clock_rate:
+		for i in range(int(clock_collector * speed / clock_rate)):
 			_on_clock_tick()
 
-		clock_collector = int(clock_collector) % (int(clock_rate / actual_speed))
+		clock_collector = int(clock_collector) % (int(clock_rate / speed))
 
 
 func _ready() -> void:

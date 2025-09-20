@@ -99,13 +99,17 @@ func _on_juice_end_animation_timer_timeout() -> void:
 func pause():
 	$JuiceDespawnTimer.paused = true
 	$JuiceEndAnimationTimer.paused = true
-	spill_tween.pause()
-	transparency_tween.pause()
+	if spill_tween:
+		spill_tween.pause()
+	if transparency_tween:
+		transparency_tween.pause()
 	$JuiceAnimated.pause()
 
 func play():
 	$JuiceDespawnTimer.paused = false
 	$JuiceEndAnimationTimer.paused = false
-	spill_tween.play()
-	transparency_tween.play()
+	if spill_tween:
+		spill_tween.play()
+	if transparency_tween:
+		transparency_tween.play()
 	$JuiceAnimated.play()

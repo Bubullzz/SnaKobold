@@ -69,7 +69,7 @@ func _process(delta: float) -> void:
 			var dir_scaled = anchor - snake_head_pos # Vector of norm 1 in the right direction (conversion from tiles to local coordinates)
 
 			var head_offset = (dir_scaled * %SnakeManager.clock) / 16 # where is the head inside its tile, prevents jittering
-			var ideal_pos =  %SnakeLayer.map_to_local(%SnakeManager.body[0] + (int(lookahead * %SnakeManager.actual_speed)) * Direction.dir_to_vec(%SnakeManager.curr_dir)) + head_offset
+			var ideal_pos =  %SnakeLayer.map_to_local(%SnakeManager.body[0] + (int(lookahead * %SnakeManager.speed)) * Direction.dir_to_vec(%SnakeManager.curr_dir)) + head_offset
 
-			position = lerp(position, ideal_pos, basic_movement_speed_factor * %SnakeManager.actual_speed * delta)
+			position = lerp(position, ideal_pos, basic_movement_speed_factor * %SnakeManager.speed * delta)
 	handle_shake(delta)

@@ -15,7 +15,6 @@ var min_juice_combo = 1
 var nb_juices_missed = 0
 var max_allowed_misses = 0
 var jump_price = 500
-var target_speed = 2
 var growth : int = 0
 var SM : Node # The SnakeManager
 var ApplesList : Node
@@ -33,7 +32,13 @@ func growing() -> bool:
 		return true
 	return false
 
+func pause_time():
+	JuicesList.pause()
 
+
+func play_time():
+	JuicesList.play()
+	
 func update_juice_combo(value: int) -> void:
 	var old = juice_combo
 	juice_combo = min(value, max_juice_combo)
