@@ -34,12 +34,11 @@ func collect() -> void:
 		
 		queue_free()
 	
-func _on_area_2d_area_entered(area:Area2D) -> void:
+func _on_area_2d_area_entered(_area:Area2D) -> void:
 	collect()
 
 
-func handle_attraction(delta):
-	var speed = 10
+func handle_attraction(_delta):
 	if is_attracted:
 		pass
 
