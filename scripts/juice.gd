@@ -8,12 +8,16 @@ var last_frame_duration = 4
 var tot_frames = nb_frames + last_frame_duration - 1
 var fps = tot_frames / base_wait_time
 var max_spill_time = 8
+var spill_tween
+var transparency_tween
 var start = Time.get_ticks_msec()
 var tiles_pos: Vector2i
 var SM
 
 var end_animation_time = 0.5 # Time to make the juice disappear
 var spill_time = base_wait_time - end_animation_time
+
+
 static func instantiate(context, base: Vector2i):
 	var LOC_SM = context.get_node("%SnakeManager")
 	var EM = context.get_node("%EnvironmentManager")
@@ -21,7 +25,6 @@ static func instantiate(context, base: Vector2i):
 	var instance: Juice = load("res://scenes/juice.tscn").instantiate().duplicate()
 	instance.get_node("JuiceDespawnTimer").wait_time = instance.base_wait_time
 	instance.get_node("JuiceEndAnimationTimer").wait_time = instance.base_wait_time - instance.end_animation_time
-	#instance.get_node("SpillingStopper").wait_time = instance.base_wait_time - instance.end_animationT_time - 0.2
 	instance.get_node("JuiceAnimated").speed_scale = instance.fps
 	instance.get_node("JuiceAnimated").frame = 0
 	instance.get_node("JuiceAnimated").play()
@@ -52,41 +55,36 @@ func _on_collision_zone_area_entered(area:Area2D) -> void:
 	PopUpText.spawn_juice_popup(self, "x%d" % [jc], global_position, jc)
 	queue_free()
 
-
+func start_transparency_tween():
+	transparency_tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
+	transparency_tween.tween_method(func(v): $ShaderSpill.material.set_shader_parameter("transparency", v), 1.0,0.0,max_spill_time)
+	
+	
 func _on_timer_timeout() -> void: # The juice is spilled
+	start_transparency_tween()
 	SnakeProps.eatables_pos.erase(tiles_pos)
 	instantiate(SM, SM.body[0])
 	var jc = SnakeProps.juice_combo # Stocking it before the potential reset
 	if SnakeProps.on_juice_spilled(): # Reseted combo
-		if jc > 3:
+		if jc > SnakeProps.min_juice_combo + 3:
 			var t = preload("res://scenes/pop_up_text.tscn").instantiate()
 			t.initialize_combo_break(global_position, jc)
 			get_tree().root.add_child(t)
 	else:
-		if jc > 3:
+		if jc > SnakeProps.min_juice_combo + 3:
 			var t = preload("res://scenes/pop_up_text.tscn").instantiate()
 			t.initialize("%d misses left !" % [SnakeProps.max_allowed_misses - SnakeProps.nb_juices_missed], global_position)
 			get_tree().root.add_child(t)
+	
 	$CollisionZone.queue_free()
 
 
-func _process(_delta: float) -> void:
-	var elapsed = Time.get_ticks_msec() - start
-	if elapsed > spill_time * 1000: # spilled
-		var weight = (elapsed - spill_time * 1000) / (max_spill_time * 1000)
-		$ShaderSpill.material.set_shader_parameter("transparency", 1 - weight)
-	else:
-		$ShaderSpill.material.set_shader_parameter("threshold", elapsed/spill_time/1000)
-
-
 func _ready() -> void:
-	#$ShaderSpill.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
-	#$ShaderSpill.set_instance_shader_parameter("end_time", -1.)
 	$ShaderSpill.material.set_shader_parameter("threshold", 0)
+	spill_tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
+	spill_tween.tween_method(func(v): $ShaderSpill.material.set_shader_parameter("threshold", v), 0.0,1.0,spill_time)
+	
 	$ShaderSpill.material.get_shader_parameter("perlin").noise.seed = randi()
-	#$ShaderSpill.material.get_shader_parameter("perlin").noise.seed = randi()
-
-	#$JuiceAnimated.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
 
 
 func _on_juice_end_animation_timer_timeout() -> void:

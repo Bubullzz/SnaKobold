@@ -7,7 +7,6 @@ static var time_between_two_spawns = 5000
 
 
 static func is_gapple_spawn()-> bool:
-	print(SnakeProps.OwnedUpgradesList.has_node("./CollectApplesUpgrade"))
 	if !SnakeProps.OwnedUpgradesList.has_node("./CollectApplesUpgrade"):
 		return false
 	if Time.get_ticks_msec() - last_gapple_eaten < time_between_two_spawns:

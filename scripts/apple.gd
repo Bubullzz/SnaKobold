@@ -29,12 +29,11 @@ static func instantiate(base: Vector2i):
 	instance.position = MAP.map_to_local(apple_pos)
 	instance.tiles_pos = apple_pos
 	SnakeProps.eatables_pos[apple_pos] = instance
-	AL.add_child(instance)
+	AL.call_deferred("add_child", instance)
 
 func collect() -> void:
 	if !collecting:
 		collecting = true
-		#print("collected", self.tiles_pos)
 		Signals.apple_eaten.emit(self)
 		var SM = SnakeProps.SM
 		SnakeProps.growth += 1
