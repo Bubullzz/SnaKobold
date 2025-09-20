@@ -1,25 +1,27 @@
 [gd_scene load_steps=27 format=3 uid="uid://i5y6bbdqnceq"]
 
 [ext_resource type="Script" uid="uid://c340yvs0n4034" path="res://scripts/juice.gd" id="1_aff67"]
-[ext_resource type="Shader" uid="uid://vdwatpnyn5x5" path="res://scripts/spill.gdshader" id="2_trhbi"]
+[ext_resource type="Shader" uid="uid://kd1l7g5j5upr" path="res://visual_shader.tres" id="2_8y0fe"]
 [ext_resource type="Shader" uid="uid://cohheif66x15i" path="res://scripts/diagonal_white_spawn.gdshader" id="3_8y0fe"]
 [ext_resource type="Texture2D" uid="uid://b6gt7tsqs46xk" path="res://assets/apples/juicev2-sheet.png" id="3_trhbi"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_j007e"]
-resource_local_to_scene = true
-noise_type = 3
-frequency = 0.0014
-offset = Vector3(216.22, 131.73, 0)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_riuid"]
+frequency = 0.0013
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cpygh"]
-resource_local_to_scene = true
-noise = SubResource("FastNoiseLite_j007e")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8y0fe"]
+noise = SubResource("FastNoiseLite_riuid")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q53dc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j007e"]
 resource_local_to_scene = true
-shader = ExtResource("2_trhbi")
-shader_parameter/color = Color(0.631373, 0.262745, 0.52549, 1)
-shader_parameter/perlin = SubResource("NoiseTexture2D_cpygh")
+shader = ExtResource("2_8y0fe")
+shader_parameter/max_transparency = 0.8
+shader_parameter/transparency = 1.0
+shader_parameter/pixel_size = 0.026
+shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_8y0fe")
+shader_parameter/distance_impact = 0.809
+shader_parameter/start_threshold = 0.526
+shader_parameter/threshold = 1.0
+shader_parameter/max_threshold = 0.282
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trhbi"]
 shader = ExtResource("3_8y0fe")
@@ -152,9 +154,9 @@ script = ExtResource("1_aff67")
 
 [node name="ShaderSpill" type="ColorRect" parent="."]
 modulate = Color(1, 1, 0, 1)
-self_modulate = Color(0, 1, 1, 1)
+self_modulate = Color(0, 1, 1, 0)
 z_index = -10
-material = SubResource("ShaderMaterial_q53dc")
+material = SubResource("ShaderMaterial_j007e")
 offset_left = -27.0
 offset_top = -28.0
 offset_right = 28.0
@@ -178,11 +180,6 @@ autostart = true
 one_shot = true
 autostart = true
 
-[node name="SpillingStopper" type="Timer" parent="."]
-one_shot = true
-autostart = true
-
 [connection signal="area_entered" from="CollisionZone" to="." method="_on_collision_zone_area_entered"]
 [connection signal="timeout" from="JuiceDespawnTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="JuiceEndAnimationTimer" to="." method="_on_juice_end_animation_timer_timeout"]
-[connection signal="timeout" from="SpillingStopper" to="." method="_on_spilling_stopper_timeout"]

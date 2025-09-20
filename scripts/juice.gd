@@ -12,16 +12,16 @@ var start = Time.get_ticks_msec()
 var tiles_pos: Vector2i
 var SM
 
-var end_animationT_time = 0.5 # Time to make the juice disappear
-
+var end_animation_time = 0.5 # Time to make the juice disappear
+var spill_time = base_wait_time - end_animation_time
 static func instantiate(context, base: Vector2i):
 	var LOC_SM = context.get_node("%SnakeManager")
 	var EM = context.get_node("%EnvironmentManager")
 	var MAP = context.get_node("%WallsLayer")
 	var instance: Juice = load("res://scenes/juice.tscn").instantiate().duplicate()
 	instance.get_node("JuiceDespawnTimer").wait_time = instance.base_wait_time
-	instance.get_node("JuiceEndAnimationTimer").wait_time = instance.base_wait_time - instance.end_animationT_time
-	instance.get_node("SpillingStopper").wait_time = instance.base_wait_time - instance.end_animationT_time - 0.2
+	instance.get_node("JuiceEndAnimationTimer").wait_time = instance.base_wait_time - instance.end_animation_time
+	#instance.get_node("SpillingStopper").wait_time = instance.base_wait_time - instance.end_animationT_time - 0.2
 	instance.get_node("JuiceAnimated").speed_scale = instance.fps
 	instance.get_node("JuiceAnimated").frame = 0
 	instance.get_node("JuiceAnimated").play()
@@ -72,18 +72,20 @@ func _on_timer_timeout() -> void: # The juice is spilled
 
 func _process(_delta: float) -> void:
 	var elapsed = Time.get_ticks_msec() - start
-	if elapsed > base_wait_time * 1000: # spilled
-		var weight = (elapsed - base_wait_time * 1000) / (max_spill_time * 1000)
-		$ShaderSpill.set_instance_shader_parameter("spill_transparency", weight)
+	if elapsed > spill_time * 1000: # spilled
+		var weight = (elapsed - spill_time * 1000) / (max_spill_time * 1000)
+		$ShaderSpill.material.set_shader_parameter("transparency", 1 - weight)
+	else:
+		$ShaderSpill.material.set_shader_parameter("threshold", elapsed/spill_time/1000)
 
 
 func _ready() -> void:
-	$ShaderSpill.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
-	$ShaderSpill.set_instance_shader_parameter("end_time", -1.)
-	$ShaderSpill.set_instance_shader_parameter("base_wait_time", base_wait_time)
-	$ShaderSpill.material.get_shader_parameter("perlin").noise.seed = randi()
+	#$ShaderSpill.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
+	#$ShaderSpill.set_instance_shader_parameter("end_time", -1.)
+	$ShaderSpill.material.set_shader_parameter("threshold", 0)
+	#$ShaderSpill.material.get_shader_parameter("perlin").noise.seed = randi()
 
-	$JuiceAnimated.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
+	#$JuiceAnimated.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)
 
 
 func _on_juice_end_animation_timer_timeout() -> void:
@@ -91,12 +93,8 @@ func _on_juice_end_animation_timer_timeout() -> void:
 	const DISTANCE:= 1.5
 	var t := create_tween()
 	var init_pos = $JuiceAnimated.position.x
-	t.tween_method(func(x): $JuiceAnimated.position.x = init_pos + sin(x * 2) * DISTANCE, 0.0, PI * OSCILLATIONS, end_animationT_time)
+	t.tween_method(func(x): $JuiceAnimated.position.x = init_pos + sin(x * 2) * DISTANCE, 0.0, PI * OSCILLATIONS, end_animation_time)
 
 	var t2 := create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
-	t2.tween_property($JuiceAnimated, "modulate", Color(1, 1, 1, 0), end_animationT_time)
+	t2.tween_property($JuiceAnimated, "modulate", Color(1, 1, 1, 0), end_animation_time)
 	
-
-
-func _on_spilling_stopper_timeout() -> void:
-	$ShaderSpill.set_instance_shader_parameter("end_time", Time.get_ticks_msec() / 1000.0 - .2)
