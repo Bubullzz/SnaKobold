@@ -8,8 +8,8 @@ var last_frame_duration = 4
 var tot_frames = nb_frames + last_frame_duration - 1
 var fps = tot_frames / base_wait_time
 var max_spill_time = 8
-var spill_tween
-var transparency_tween
+var spill_tween : Tween
+var transparency_tween : Tween
 var start = Time.get_ticks_msec()
 var tiles_pos: Vector2i
 var SM
@@ -40,11 +40,10 @@ static func instantiate(context, base: Vector2i):
 		spawn_width += 1
 		juice_pos = Vector2i(base.x + (randi() % spawn_width) - spawn_width/2, base.y + (randi() % spawn_height) - spawn_height/2)
 
-	
 	instance.position = MAP.map_to_local(juice_pos)
 	instance.tiles_pos = juice_pos
 	SnakeProps.eatables_pos[juice_pos] = instance
-	context.get_tree().root.add_child(instance)
+	SnakeProps.JuicesList.add_child(instance)
 
 
 func _on_collision_zone_area_entered(area:Area2D) -> void:
@@ -96,4 +95,17 @@ func _on_juice_end_animation_timer_timeout() -> void:
 
 	var t2 := create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
 	t2.tween_property($JuiceAnimated, "modulate", Color(1, 1, 1, 0), end_animation_time)
-	
+
+func pause():
+	$JuiceDespawnTimer.paused = true
+	$JuiceEndAnimationTimer.paused = true
+	spill_tween.pause()
+	transparency_tween.pause()
+	$JuiceAnimated.pause()
+
+func play():
+	$JuiceDespawnTimer.paused = false
+	$JuiceEndAnimationTimer.paused = false
+	spill_tween.play()
+	transparency_tween.play()
+	$JuiceAnimated.play()

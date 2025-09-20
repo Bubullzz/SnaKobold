@@ -19,6 +19,7 @@ var target_speed = 2
 var growth : int = 0
 var SM : Node # The SnakeManager
 var ApplesList : Node
+var JuicesList : Node
 var JuiceBar : Node
 var GameTiles : Node
 var UM : UpgradesManager

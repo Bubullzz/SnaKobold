@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=59 format=3 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://45snk7d5y5m4" path="res://scenes/upgrades/additional_juice.tscn" id="26_lfj8l"]
 [ext_resource type="PackedScene" uid="uid://cw7i81e55qrv6" path="res://scenes/upgrades/explosive_apples.tscn" id="27_ac0cv"]
 [ext_resource type="Script" uid="uid://b74kinv5vdhup" path="res://apples_list.gd" id="28_6krrg"]
+[ext_resource type="Script" uid="uid://be7xff3nau8q8" path="res://scripts/juices_list.gd" id="30_onx7j"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -1264,6 +1265,10 @@ ApplesList = NodePath("../../ApplesList")
 [node name="AdditionalJuice" parent="AllUpgradesList" instance=ExtResource("26_lfj8l")]
 
 [node name="ExplosiveApples" parent="AllUpgradesList" instance=ExtResource("27_ac0cv")]
+
+[node name="JuicesList" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("30_onx7j")
 
 [node name="ApplesList" type="Node" parent="."]
 unique_name_in_owner = true
