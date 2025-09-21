@@ -2,7 +2,7 @@ extends Node
 
 enum BODY_PART {HEAD, PRE_HEAD, BODY, PRE_TAIL, TAIL}
 var GROUND_ID = 1
-var JUMP_ID = 1 
+var JUMP_ID = 2
 var APPLE_ID = 1
 var JUICE_ID = 0
 var HEAD_BASE = Vector2i(0,0)
@@ -36,7 +36,7 @@ func is_jump_snake(pos):
 
 
 func is_free(pos):
-	return %SnakeLayer.get_cell_source_id(pos) == -1 && %snakeJumpingLayer.get_cell_source_id(pos) == -1 && !%EnvironmentManager.is_wall(pos)
+	return %SnakeLayer.get_cell_source_id(pos) == -1 && %snakeJumpingLayer.get_cell_source_id(pos) == -1 && !%EnvironmentManager.is_wall(pos) && !%EnvironmentManager.is_jumpable_wall(pos)
 
 
 func get_body_index(pos: Vector2i) -> int:
@@ -95,7 +95,8 @@ func pop_tail():
 	var old_tail_co = body.pop_back()
 	if %snakeJumpingLayer.get_cell_source_id(old_tail_co) == (JUMP_ID):
 		%snakeJumpingLayer.set_cell(old_tail_co)
-		if ! %EnvironmentManager.is_wall(old_tail_co): # If not in wall then the tail is passing under body and needs update
+		if is_ground_snake(old_tail_co): # the tail is passing under body and needs update
+			print("HERE")
 			var index = get_body_index(old_tail_co)
 			if index == -1:
 				print("Error: Tail not found in body")
@@ -110,9 +111,13 @@ func pop_tail():
 				var base_pos = PRE_HEAD_BASE # Where do we begin the table in the sprites sheet
 				var pre_head = base_pos + Vector2i(int(post_dir) * 4, int(pre_dir)) # start on top left of table then select right line and col using order up, down, left, right
 				%SnakeLayer.set_cell(body[1], GROUND_ID, pre_head + Vector2i(3, 0)) # Here we put 4 because we want the sprite at end of animation
-
+		else:
+			%SnakeLayer.set_cell(old_tail_co)
+			%snakeJumpingLayer.set_cell(old_tail_co)
+			
 	else:
 		%SnakeLayer.set_cell(old_tail_co)
+
 
 func tween_speed(start:float, end:float, duration: float):
 	if start > 0.:
@@ -175,7 +180,7 @@ func step(jumped_last_frame : bool):
 
 	# Update body data
 	var expected_head_pos = body[0] + Direction.dir_to_vec(curr_dir)
-	if is_snake(expected_head_pos) || %EnvironmentManager.is_wall(expected_head_pos):
+	if is_snake(expected_head_pos) || %EnvironmentManager.is_wall(expected_head_pos) || %EnvironmentManager.is_jumpable_wall(expected_head_pos):
 		if ! is_jump_snake(expected_head_pos) && check_not_waisting(expected_head_pos): # && juice > jump_price // this may solve bug
 			jumping_frame = true
 			body.push_front(expected_head_pos) 
@@ -214,19 +219,26 @@ func update_pre_head_sp() -> void :
 	
 
 func update_pre_tail_sp() -> void :
-	var pre_tail = Direction.cells_to_dir(body[-3], body[-2])
-	var post_tail = Direction.cells_to_dir(body[-2], body[-1]) # Reversed reading order for same indexing as pre_head
-	if pre_tail == post_tail: # Going straight
-		%SnakeLayer.set_cell(body[-2], GROUND_ID, PRE_TAIL_BASE + Vector2i(clock - 12, 0), dir_to_atlas_transform(pre_tail))
-	else:
-		var pre_head = PRE_TAIL_BASE + Vector2i(int(post_tail) * 4, int(pre_tail)) # start on top left of table then select right line and col using order up, down, left, right
-		%SnakeLayer.set_cell(body[-2], GROUND_ID, pre_head + Vector2i(clock - 12, 0))
+	if is_ground_snake(body[-2]):
+		var pre_tail = Direction.cells_to_dir(body[-3], body[-2])
+		var post_tail = Direction.cells_to_dir(body[-2], body[-1]) # Reversed reading order for same indexing as pre_head
+		if pre_tail == post_tail: # Going straight
+			%SnakeLayer.set_cell(body[-2], GROUND_ID, PRE_TAIL_BASE + Vector2i(clock - 12, 0), dir_to_atlas_transform(pre_tail))
+		else:
+			var pre_head = PRE_TAIL_BASE + Vector2i(int(post_tail) * 4, int(pre_tail)) # start on top left of table then select right line and col using order up, down, left, right
+			%SnakeLayer.set_cell(body[-2], GROUND_ID, pre_head + Vector2i(clock - 12, 0))
 
 
 func update_tail_sp():
+	var layer = %snakeJumpingLayer
+	var ID = JUMP_ID
+	if is_ground_snake(body[-1]):
+		layer = %SnakeLayer
+		ID = GROUND_ID
 	var tail_dir = Direction.cells_to_dir(body[-2], body[-1])
 	var tail = TAIL_BASE + Vector2i(clock, 0)
-	%SnakeLayer.set_cell(body[-1], GROUND_ID, tail, dir_to_atlas_transform(tail_dir))
+	layer.set_cell(body[-1], ID, tail, dir_to_atlas_transform(tail_dir))
+	#%snakeJumpingLayer.set_cell(body[-1], JUMP_ID, tail, dir_to_atlas_transform(tail_dir))
 
 func update_head_sp():
 	var head = HEAD_BASE + Vector2i(clock, 0)

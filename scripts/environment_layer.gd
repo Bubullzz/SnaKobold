@@ -1,8 +1,9 @@
 extends Node
 
-enum CELL_TYPE {WALL, FLOOR}
+enum CELL_TYPE {JUMPABLE_WALL, WALL, FLOOR}
 
 var _cell_to_id = {
+	CELL_TYPE.JUMPABLE_WALL : 0,
 	CELL_TYPE.WALL : 1,
 	CELL_TYPE.FLOOR : 2
 }
@@ -13,6 +14,9 @@ var _id_to_cell = Utils.reverse_dict(_cell_to_id)
 
 func is_wall(pos : Vector2i) -> bool:
 	return %WallsLayer.get_cell_source_id(pos) == _cell_to_id[CELL_TYPE.WALL]
+
+func is_jumpable_wall(pos : Vector2i) -> bool:
+	return %WallsLayer.get_cell_source_id(pos) == _cell_to_id[CELL_TYPE.JUMPABLE_WALL]
 
 func set_floor(pos : Vector2i) -> void:
 	%FloorLayer.set_cell(pos, _cell_to_id[CELL_TYPE.FLOOR], Vector2i(0,0))
