@@ -92,6 +92,6 @@ func generate_map() -> Array[Array]:
 func _ready():
 	side_range = max_side - min_side
 	middle = Vector2i(height / 2, width / 2)
-	generate_map()
+	#generate_map()
 	
 	
