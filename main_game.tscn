@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=63 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cdjli6uphyjgm" path="res://assets/environment/floor.png" id="2_w6ewh"]
 [ext_resource type="PackedScene" uid="uid://ckv0w7wxajg7f" path="res://scenes/UpgradeButton.tscn" id="3_ih6an"]
 [ext_resource type="Script" uid="uid://dot621t2hyt0" path="res://base_ui.gd" id="3_pk5u2"]
+[ext_resource type="Shader" uid="uid://cw8bsn1bdgasc" path="res://scripts/main_cam_shader.tres" id="3_x5kvo"]
 [ext_resource type="Script" uid="uid://dd5bubhlbxguu" path="res://scripts/juice_bar.gd" id="4_jgkyn"]
 [ext_resource type="Shader" uid="uid://bjsr0upeha5oa" path="res://scripts/opening.gdshader" id="4_krmtw"]
 [ext_resource type="Script" uid="uid://cugpie3yoygwt" path="res://scripts/environment_layer.gd" id="5_bfbmu"]
@@ -38,6 +39,13 @@ frequency = 0.0808
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rk40v"]
 noise = SubResource("FastNoiseLite_r51s0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5kvo"]
+shader = ExtResource("3_x5kvo")
+shader_parameter/edge = 0.034
+shader_parameter/HeadPosInCamera = Vector2(0.8, 0.5)
+shader_parameter/first = 0.411
+shader_parameter/intensity = 1.016
 
 [sub_resource type="LabelSettings" id="LabelSettings_wt57k"]
 font = ExtResource("8_ikebx")
@@ -1027,10 +1035,20 @@ tunnels_per_rectangle = 6
 
 [node name="MainCam" type="Camera2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(28, 17)
 process_callback = 0
 position_smoothing_speed = 2.0
 script = ExtResource("2_uddo3")
+
+[node name="CanvasForShader" type="CanvasLayer" parent="MainCam"]
+
+[node name="ColorRect" type="ColorRect" parent="MainCam/CanvasForShader"]
+material = SubResource("ShaderMaterial_x5kvo")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.498039, 1, 1)
 
 [node name="BaseUI" type="CanvasLayer" parent="MainCam"]
 script = ExtResource("3_pk5u2")
