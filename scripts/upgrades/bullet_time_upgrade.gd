@@ -22,13 +22,12 @@ func on_selected():
 	self.get_parent().remove_child(self)
 	SnakeProps.OwnedUpgradesList.add_child(self)
 	
-	
 func _process(delta: float) -> void:
 	if !owned:
 		return
 	if Input.is_action_just_pressed("Action"):
 		$TimeBeforeStart.start()
-	if is_slowing and (!SnakeProps.consume_juice(delta * price_per_second) or Input.is_action_just_released("Action")):
+	if is_slowing and (!SnakeProps.consume_juice(delta * price_per_second) or !Input.is_action_pressed("Action")):
 		is_slowing = false
 		reset_everything()
 
