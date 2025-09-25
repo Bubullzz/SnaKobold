@@ -45,7 +45,7 @@ noise = SubResource("FastNoiseLite_r51s0")
 shader = ExtResource("3_x5kvo")
 shader_parameter/edge = 0.034
 shader_parameter/HeadPosInCamera = Vector2(0.8, 0.5)
-shader_parameter/first = -0.076
+shader_parameter/first = -0.1
 shader_parameter/intensity = 1.016
 shader_parameter/second = 0.0
 
@@ -1050,7 +1050,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.498039, 1, 1)
+color = Color(0.0862745, 0.0352941, 0.0705882, 1)
 
 [node name="BaseUI" type="CanvasLayer" parent="MainCam"]
 script = ExtResource("3_pk5u2")
@@ -1257,6 +1257,7 @@ tile_set = SubResource("TileSet_q333y")
 
 [node name="SnakeAdditionnalVisuals" type="TileMapLayer" parent="GameTiles"]
 unique_name_in_owner = true
+visible = false
 z_index = 810
 tile_set = SubResource("TileSet_borgi")
 script = ExtResource("11_borgi")
@@ -1316,6 +1317,7 @@ slowing_factor = 4.0
 snake_speed_slowdown_time = 2.0
 start_shockwave_time = 5.0
 stop_shockwave_time = 2.0
+auto_select = true
 
 [node name="JuicesList" type="Node" parent="."]
 unique_name_in_owner = true
