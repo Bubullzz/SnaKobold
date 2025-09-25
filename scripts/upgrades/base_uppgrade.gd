@@ -8,7 +8,7 @@ class_name Upgrade
 func _ready() -> void:
 	if auto_select:
 		print("auto-selected : ", self)
-		on_selected()
+		call_deferred("on_selected")
 
 func on_selected():
 	print("selected Dummy")

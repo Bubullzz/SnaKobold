@@ -99,10 +99,7 @@ func pause():
 	$JuiceDespawnTimer.paused = true
 	$JuiceEndAnimationTimer.paused = true
 	if spill_tween:
-		print("found spill_tween")
 		spill_tween.pause()
-	else:
-		print("not found spill_tween")
 	if transparency_tween:
 		transparency_tween.pause()
 	$JuiceAnimated.pause()
