@@ -32,9 +32,7 @@ func start_upgrade_sequence():
 	
 func end_upgrade_sequence():
 	SnakeProps.JuicesList.play()
-
 	flush_tweens()
-	Engine.time_scale = max(Engine.time_scale,0.1)
 	upgrading = false
 	var alpha_tween = get_tree().create_tween().set_trans(Tween.TRANS_QUINT)#.set_ease(Tween.EASE_OUT)
 	alpha_tween.tween_property($Controller, "modulate:a", 0, .1)	

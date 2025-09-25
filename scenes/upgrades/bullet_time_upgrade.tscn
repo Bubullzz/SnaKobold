@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://2kd7qs23m6ml"]
+
+[ext_resource type="Script" uid="uid://ptkqoewseduu" path="res://scripts/upgrades/bullet_time_upgrade.gd" id="1_hn10l"]
+
+[node name="BulletTimeUpgrade" type="Node2D"]
+script = ExtResource("1_hn10l")
+
+[node name="TimeBeforeStart" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="TimeBeforeStart" to="." method="_on_time_before_start_timeout"]

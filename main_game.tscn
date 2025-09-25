@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=64 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://bk5p8mxyn8g3r" path="res://scenes/upgrades/collect_apples_upgrade.tscn" id="24_lght5"]
 [ext_resource type="PackedScene" uid="uid://x65kddtglbg2" path="res://scenes/upgrades/allowed_misses_upgrade.tscn" id="24_pk5u2"]
 [ext_resource type="PackedScene" uid="uid://45snk7d5y5m4" path="res://scenes/upgrades/additional_juice.tscn" id="26_lfj8l"]
+[ext_resource type="PackedScene" uid="uid://2kd7qs23m6ml" path="res://scenes/upgrades/bullet_time_upgrade.tscn" id="26_pjvg0"]
 [ext_resource type="PackedScene" uid="uid://cw7i81e55qrv6" path="res://scenes/upgrades/explosive_apples.tscn" id="27_ac0cv"]
 [ext_resource type="Script" uid="uid://b74kinv5vdhup" path="res://apples_list.gd" id="28_6krrg"]
 [ext_resource type="Script" uid="uid://be7xff3nau8q8" path="res://scripts/juices_list.gd" id="30_onx7j"]
@@ -44,8 +45,9 @@ noise = SubResource("FastNoiseLite_r51s0")
 shader = ExtResource("3_x5kvo")
 shader_parameter/edge = 0.034
 shader_parameter/HeadPosInCamera = Vector2(0.8, 0.5)
-shader_parameter/first = 0.411
+shader_parameter/first = -0.076
 shader_parameter/intensity = 1.016
+shader_parameter/second = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_wt57k"]
 font = ExtResource("8_ikebx")
@@ -1306,6 +1308,15 @@ ApplesList = NodePath("../../ApplesList")
 
 [node name="ExplosiveApples" parent="AllUpgradesList" instance=ExtResource("27_ac0cv")]
 
+[node name="BulletTimeUpgrade" parent="AllUpgradesList" node_paths=PackedStringArray("GrayScaledRect", "upgrades_manager", "main_cam") instance=ExtResource("26_pjvg0")]
+GrayScaledRect = NodePath("../../MainCam/CanvasForShader/ColorRect")
+upgrades_manager = NodePath("../../MainCam/UpgradesManager")
+main_cam = NodePath("../../MainCam")
+slowing_factor = 4.0
+snake_speed_slowdown_time = 2.0
+start_shockwave_time = 5.0
+stop_shockwave_time = 2.0
+
 [node name="JuicesList" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("30_onx7j")
@@ -1315,3 +1326,4 @@ unique_name_in_owner = true
 script = ExtResource("28_6krrg")
 
 [connection signal="timeout" from="MainCam/BaseUI/Control/MarginContainer/HBoxContainer/JuiceBar/JuiceBar/JuiceRemoveTimer" to="GameTiles/SnakeManager" method="_on_timer_timeout"]
+[connection signal="child_entered_tree" from="JuicesList" to="JuicesList" method="_on_child_entered_tree"]

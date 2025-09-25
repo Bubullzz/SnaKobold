@@ -19,7 +19,7 @@ var body : Array[Vector2i] = []
 var curr_dir : Direction.DIR = Direction.DIR.RIGHT
 var clock : int = 0 # The clock used for updating the snake. One pixel per tick
 var clock_collector : float = 0.0
-var target_speed = 2
+var target_speed = 2.
 var speed = target_speed
 var speed_tweener: Tween
 

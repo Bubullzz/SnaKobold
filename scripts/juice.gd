@@ -82,7 +82,6 @@ func _ready() -> void:
 	$ShaderSpill.material.set_shader_parameter("threshold", 0)
 	spill_tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 	spill_tween.tween_method(func(v): $ShaderSpill.material.set_shader_parameter("threshold", v), 0.0,1.0,spill_time)
-	
 	$ShaderSpill.material.get_shader_parameter("perlin").noise.seed = randi()
 
 
@@ -100,7 +99,10 @@ func pause():
 	$JuiceDespawnTimer.paused = true
 	$JuiceEndAnimationTimer.paused = true
 	if spill_tween:
+		print("found spill_tween")
 		spill_tween.pause()
+	else:
+		print("not found spill_tween")
 	if transparency_tween:
 		transparency_tween.pause()
 	$JuiceAnimated.pause()
