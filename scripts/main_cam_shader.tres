@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=101 format=3 uid="uid://cw8bsn1bdgasc"]
+[gd_resource type="VisualShader" load_steps=102 format=3 uid="uid://cw8bsn1bdgasc"]
 
 [sub_resource type="VisualShaderNodeColorFunc" id="VisualShaderNodeColorFunc_wouq3"]
 
@@ -89,12 +89,12 @@ operator = 6
 
 [sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_wouq3"]
 size = Vector2(1320, 980)
-expression = "vec3 cols[11] = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11};
+expression = "vec3 cols[12] = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12};
 float thresh = 0.05 ;
 
 mask = 0; 
 color = vec3(0.0,0.0,0.0);
-for (int i = 0; i < 11; i++)
+for (int i = 0; i < 12; i++)
 {
 	if (distance(cols[i], in_col) < thresh)
 	{
@@ -136,6 +136,9 @@ constant = Color(0.627451, 0.262745, 0.521569, 1)
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_n6hq0"]
 constant = Color(0.0862745, 0.0352941, 0.0705882, 1)
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_nahvw"]
+constant = Color(0.317647, 0.14902, 0.45098, 1)
 
 [sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_ooi0b"]
 parameter_name = "HeadPosInCamera"
@@ -512,18 +515,22 @@ void fragment() {
 	vec4 n_out173p0 = vec4(0.270588, 0.117647, 0.380392, 1.000000);
 
 
+// ColorConstant:179
+	vec4 n_out179p0 = vec4(0.317647, 0.149020, 0.450980, 1.000000);
+
+
 	int n_out167p0;
 	vec3 n_out167p1;
 // Expression:167
 	n_out167p0 = 0;
 	n_out167p1 = vec3(0.0, 0.0, 0.0);
 	{
-		vec3 cols[11] = {vec3(n_out174p0.xyz), vec3(n_out175p0.xyz), vec3(n_out176p0.xyz), vec3(n_out177p0.xyz), vec3(n_out178p0.xyz), vec3(n_out168p0.xyz), vec3(n_out169p0.xyz), vec3(n_out170p0.xyz), vec3(n_out171p0.xyz), vec3(n_out172p0.xyz), vec3(n_out173p0.xyz)};
+		vec3 cols[12] = {vec3(n_out174p0.xyz), vec3(n_out175p0.xyz), vec3(n_out176p0.xyz), vec3(n_out177p0.xyz), vec3(n_out178p0.xyz), vec3(n_out168p0.xyz), vec3(n_out169p0.xyz), vec3(n_out170p0.xyz), vec3(n_out171p0.xyz), vec3(n_out172p0.xyz), vec3(n_out173p0.xyz), vec3(n_out179p0.xyz)};
 		float thresh = 0.05 ;
 		
 		n_out167p0 = 0; 
 		n_out167p1 = vec3(0.0,0.0,0.0);
-		for (int i = 0; i < 11; i++)
+		for (int i = 0; i < 12; i++)
 		{
 			if (distance(cols[i], vec3(n_out14p0.xyz)) < thresh)
 			{
@@ -616,7 +623,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(425.316, 12.9761)
+graph_offset = Vector2(635.948, 259.532)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(3300, -800)
@@ -799,14 +806,14 @@ nodes/fragment/166/position = Vector2(1920, -1140)
 nodes/fragment/167/node = SubResource("VisualShaderNodeExpression_wouq3")
 nodes/fragment/167/position = Vector2(1220, 0)
 nodes/fragment/167/size = Vector2(1320, 980)
-nodes/fragment/167/input_ports = "0,4,in_col;1,4,c1;2,4,c2;3,4,c3;4,4,c4;5,4,c5;6,4,c6;7,4,c7;8,4,c8;9,4,c9;10,4,c10;11,4,c11;"
+nodes/fragment/167/input_ports = "0,4,in_col;1,4,c1;2,4,c2;3,4,c3;4,4,c4;5,4,c5;6,4,c6;7,4,c7;8,4,c8;9,4,c9;10,4,c10;11,4,c11;12,4,c12;"
 nodes/fragment/167/output_ports = "0,1,mask;1,4,color;"
-nodes/fragment/167/expression = "vec3 cols[11] = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11};
+nodes/fragment/167/expression = "vec3 cols[12] = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12};
 float thresh = 0.05 ;
 
 mask = 0; 
 color = vec3(0.0,0.0,0.0);
-for (int i = 0; i < 11; i++)
+for (int i = 0; i < 12; i++)
 {
 	if (distance(cols[i], in_col) < thresh)
 	{
@@ -837,4 +844,6 @@ nodes/fragment/177/node = SubResource("VisualShaderNodeColorConstant_iilns")
 nodes/fragment/177/position = Vector2(765.328, 732.451)
 nodes/fragment/178/node = SubResource("VisualShaderNodeColorConstant_n6hq0")
 nodes/fragment/178/position = Vector2(773.548, 859.866)
-nodes/fragment/connections = PackedInt32Array(18, 0, 42, 1, 9, 0, 43, 1, 43, 0, 45, 0, 45, 0, 44, 2, 44, 0, 46, 0, 47, 0, 48, 0, 48, 0, 49, 2, 49, 0, 50, 0, 9, 0, 47, 1, 46, 0, 51, 0, 54, 0, 52, 0, 52, 0, 53, 2, 53, 0, 55, 0, 9, 0, 54, 1, 55, 0, 51, 1, 50, 0, 56, 0, 55, 0, 56, 1, 38, 0, 42, 0, 18, 0, 59, 1, 41, 0, 59, 0, 42, 0, 43, 0, 59, 0, 47, 0, 18, 0, 60, 1, 60, 0, 54, 0, 51, 0, 61, 0, 56, 0, 61, 1, 61, 0, 58, 0, 58, 0, 64, 0, 64, 0, 62, 0, 14, 0, 16, 0, 64, 0, 14, 0, 65, 0, 38, 0, 65, 0, 41, 0, 65, 0, 60, 0, 35, 0, 65, 0, 3, 0, 66, 0, 66, 0, 67, 0, 18, 0, 67, 1, 68, 0, 44, 1, 68, 0, 49, 1, 68, 0, 53, 1, 69, 0, 58, 1, 67, 0, 73, 2, 9, 0, 74, 0, 68, 0, 74, 1, 74, 0, 73, 0, 9, 0, 73, 1, 73, 0, 75, 0, 14, 0, 78, 0, 77, 0, 79, 0, 78, 0, 79, 1, 63, 0, 64, 1, 80, 0, 81, 0, 68, 0, 80, 1, 11, 0, 80, 0, 11, 0, 81, 1, 67, 0, 81, 2, 81, 0, 82, 0, 75, 0, 82, 1, 82, 0, 83, 0, 83, 0, 78, 1, 82, 0, 77, 1, 84, 0, 86, 1, 14, 0, 86, 0, 88, 0, 87, 0, 86, 0, 88, 0, 84, 0, 89, 1, 87, 0, 91, 1, 91, 0, 89, 0, 92, 0, 93, 1, 95, 0, 94, 0, 93, 0, 95, 0, 92, 0, 97, 1, 94, 0, 96, 1, 96, 0, 97, 0, 14, 0, 93, 0, 98, 0, 103, 1, 100, 0, 99, 0, 103, 0, 100, 0, 98, 0, 102, 1, 99, 0, 101, 1, 101, 0, 102, 0, 104, 0, 109, 1, 106, 0, 105, 0, 109, 0, 106, 0, 104, 0, 108, 1, 107, 0, 108, 0, 110, 0, 115, 1, 112, 0, 111, 0, 115, 0, 112, 0, 110, 0, 114, 1, 111, 0, 113, 1, 113, 0, 114, 0, 14, 0, 103, 0, 14, 0, 109, 0, 14, 0, 115, 0, 91, 0, 116, 0, 96, 0, 116, 1, 107, 0, 117, 0, 101, 0, 117, 1, 113, 0, 118, 0, 117, 0, 118, 1, 118, 0, 119, 0, 116, 0, 119, 1, 114, 0, 121, 0, 108, 0, 121, 1, 102, 0, 122, 0, 97, 0, 122, 1, 89, 0, 123, 1, 122, 0, 123, 0, 121, 0, 124, 0, 123, 0, 124, 1, 16, 0, 125, 1, 125, 0, 77, 0, 105, 0, 107, 1, 124, 0, 160, 1, 119, 0, 166, 1, 14, 0, 167, 0, 167, 1, 125, 0, 79, 0, 0, 0, 167, 0, 120, 0, 120, 0, 125, 2, 174, 0, 167, 1, 175, 0, 167, 2, 176, 0, 167, 3, 177, 0, 167, 4, 178, 0, 167, 5, 168, 0, 167, 6, 169, 0, 167, 7, 170, 0, 167, 8, 171, 0, 167, 9, 172, 0, 167, 10, 173, 0, 167, 11)
+nodes/fragment/179/node = SubResource("VisualShaderNodeColorConstant_nahvw")
+nodes/fragment/179/position = Vector2(940, 940)
+nodes/fragment/connections = PackedInt32Array(18, 0, 42, 1, 9, 0, 43, 1, 43, 0, 45, 0, 45, 0, 44, 2, 44, 0, 46, 0, 47, 0, 48, 0, 48, 0, 49, 2, 49, 0, 50, 0, 9, 0, 47, 1, 46, 0, 51, 0, 54, 0, 52, 0, 52, 0, 53, 2, 53, 0, 55, 0, 9, 0, 54, 1, 55, 0, 51, 1, 50, 0, 56, 0, 55, 0, 56, 1, 38, 0, 42, 0, 18, 0, 59, 1, 41, 0, 59, 0, 42, 0, 43, 0, 59, 0, 47, 0, 18, 0, 60, 1, 60, 0, 54, 0, 51, 0, 61, 0, 56, 0, 61, 1, 61, 0, 58, 0, 58, 0, 64, 0, 64, 0, 62, 0, 14, 0, 16, 0, 64, 0, 14, 0, 65, 0, 38, 0, 65, 0, 41, 0, 65, 0, 60, 0, 35, 0, 65, 0, 3, 0, 66, 0, 66, 0, 67, 0, 18, 0, 67, 1, 68, 0, 44, 1, 68, 0, 49, 1, 68, 0, 53, 1, 69, 0, 58, 1, 67, 0, 73, 2, 9, 0, 74, 0, 68, 0, 74, 1, 74, 0, 73, 0, 9, 0, 73, 1, 73, 0, 75, 0, 14, 0, 78, 0, 77, 0, 79, 0, 78, 0, 79, 1, 63, 0, 64, 1, 80, 0, 81, 0, 68, 0, 80, 1, 11, 0, 80, 0, 11, 0, 81, 1, 67, 0, 81, 2, 81, 0, 82, 0, 75, 0, 82, 1, 82, 0, 83, 0, 83, 0, 78, 1, 82, 0, 77, 1, 84, 0, 86, 1, 14, 0, 86, 0, 88, 0, 87, 0, 86, 0, 88, 0, 84, 0, 89, 1, 87, 0, 91, 1, 91, 0, 89, 0, 92, 0, 93, 1, 95, 0, 94, 0, 93, 0, 95, 0, 92, 0, 97, 1, 94, 0, 96, 1, 96, 0, 97, 0, 14, 0, 93, 0, 98, 0, 103, 1, 100, 0, 99, 0, 103, 0, 100, 0, 98, 0, 102, 1, 99, 0, 101, 1, 101, 0, 102, 0, 104, 0, 109, 1, 106, 0, 105, 0, 109, 0, 106, 0, 104, 0, 108, 1, 107, 0, 108, 0, 110, 0, 115, 1, 112, 0, 111, 0, 115, 0, 112, 0, 110, 0, 114, 1, 111, 0, 113, 1, 113, 0, 114, 0, 14, 0, 103, 0, 14, 0, 109, 0, 14, 0, 115, 0, 91, 0, 116, 0, 96, 0, 116, 1, 107, 0, 117, 0, 101, 0, 117, 1, 113, 0, 118, 0, 117, 0, 118, 1, 118, 0, 119, 0, 116, 0, 119, 1, 114, 0, 121, 0, 108, 0, 121, 1, 102, 0, 122, 0, 97, 0, 122, 1, 89, 0, 123, 1, 122, 0, 123, 0, 121, 0, 124, 0, 123, 0, 124, 1, 16, 0, 125, 1, 125, 0, 77, 0, 105, 0, 107, 1, 124, 0, 160, 1, 119, 0, 166, 1, 14, 0, 167, 0, 167, 1, 125, 0, 79, 0, 0, 0, 167, 0, 120, 0, 120, 0, 125, 2, 174, 0, 167, 1, 175, 0, 167, 2, 176, 0, 167, 3, 177, 0, 167, 4, 178, 0, 167, 5, 168, 0, 167, 6, 169, 0, 167, 7, 170, 0, 167, 8, 171, 0, 167, 9, 172, 0, 167, 10, 173, 0, 167, 11, 179, 0, 167, 12)
