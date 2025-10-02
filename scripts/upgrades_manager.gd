@@ -39,6 +39,7 @@ func end_upgrade_sequence():
 	
 	SnakeProps.SM.clock_collector = 0
 	SnakeProps.SM.tween_speed(0.1, SnakeProps.SM.target_speed, .5)
+	SnakeProps.MapGenerator.try_update_map()
 	
 func enable_buttons():
 	for b in [%Upgrade1, %Upgrade2, %Upgrade3]:

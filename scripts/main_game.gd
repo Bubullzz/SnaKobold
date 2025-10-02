@@ -115,10 +115,13 @@ func _process(_delta: float) -> void:
 
 
 func _ready():
+	SnakeProps.MainGame = self
+	
+	var start: Vector2i = Vector2i(8,8)
 	width = $MapGenerator.width
 	height = $MapGenerator.height
 	#array_to_map($MapGenerator.map)
-	%SnakeManager.place_snake(Vector2i(0,0))
+	%SnakeManager.place_snake(start)
 	%JuiceBar.max_value = SnakeProps.max_juice
 
 	%MainCam.position_smoothing_enabled = false
@@ -129,7 +132,7 @@ func _ready():
 	%MainCam.position_smoothing_speed = 1.
 	SnakeProps.update_max_juice()
 
-	Apple.instantiate(Vector2i(0,0))
-	Juice.instantiate(self, Vector2i(0,0))
+	Apple.instantiate(start)
+	Juice.instantiate(self, start)
 
 	%OpeningRect.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)

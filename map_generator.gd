@@ -5,6 +5,7 @@ extends Node
 @export var nb_rectangles: int
 @export var min_side: int
 @export var max_side: int
+var level = 1
 var side_range: int
 @export var tunnels_per_rectangle: int
 
@@ -31,7 +32,7 @@ func fill_map():
 			map[i].append(false)
 
 func add_spawn_rectangle():
-	Rectangle.new(self, 15, 15, middle - Vector2i(8,8))
+	Rectangle.new(self, 30, 20, Vector2i(0,0))
 	
 	
 func add_random_rectangles():
@@ -83,15 +84,33 @@ func add_tunnels():
 	
 func generate_map() -> Array[Array]:
 	fill_map()
-	add_spawn_rectangle()
-	add_random_rectangles()
-	add_tunnels()
+	#add_random_rectangles()
+	#add_tunnels()
 	return map
 	
 
 func _ready():
+	SnakeProps.MapGenerator = self
+	
 	side_range = max_side - min_side
 	middle = Vector2i(height / 2, width / 2)
-	#generate_map()
 	
+	generate_map()
 	
+
+func try_update_map():
+	if true:
+		level_up_map()
+	
+
+func level_up_map():
+	level += 1
+	update_from_level()
+
+
+func update_from_level():
+	if level == 2:
+		print("here")
+		Rectangle.new(self, 20, 20, Vector2i(15,25))
+		Rectangle.new(self, 1, 5, Vector2i(20,20))
+		Rectangle.new(self, 1, 5, Vector2i(29,20))

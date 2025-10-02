@@ -29,3 +29,7 @@ func remove_wall(pos : Vector2i) -> void:
 
 func update_terrain_cells(cells : Array[Vector2i]) -> void:
 	BetterTerrain.update_terrain_cells(%WallsLayer, cells)
+	
+
+func _ready():
+	SnakeProps.EnvironmentManager = self
