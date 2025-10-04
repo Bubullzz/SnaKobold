@@ -3,7 +3,8 @@ extends Node2D
 class_name Upgrade
 
 @export var auto_select = false
-
+var title = "Dummy title"
+@export var icon : Texture2D
 
 func _ready() -> void:
 	if auto_select:

@@ -32,6 +32,8 @@ func growing() -> bool:
 	if growth > 0:
 		growth -= 1
 		update_max_juice()
+		SnakeProps.MapGenerator.try_update_map()
+
 		return true
 	return false
 

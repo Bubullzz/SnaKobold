@@ -15,7 +15,9 @@ func focus_me():
 
 func set_upgrade(up : Upgrade):
 	upgrade = up
-	%Button.text = upgrade.get_text()
+	%Title.text = upgrade.title
+	%UpgradeText.text = upgrade.get_text()
+	%UpgradeIcon.texture = upgrade.icon
 
 func _on_button_pressed() -> void:
 	upgrade.on_selected()

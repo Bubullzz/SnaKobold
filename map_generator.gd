@@ -5,7 +5,8 @@ extends Node
 @export var nb_rectangles: int
 @export var min_side: int
 @export var max_side: int
-var level = 1
+var level = 0
+var tot_free_space = 0
 var side_range: int
 @export var tunnels_per_rectangle: int
 
@@ -94,12 +95,11 @@ func _ready():
 	
 	side_range = max_side - min_side
 	middle = Vector2i(height / 2, width / 2)
-	
 	generate_map()
 	
 
 func try_update_map():
-	if true:
+	if len(SnakeProps.SM.body) > 0.7 * tot_free_space:
 		level_up_map()
 	
 
@@ -109,8 +109,17 @@ func level_up_map():
 
 
 func update_from_level():
+	if level == 1:
+		Rectangle.new(self, 30,20, Vector2i(0,0))
+		
 	if level == 2:
 		print("here")
-		Rectangle.new(self, 20, 20, Vector2i(15,25))
+		Rectangle.new(self, 30, 15, Vector2i(15,25))
 		Rectangle.new(self, 1, 5, Vector2i(20,20))
 		Rectangle.new(self, 1, 5, Vector2i(29,20))
+	if level == 3:
+		Rectangle.new(self, -25, -30, Vector2i(60,20))
+		Rectangle.new(self, 5, 1, Vector2i(30,3))
+		Rectangle.new(self, 1, 5, Vector2i(40,20))
+		
+		

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgdivgbr4qomh"]
+[gd_scene load_steps=3 format=3 uid="uid://bgdivgbr4qomh"]
 
 [ext_resource type="Script" uid="uid://uxeibq8nq1gi" path="res://scripts/upgrades/base_uppgrade.gd" id="1_u5el1"]
+[ext_resource type="Texture2D" uid="uid://dbwbtmq2a6cfd" path="res://assets/apples/spill.png" id="2_dm4v4"]
 
 [node name="BaseUppgrade" type="Node2D"]
 script = ExtResource("1_u5el1")
+icon = ExtResource("2_dm4v4")
