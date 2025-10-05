@@ -4,6 +4,9 @@ extends Upgrade
 var activated = false 
 var add_amount = 3
 
+func _ready():
+	title = "Applomancer"
+	
 func start_particles(pos: Vector2i):
 	var p = $Part.duplicate()
 	p.position = SnakeProps.GameTiles.tile_pos_to_global_pos(pos)

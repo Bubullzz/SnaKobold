@@ -1,5 +1,8 @@
 extends Upgrade
 
+func _ready():
+	title = "Turbo Drinker"
+	
 func on_selected():
 	Juice.instantiate(SnakeProps.SM, SnakeProps.SM.body[0])
 

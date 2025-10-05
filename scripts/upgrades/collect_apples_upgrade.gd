@@ -2,6 +2,8 @@ extends Upgrade
 
 @export var ApplesList: Node #Node containing all the Apples on the Screen
 
+func _ready():
+	title = "8 Gold Ingot and an Apple"
 
 func on_selected():
 	Signals.golden_apple_eaten.connect(collect_everything)

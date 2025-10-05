@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=70 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -34,7 +34,11 @@
 [ext_resource type="PackedScene" uid="uid://cw7i81e55qrv6" path="res://scenes/upgrades/explosive_apples.tscn" id="27_ac0cv"]
 [ext_resource type="Texture2D" uid="uid://dbwbtmq2a6cfd" path="res://assets/apples/spill.png" id="27_iihm1"]
 [ext_resource type="Script" uid="uid://b74kinv5vdhup" path="res://apples_list.gd" id="28_6krrg"]
+[ext_resource type="Texture2D" uid="uid://bax8ocuopyev6" path="res://assets/upgrade_icons/extra_spill.png" id="30_6qcu5"]
 [ext_resource type="Script" uid="uid://be7xff3nau8q8" path="res://scripts/juices_list.gd" id="30_onx7j"]
+[ext_resource type="Texture2D" uid="uid://cexiqcbvk4w28" path="res://assets/upgrade_icons/gapple.png" id="31_b1687"]
+[ext_resource type="Texture2D" uid="uid://cvm0yqlsojwej" path="res://assets/upgrade_icons/additional_juice.png" id="32_o6vyx"]
+[ext_resource type="Texture2D" uid="uid://bu0ik07cpxcb2" path="res://assets/upgrade_icons/explosive_apples.png" id="35_6gv5k"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -1234,7 +1238,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_vn0ol")
 
 [node name="BotMargin" type="HSeparator" parent="MainCam/UpgradesManager/Controller/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 150
+theme_override_constants/separation = 70
 theme_override_styles/separator = SubResource("StyleBoxEmpty_wt57k")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="MainCam/UpgradesManager"]
@@ -1312,15 +1316,20 @@ unique_name_in_owner = true
 icon = ExtResource("27_iihm1")
 
 [node name="MinJuiceComboUpgrade" parent="AllUpgradesList" instance=ExtResource("23_wt57k")]
+icon = ExtResource("27_iihm1")
 
 [node name="AllowedMissesUpgrade" parent="AllUpgradesList" instance=ExtResource("24_pk5u2")]
+icon = ExtResource("30_6qcu5")
 
 [node name="CollectApplesUpgrade" parent="AllUpgradesList" node_paths=PackedStringArray("ApplesList") instance=ExtResource("24_lght5")]
 ApplesList = NodePath("../../ApplesList")
+icon = ExtResource("31_b1687")
 
 [node name="AdditionalJuice" parent="AllUpgradesList" instance=ExtResource("26_lfj8l")]
+icon = ExtResource("32_o6vyx")
 
 [node name="ExplosiveApples" parent="AllUpgradesList" instance=ExtResource("27_ac0cv")]
+icon = ExtResource("35_6gv5k")
 
 [node name="BulletTimeUpgrade" parent="AllUpgradesList" node_paths=PackedStringArray("GrayScaledRect", "upgrades_manager", "main_cam") instance=ExtResource("26_pjvg0")]
 GrayScaledRect = NodePath("../../MainCam/CanvasForShader/ColorRect")
@@ -1330,6 +1339,7 @@ slowing_factor = 4.0
 snake_speed_slowdown_time = 2.0
 start_shockwave_time = 5.0
 stop_shockwave_time = 2.0
+icon = ExtResource("27_iihm1")
 
 [node name="JuicesList" type="Node" parent="."]
 unique_name_in_owner = true
