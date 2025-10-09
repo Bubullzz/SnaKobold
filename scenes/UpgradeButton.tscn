@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckv0w7wxajg7f"]
+[gd_scene load_steps=9 format=3 uid="uid://ckv0w7wxajg7f"]
 
 [ext_resource type="Script" uid="uid://xp72yxb70mk2" path="res://scripts/upgrade_button.gd" id="1_uok10"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="2_t8uck"]
-[ext_resource type="Texture2D" uid="uid://b7urwolk2f6vb" path="res://assets/apples/apple.png" id="3_t8uck"]
+[ext_resource type="Texture2D" uid="uid://cteduv4v0yv0n" path="res://assets/upgrade_icons/frame_bg.png" id="3_7hluo"]
+[ext_resource type="Texture2D" uid="uid://cvm0yqlsojwej" path="res://assets/upgrade_icons/additional_juice.png" id="4_rwucg"]
+[ext_resource type="Texture2D" uid="uid://bweg6a8d44ch5" path="res://assets/upgrade_icons/frame.png" id="5_xmmih"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7hluo"]
 font = ExtResource("2_t8uck")
@@ -75,12 +77,35 @@ layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 0)
 
-[node name="UpgradeIcon" type="TextureRect" parent="MarginContainer/Button/MarginContainer/VBoxContainer/Icon Placement"]
-unique_name_in_owner = true
+[node name="bg" type="TextureRect" parent="MarginContainer/Button/MarginContainer/VBoxContainer/Icon Placement"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.06
+texture = ExtResource("3_7hluo")
+stretch_mode = 5
+
+[node name="UpgradeIcon" type="TextureRect" parent="MarginContainer/Button/MarginContainer/VBoxContainer/Icon Placement/bg"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.4
-texture = ExtResource("3_t8uck")
+texture = ExtResource("4_rwucg")
+stretch_mode = 5
+
+[node name="Frame" type="TextureRect" parent="MarginContainer/Button/MarginContainer/VBoxContainer/Icon Placement/bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_xmmih")
 stretch_mode = 5
 
 [node name="ColorRect2" type="ColorRect" parent="MarginContainer/Button/MarginContainer/VBoxContainer/Icon Placement"]
