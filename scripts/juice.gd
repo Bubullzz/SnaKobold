@@ -57,7 +57,8 @@ func _on_collision_zone_area_entered(area:Area2D) -> void:
 func start_transparency_tween():
 	transparency_tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 	transparency_tween.tween_method(func(v): $ShaderSpill.material.set_shader_parameter("transparency", v), 1.0,0.0,max_spill_time)
-	
+	await get_tree().create_timer(max_spill_time).timeout
+	queue_free()
 	
 func _on_timer_timeout() -> void: # The juice is spilled
 	start_transparency_tween()

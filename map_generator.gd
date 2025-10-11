@@ -107,6 +107,16 @@ func level_up_map():
 	level += 1
 	update_from_level()
 
+func outline_rectangle(r: Rectangle, outline: int) -> Rectangle:
+	return Rectangle.new(self, r.x+ 2*outline, r.y + 2*outline, r.start - Vector2i(outline, outline))
+
+
+func outline_everything(outline: int):
+	var dup =  rectangles.duplicate()
+	rectangles = []
+	for r in dup:
+		outline_rectangle(r, outline)
+	
 func get_biggest_rectangle():
 	var min_x = 99999
 	var min_y = 99999
@@ -118,9 +128,10 @@ func get_biggest_rectangle():
 		max_x = max(max_x, r.start.x + r.x)
 		max_y = max(max_y, r.start.y + r.y)
 	Rectangle.new(self, max_x - min_x, max_y - min_y, Vector2i(min_x,min_y))
+	
 func update_from_level():
-	for r in rectangles:
-		Rectangle.new(self, r.x +1, r.y + 1, r.start - Vector2i(1,1))
+	print(rectangles)
+	outline_everything(1)
 		
 	if level == 1:
 		Rectangle.new(self, 30,20, Vector2i(0,0))
@@ -135,7 +146,7 @@ func update_from_level():
 		Rectangle.new(self, 5, 1, Vector2i(30,3))
 		Rectangle.new(self, 1, 5, Vector2i(40,20))
 	if level == 4:
-		get_biggest_rectangle()
+		#get_biggest_rectangle()
 		SnakeProps.SM.target_speed = 3.
 		SnakeProps.SM.speed = 3.
 	if level == 5:
@@ -150,7 +161,7 @@ func update_from_level():
 		Rectangle.new(self, 1, -10, Vector2i(5,50))
 		Rectangle.new(self, -25, 1, Vector2i(85,65))
 	if level == 7:
-		get_biggest_rectangle()
+		#ijget_biggest_rectangle()
 		SnakeProps.SM.target_speed = 4.
 		SnakeProps.SM.speed = 4.
 	

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bab7ojva46njv"]
+
+[ext_resource type="Script" uid="uid://ylyrg2a7m0rl" path="res://scripts/upgrades/cheaper_jump_upgrade.gd" id="1_frnbq"]
+
+[node name="CheaperJumpUpgrade" type="Node2D"]
+script = ExtResource("1_frnbq")
