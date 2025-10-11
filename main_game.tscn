@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=75 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -41,6 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://cvm0yqlsojwej" path="res://assets/upgrade_icons/additional_juice.png" id="32_o6vyx"]
 [ext_resource type="Texture2D" uid="uid://bu0ik07cpxcb2" path="res://assets/upgrade_icons/explosive_apples.png" id="35_6gv5k"]
 [ext_resource type="Texture2D" uid="uid://dux4nor7r4tq6" path="res://assets/upgrade_icons/time_slow.png" id="39_3cqky"]
+[ext_resource type="PackedScene" uid="uid://cv7dgwni7raud" path="res://scenes/upgrades/juicy_apples_upgrade.tscn" id="40_5fp36"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -1414,6 +1415,8 @@ snake_speed_slowdown_time = 2.0
 start_shockwave_time = 5.0
 stop_shockwave_time = 2.0
 icon = ExtResource("39_3cqky")
+
+[node name="JuicyApplesUpgrade" parent="AllUpgradesList" instance=ExtResource("40_5fp36")]
 
 [node name="JuicesList" type="Node" parent="."]
 unique_name_in_owner = true
