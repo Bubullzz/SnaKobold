@@ -26,16 +26,16 @@ func _init(MapGenerator, _x, _y, _start: Vector2i):
 		start += Vector2i(0, y)
 		y = -y
 		
-	for i in range(x):
-		for j in range(y):
+	for i in range(x+1):
+		for j in range(y+1):
 			SnakeProps.EnvironmentManager.remove_wall(Vector2i(start.x + i, start.y + j))
 	
 	var to_update : Array[Vector2i] = []
-	for i in range(x):
+	for i in range(x+1):
 		to_update.append(start + Vector2i(i, -1))
 		to_update.append(start + Vector2i(i, y + 1))
 	
-	for i in range(y):
+	for i in range(y+1):
 		to_update.append(start + Vector2i(-1, i))
 		to_update.append(start + Vector2i(x + 1, i))
 	

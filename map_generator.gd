@@ -119,13 +119,18 @@ func is_border_wall(pos : Vector2i) -> bool:
 				return true
 	# All neighbours are wall
 	return false
-		
+
+func nearest_floor(pos : Vector2i) -> Vector2i:
+	for dir in Direction.get_all_directions():
+		var neigh : Vector2i = pos + Direction.dir_to_vec(dir)
+		if !SnakeProps.EnvironmentManager.is_wall(neigh):
+			return neigh
+	return Vector2i(0,0)
 	
 func map_border() -> Array[Vector2i]:
 	var start = Vector2i(-144, 0)
 	while SnakeProps.EnvironmentManager.is_wall(start):
 		start += Vector2i(1,0)
-	print(start)
 	start -= Vector2i(1,0) #set on wall
 	var visited = {start: 1}
 	var queue: Array[Vector2i] = [start]
@@ -140,7 +145,6 @@ func map_border() -> Array[Vector2i]:
 			if ! is_border_wall(neigh) : continue
 			border.append(neigh)
 			queue.append(neigh)
-	print(border)
 	return border
 	
 func outline_everything(outline: int):
@@ -161,11 +165,41 @@ func get_biggest_rectangle():
 		max_y = max(max_y, r.start.y + r.y)
 	Rectangle.new(self, max_x - min_x, max_y - min_y, Vector2i(min_x,min_y))
 	
-func update_from_level():
-	for p:Vector2i in map_border():
-		SnakeProps.EnvironmentManager.remove_wall(p)
 	
-	#outline_everything(1)
+func generate_room():
+	var start = map_border().pick_random()
+	while nearest_floor(start) == Vector2i(0,0):
+		start = map_border().pick_random()
+	var dir:Direction.DIR = Direction.cells_to_dir(nearest_floor(start), start)
+	var vec_dir = Direction.dir_to_vec(dir)
+	# Generate the corridor
+	var v = 15 * vec_dir
+	Rectangle.new(self, v.x, v.y, start)
+	
+	# Generate the room
+	var arrival = start + v
+	var perp_dir_vector = Vector2i(vec_dir.y, vec_dir.x)
+	# Random Data for the room
+	var dim_1_size = randi() % 20 + 3
+	var dim_2_size = randi() % 20 + 3
+	var offset = randi() % dim_2_size
+	var base : Vector2i = vec_dir * dim_1_size 
+	var other_dim = perp_dir_vector * dim_2_size
+	var r_vec = base + other_dim
+	Rectangle.new(self, r_vec.x, r_vec.y, arrival + perp_dir_vector * -offset)
+	
+	
+func update_from_level():
+	outline_everything(1)
+	generate_room()
+	
+	
+	
+	
+	
+	
+	return
+	
 	for r in rectangles:
 		print(r.x, r.y, r.start)
 		print()

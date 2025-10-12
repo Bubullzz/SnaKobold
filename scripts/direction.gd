@@ -6,7 +6,14 @@ class_name Direction
 # Define the DIR enum
 enum DIR { UP, DOWN, LEFT, RIGHT }
 
-
+static func pretty_print(dir: DIR)-> String:
+	match dir:
+		Direction.DIR.UP: return "UP"
+		Direction.DIR.DOWN: return "DOWN"
+		Direction.DIR.LEFT: return "LEFT"
+		Direction.DIR.RIGHT: return "RIGHT"
+	return "ERROR"
+	
 static func get_all_directions():
 	return [Direction.DIR.UP, Direction.DIR.DOWN, Direction.DIR.LEFT, Direction.DIR.RIGHT]
 
