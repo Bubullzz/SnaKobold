@@ -165,7 +165,24 @@ func get_biggest_rectangle():
 		max_y = max(max_y, r.start.y + r.y)
 	Rectangle.new(self, max_x - min_x, max_y - min_y, Vector2i(min_x,min_y))
 	
-	
+func generate_random_corridor():
+	var nb_tries = 200
+	var max_corridor_length = 50
+	for i in range(nb_tries):
+		var start = map_border().pick_random()
+		while nearest_floor(start) == Vector2i(0,0):
+			start = map_border().pick_random()
+		var dir:Direction.DIR = Direction.cells_to_dir(nearest_floor(start), start)
+		var vec_dir = Direction.dir_to_vec(dir)
+		for j in range(max_corridor_length):
+			var pos = start + j * vec_dir
+			if ! SnakeProps.EnvironmentManager.is_wall(pos):
+				Rectangle.new(self,(j*vec_dir).x, (j*vec_dir).y, start)
+				print("generated random corridor at", start)
+				return
+	print("failed to generate corridor")
+	return				
+				
 func generate_room():
 	var start = map_border().pick_random()
 	while nearest_floor(start) == Vector2i(0,0):
@@ -173,7 +190,7 @@ func generate_room():
 	var dir:Direction.DIR = Direction.cells_to_dir(nearest_floor(start), start)
 	var vec_dir = Direction.dir_to_vec(dir)
 	# Generate the corridor
-	var v = 15 * vec_dir
+	var v = 15 * vec_dir + Vector2i(1,1)
 	Rectangle.new(self, v.x, v.y, start)
 	
 	# Generate the room
@@ -191,9 +208,16 @@ func generate_room():
 	
 func update_from_level():
 	outline_everything(1)
-	generate_room()
+	if level == 1:
+		Rectangle.new(self, 29,19, Vector2i(0,0))
+	else:
+		generate_random_corridor()
+		generate_random_corridor()
+		generate_room()
+		generate_room()
+		generate_room()
 	
-	
+
 	
 	
 	
@@ -203,8 +227,7 @@ func update_from_level():
 	for r in rectangles:
 		print(r.x, r.y, r.start)
 		print()
-	if level == 1:
-		Rectangle.new(self, 30,20, Vector2i(0,0))
+
 		
 	if level == 2:
 		print("here")
