@@ -110,7 +110,39 @@ func level_up_map():
 func outline_rectangle(r: Rectangle, outline: int) -> Rectangle:
 	return Rectangle.new(self, r.x+ 2*outline, r.y + 2*outline, r.start - Vector2i(outline, outline))
 
-
+func is_border_wall(pos : Vector2i) -> bool:
+	for i in range(-1,2):
+		for j in range(-1,2):
+			var neigh : Vector2i = pos + Vector2i(i,j)
+			if ! SnakeProps.EnvironmentManager.is_wall(neigh) : 
+				# If any neighbour is floor then we are border
+				return true
+	# All neighbours are wall
+	return false
+		
+	
+func map_border() -> Array[Vector2i]:
+	var start = Vector2i(-144, 0)
+	while SnakeProps.EnvironmentManager.is_wall(start):
+		start += Vector2i(1,0)
+	print(start)
+	start -= Vector2i(1,0) #set on wall
+	var visited = {start: 1}
+	var queue: Array[Vector2i] = [start]
+	var border: Array[Vector2i] = [start]
+	while len(queue) > 0:
+		var elt : Vector2i = queue.pop_front()
+		for dir in Direction.get_all_directions():
+			var neigh : Vector2i = elt + Direction.dir_to_vec(dir)
+			if visited.has(neigh) : continue
+			visited[neigh] = 1
+			if ! SnakeProps.EnvironmentManager.is_wall(neigh) : continue
+			if ! is_border_wall(neigh) : continue
+			border.append(neigh)
+			queue.append(neigh)
+	print(border)
+	return border
+	
 func outline_everything(outline: int):
 	var dup =  rectangles.duplicate()
 	rectangles = []
@@ -130,10 +162,10 @@ func get_biggest_rectangle():
 	Rectangle.new(self, max_x - min_x, max_y - min_y, Vector2i(min_x,min_y))
 	
 func update_from_level():
-	for r in rectangles:
-		print(r.x, r.y, r.start)
-		print()
-	outline_everything(1)
+	for p:Vector2i in map_border():
+		SnakeProps.EnvironmentManager.remove_wall(p)
+	
+	#outline_everything(1)
 	for r in rectangles:
 		print(r.x, r.y, r.start)
 		print()
