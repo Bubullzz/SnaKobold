@@ -14,7 +14,7 @@ var is_slowing = false
 var price_per_second = 200
 
 func _ready():
-	title = "Aura Farmer"
+	title = "A stopwatch !"
 	
 func get_text()->String:
 	return "Slow down time by pressing 'Q' in exchange of Juice !"

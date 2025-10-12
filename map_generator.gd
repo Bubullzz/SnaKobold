@@ -130,9 +130,13 @@ func get_biggest_rectangle():
 	Rectangle.new(self, max_x - min_x, max_y - min_y, Vector2i(min_x,min_y))
 	
 func update_from_level():
-	print(rectangles)
+	for r in rectangles:
+		print(r.x, r.y, r.start)
+		print()
 	outline_everything(1)
-		
+	for r in rectangles:
+		print(r.x, r.y, r.start)
+		print()
 	if level == 1:
 		Rectangle.new(self, 30,20, Vector2i(0,0))
 		
