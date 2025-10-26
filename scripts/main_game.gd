@@ -70,6 +70,8 @@ func _input(_event):
 		SnakeProps.SM.speed = SnakeProps.SM.target_speed
 	if Input.is_key_pressed(KEY_4):
 		SnakeProps.MapGenerator.level_up_map()
+	if Input.is_key_pressed(KEY_5):
+		SnakeProps.UM.start_upgrade_sequence()
 	if Input.is_key_pressed(KEY_1):
 		for i in range(50):
 			Apple.instantiate(%SnakeManager.body[0])

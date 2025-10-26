@@ -149,6 +149,7 @@ func map_border() -> Array[Vector2i]:
 	
 func outline_everything(outline: int):
 	var dup =  rectangles.duplicate()
+	tot_free_space = 0
 	rectangles = []
 	for r in dup:
 		outline_rectangle(r, outline)

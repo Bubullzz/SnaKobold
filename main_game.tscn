@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=77 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -41,7 +41,9 @@
 [ext_resource type="Texture2D" uid="uid://bu0ik07cpxcb2" path="res://assets/upgrade_icons/explosive_apples.png" id="35_6gv5k"]
 [ext_resource type="Texture2D" uid="uid://dux4nor7r4tq6" path="res://assets/upgrade_icons/time_slow.png" id="39_3cqky"]
 [ext_resource type="PackedScene" uid="uid://cv7dgwni7raud" path="res://scenes/upgrades/juicy_apples_upgrade.tscn" id="40_5fp36"]
+[ext_resource type="Texture2D" uid="uid://cf6pxnp1flyrq" path="res://assets/upgrade_icons/juicy_apples.png" id="40_bj7hs"]
 [ext_resource type="PackedScene" uid="uid://bab7ojva46njv" path="res://scenes/upgrades/cheaper_jump_upgrade.tscn" id="41_3cqky"]
+[ext_resource type="Texture2D" uid="uid://dbj476e1o62hq" path="res://assets/upgrade_icons/jump.png" id="41_bj7hs"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -1393,7 +1395,6 @@ unique_name_in_owner = true
 icon = ExtResource("29_5fp36")
 
 [node name="MinJuiceComboUpgrade" parent="AllUpgradesList" instance=ExtResource("23_wt57k")]
-icon = ExtResource("29_5fp36")
 
 [node name="AllowedMissesUpgrade" parent="AllUpgradesList" instance=ExtResource("24_pk5u2")]
 icon = ExtResource("30_6qcu5")
@@ -1419,8 +1420,10 @@ stop_shockwave_time = 2.0
 icon = ExtResource("39_3cqky")
 
 [node name="JuicyApplesUpgrade" parent="AllUpgradesList" instance=ExtResource("40_5fp36")]
+icon = ExtResource("40_bj7hs")
 
 [node name="CheaperJumpUpgrade" parent="AllUpgradesList" instance=ExtResource("41_3cqky")]
+icon = ExtResource("41_bj7hs")
 
 [node name="JuicesList" type="Node" parent="."]
 unique_name_in_owner = true

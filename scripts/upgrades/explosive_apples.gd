@@ -3,7 +3,7 @@ extends Upgrade
 @export var UpgradesComponent: Node2D
 var activated = false 
 var add_amount = 3
-
+var running = false
 func _ready():
 	title = "Applomancer"
 	
@@ -14,22 +14,37 @@ func start_particles(pos: Vector2i):
 	get_tree().root.add_child(p)
 
 	
-func on_apple_eaten(apple: Apple):
-	SnakeProps.eatables_pos.erase(apple.tiles_pos)
+func rec_apple_find(apple: Apple, visited: Dictionary, apples: Array[Apple]):
 	var pos = apple.tiles_pos
-	var around = []
 	for i in range(-1,2):
 		for j in range(-1,2):
 			if i == 0 and j == 0:
 				continue
-			if SnakeProps.eatables_pos.has(apple.tiles_pos + Vector2i(i,j)) and SnakeProps.eatables_pos[apple.tiles_pos + Vector2i(i,j)] is Apple:
-				around.append(SnakeProps.eatables_pos[apple.tiles_pos + Vector2i(i,j)])
-	around.shuffle()
-	await get_tree().create_timer(.2).timeout
-	start_particles(pos)
-	for a in around:
-		if a: 
-			a.collect()
+			var neigh_pos = pos + Vector2i(i,j)
+			if visited.has(neigh_pos): continue
+			visited[neigh_pos] = 1
+			if SnakeProps.eatables_pos.has(neigh_pos) and SnakeProps.eatables_pos[neigh_pos] is Apple:
+				apples.append(SnakeProps.eatables_pos[neigh_pos])
+				rec_apple_find(SnakeProps.eatables_pos[neigh_pos], visited, apples)
+	
+func on_apple_eaten(apple: Apple):
+	print($Cooldown.time_left)
+	if !running:
+		running = true
+		var pos = apple.tiles_pos
+		var apples: Array[Apple] = []
+		var visited: Dictionary = {}
+		rec_apple_find(apple, visited, apples)
+
+		#await get_tree().create_timer(.2).timeout
+		if len(apples) > 0:
+			$Cooldown.start()
+			start_particles(pos)
+			for a in apples:
+				if a: 
+					a.collect()
+					await get_tree().create_timer(.01).timeout
+		running = false
 		
 
 func on_selected():

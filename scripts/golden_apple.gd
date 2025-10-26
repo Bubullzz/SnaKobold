@@ -13,12 +13,14 @@ static func is_gapple_spawn()-> bool:
 		return false
 	if randi() % int(len(SnakeProps.ApplesList.get_children()) * .8 + 10) != 0:
 		return false
-	
+	print(Time.get_ticks_msec() - last_gapple_eaten)
+	print(time_between_two_spawns)
 	last_gapple_eaten = Time.get_ticks_msec()
 	return true
 
 func collect() -> void:
 	if !collecting:
+		last_gapple_eaten = Time.get_ticks_msec()
 		collecting = true
 		Signals.apple_eaten.emit(self)
 		Signals.golden_apple_eaten.emit(self)
