@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=4 uid="uid://bf3kugmhm0pqt"]
+[gd_scene load_steps=78 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://cf6pxnp1flyrq" path="res://assets/upgrade_icons/juicy_apples.png" id="40_bj7hs"]
 [ext_resource type="PackedScene" uid="uid://bab7ojva46njv" path="res://scenes/upgrades/cheaper_jump_upgrade.tscn" id="41_3cqky"]
 [ext_resource type="Texture2D" uid="uid://dbj476e1o62hq" path="res://assets/upgrade_icons/jump.png" id="41_bj7hs"]
+[ext_resource type="PackedScene" uid="uid://d0s0uvdt41j21" path="res://scenes/upgrades/more_juice_time_upgrade.tscn" id="43_q1j2l"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r51s0"]
 frequency = 0.0808
@@ -1424,6 +1425,8 @@ icon = ExtResource("40_bj7hs")
 
 [node name="CheaperJumpUpgrade" parent="AllUpgradesList" instance=ExtResource("41_3cqky")]
 icon = ExtResource("41_bj7hs")
+
+[node name="MoreJuiceTimeUpgrade" parent="AllUpgradesList" instance=ExtResource("43_q1j2l")]
 
 [node name="JuicesList" type="Node" parent="."]
 unique_name_in_owner = true

@@ -27,6 +27,7 @@ var OwnedUpgradesList : Node
 var MapGenerator : Node
 var MainGame : Node
 var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : instance
+var base_juice_wait_time = 3
 
 func growing() -> bool:
 	if growth > 0:

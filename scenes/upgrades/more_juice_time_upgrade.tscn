@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0s0uvdt41j21"]
+
+[ext_resource type="Script" uid="uid://urjkr6n0bvg8" path="res://scripts/upgrades/more_juice_time_upgrade.gd" id="1_o1xjn"]
+[ext_resource type="Texture2D" uid="uid://bxk6kbrre5rws" path="res://assets/upgrade_icons/long_juice.png" id="2_elgwv"]
+
+[node name="MoreJuiceTimeUpgrade" type="Node2D"]
+script = ExtResource("1_o1xjn")
+icon = ExtResource("2_elgwv")
