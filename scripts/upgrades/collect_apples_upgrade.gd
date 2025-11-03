@@ -6,6 +6,8 @@ func _ready():
 	title = "8 Gold Ingot and an Apple"
 
 func on_selected():
+	print("Selected Golden Apples Spawn Upgrade")
+
 	Signals.golden_apple_eaten.connect(collect_everything)
 	self.get_parent().remove_child(self)
 	SnakeProps.OwnedUpgradesList.add_child(self)

@@ -6,6 +6,8 @@ func _ready():
 	title = "Athlete"
 	
 func on_selected():
+	print("Selected Athlete Upgrade")
+
 	level += 1
 	if level == 1:
 		SnakeProps.jump_price = SnakeProps.base_jump_price

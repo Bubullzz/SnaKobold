@@ -8,6 +8,8 @@ func _ready():
 	title = "Juicy Apples"
 	
 func on_selected():
+	print("Selected Juice Apples Upgrade")
+
 	times_selected += 1
 	if times_selected >= 2:
 		amount+=growth_factor

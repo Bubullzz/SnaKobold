@@ -28,6 +28,10 @@ static func instantiate(context, base: Vector2i):
 	instance.get_node("JuiceAnimated").speed_scale = instance.fps
 	instance.get_node("JuiceAnimated").frame = 0
 	instance.get_node("JuiceAnimated").play()
+	instance.scale.x = 0
+	instance.create_tween()
+	var t = instance.create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	t.tween_property(instance, "scale:x", 1, .4)
 	instance.SM = LOC_SM
 	var spawn_height = 4
 	var spawn_width = 4

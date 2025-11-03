@@ -21,6 +21,8 @@ func get_text()->String:
 
 
 func on_selected():
+	print("Selected Stopwatch Upgrade")
+
 	owned = true
 	self.get_parent().remove_child(self)
 	SnakeProps.OwnedUpgradesList.add_child(self)

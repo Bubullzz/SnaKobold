@@ -5,6 +5,8 @@ func _ready():
 	
 # Scamming people lol, it does nothing
 func on_selected():
+	print("Selected first Apple Spawn Upgrade")
+
 	self.get_parent().remove_child(self)
 	SnakeProps.OwnedUpgradesList.add_child(self)
 	

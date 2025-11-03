@@ -48,6 +48,8 @@ func on_apple_eaten(apple: Apple):
 		
 
 func on_selected():
+	print("Selected AppleoMancer")
+
 	activated = true
 	Signals.apple_eaten.connect(on_apple_eaten)
 	self.get_parent().remove_child(self)
