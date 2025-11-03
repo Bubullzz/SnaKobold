@@ -4,11 +4,18 @@ class_name UpgradeButton
 @export var upgrade : Upgrade
 @export var manager : CanvasLayer
 
+func disable_grey_frame():
+	%FrameDisabled.visible = false
+	%Frame.visible = true
+
 func enable():
 	%Button.disabled = false
+	%Button.focus_mode =FOCUS_ALL
+	
 
 func disable():
 	%Button.disabled = true
+	%Button.focus_mode = FOCUS_NONE
 	
 func focus_me():
 	%Button.grab_focus()

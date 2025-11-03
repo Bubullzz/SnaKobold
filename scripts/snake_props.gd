@@ -7,14 +7,15 @@ var game_state : GAME_STATE = GAME_STATE.RUNNING
 var health_points = 3
 var max_juice = 0
 var juice_update_thresh = 1000
-var max_juice_step = 1000
+var max_juice_step = 500
 var juice = 0
 var juice_combo = 1
 var max_juice_combo = 10
 var min_juice_combo = 1
 var nb_juices_missed = 0
 var max_allowed_misses = 0
-var jump_price = 500
+var jump_price = 99999999 # Gets initialized right on 3rd upgrade
+var base_jump_price = 500
 var growth : int = 0
 var SM : Node # The SnakeManager
 var ApplesList : Node

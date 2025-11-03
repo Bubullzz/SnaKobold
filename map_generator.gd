@@ -167,7 +167,7 @@ func get_biggest_rectangle():
 	Rectangle.new(self, max_x - min_x, max_y - min_y, Vector2i(min_x,min_y))
 	
 func generate_random_corridor():
-	var nb_tries = 200
+	var nb_tries = 20
 	var max_corridor_length = 50
 	for i in range(nb_tries):
 		var start = map_border().pick_random()

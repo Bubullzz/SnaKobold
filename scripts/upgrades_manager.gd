@@ -3,6 +3,7 @@ extends CanvasLayer
 class_name UpgradesManager
 
 var curr_alpha_tween : Tween
+var level = 0
 var upgrading = false
 var previous_speed
 #Useful to prevent problems when end_upgrade sequence is called before tweens from start are done
@@ -16,13 +17,29 @@ func choose_all_upgrades():
 	%Upgrade1.set_upgrade(AllUpgradesList[0])
 	%Upgrade2.set_upgrade(AllUpgradesList[1])
 	%Upgrade3.set_upgrade(AllUpgradesList[2])
+
+func beginning_upgrade():
+	%Upgrade2.set_upgrade(%AllUpgradesList.get_child(0)) # Need to put the right one in 0 position
+	%Upgrade2.disable_grey_frame()
+	%Upgrade1.set_upgrade(%OwnedUpgradesList.get_child(0))
+	%Upgrade3.set_upgrade(%OwnedUpgradesList.get_child(0)) # Need to put the right one in 0 position
+	%Upgrade1.disable()
+	%Upgrade3.disable()
+	
 	
 func start_upgrade_sequence():
+	level += 1
 	previous_speed = SnakeProps.SM.speed
 	SnakeProps.JuicesList.pause()
 	
 	enable_buttons()
-	choose_all_upgrades()
+	if level == 4:
+		%Upgrade1.disable_grey_frame()
+		%Upgrade3.disable_grey_frame()
+	if level <= 3:
+		beginning_upgrade()
+	else:
+		choose_all_upgrades()
 	upgrading = true
 	var alpha_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 	alpha_tween.tween_property($Controller, "modulate:a", 1, .4)	

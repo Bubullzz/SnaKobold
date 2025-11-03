@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bupsyq5s5thbq"]
+
+[ext_resource type="Script" uid="uid://dfr7eoa2p2o2e" path="res://scripts/upgrades/can_spawn_apples_upgrade.gd" id="1_5s7me"]
+[ext_resource type="Texture2D" uid="uid://cow0uxs4natho" path="res://assets/upgrade_icons/can_spawn_apples.png" id="2_of67o"]
+
+[node name="CanSpawnApplesUpgrade" type="Node2D"]
+script = ExtResource("1_5s7me")
+icon = ExtResource("2_of67o")
