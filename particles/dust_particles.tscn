@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxv4iqrm5rbwn"]
+
+[ext_resource type="Script" uid="uid://b7jyr4ifp6ihc" path="res://scripts/apple_eat_particles.gd" id="1_ljun1"]
+[ext_resource type="Texture2D" uid="uid://bopfat0llk4q7" path="res://assets/environment/breaking_wall_particle.png" id="2_a8xhi"]
+
+[sub_resource type="Curve" id="Curve_vsul0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.319355, 1), 0.0, 0.0, 0, 0, Vector2(0.864516, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_8py5b"]
+offsets = PackedFloat32Array(0, 0.725166, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ljun1")
+
+[node name="particles" type="CPUParticles2D" parent="."]
+z_index = 4096
+emitting = false
+amount = 15
+texture = ExtResource("2_a8xhi")
+lifetime = 2.0
+one_shot = true
+randomness = 1.0
+lifetime_randomness = 0.6
+emission_shape = 3
+emission_rect_extents = Vector2(20, 20)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 4.0
+angular_velocity_min = -30.0
+angular_velocity_max = 30.0
+orbit_velocity_max = 0.1
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_vsul0")
+color_ramp = SubResource("Gradient_8py5b")

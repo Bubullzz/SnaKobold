@@ -39,11 +39,16 @@ func end_upgrade_sequence():
 	
 	SnakeProps.SM.clock_collector = 0
 	SnakeProps.SM.tween_speed(0.1, SnakeProps.SM.target_speed, .5)
+	disable_buttons()
 	
 func enable_buttons():
 	for b in [%Upgrade1, %Upgrade2, %Upgrade3]:
 		b.enable()
 	%Upgrade2.focus_me()
+
+func disable_buttons():
+	for b in [%Upgrade1, %Upgrade2, %Upgrade3]:
+		b.disable()
 	
 	
 func _ready():

@@ -25,8 +25,9 @@ func set_both_zoom(value : float) -> void:
 	zoom.x = value
 	zoom.y = value
 
-func start_shake() -> void:
-	curr_shake_strength = shake_strength
+func start_shake(strength = 2.0, fade = 5.0) -> void:
+	curr_shake_strength = strength
+	shake_fade = fade
 
 
 func random_offset() -> Vector2:

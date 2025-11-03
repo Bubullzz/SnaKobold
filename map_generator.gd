@@ -210,13 +210,14 @@ func generate_room():
 func update_from_level():
 	outline_everything(1)
 	if level == 1:
-		Rectangle.new(self, 29,19, Vector2i(0,0))
+		Rectangle.new(self, 20,12, Vector2i(0,0))
 	else:
 		generate_random_corridor()
 		generate_random_corridor()
 		generate_room()
 		generate_room()
 		generate_room()
+		%MainCam.start_shake(40, 2)
 	
 
 	
@@ -224,42 +225,3 @@ func update_from_level():
 	
 	
 	return
-	
-	for r in rectangles:
-		print(r.x, r.y, r.start)
-		print()
-
-		
-	if level == 2:
-		print("here")
-		Rectangle.new(self, 30, 15, Vector2i(15,25))
-		Rectangle.new(self, 1, 5, Vector2i(20,20))
-		Rectangle.new(self, 1, 5, Vector2i(29,20))
-	if level == 3:
-		Rectangle.new(self, -25, -30, Vector2i(60,20))
-		Rectangle.new(self, 5, 1, Vector2i(30,3))
-		Rectangle.new(self, 1, 5, Vector2i(40,20))
-	if level == 4:
-		#get_biggest_rectangle()
-		SnakeProps.SM.target_speed = 3.
-		SnakeProps.SM.speed = 3.
-	if level == 5:
-		Rectangle.new(self, 60, 65, Vector2i(85,5))
-		Rectangle.new(self, -25, 1, Vector2i(85,10))
-		Rectangle.new(self, -25, 1, Vector2i(85,25))
-		Rectangle.new(self, -25, 1, Vector2i(85,42))
-	if level == 6:
-		Rectangle.new(self, 110, 25, Vector2i(-40,50))
-		Rectangle.new(self, 1, -10, Vector2i(55,50))
-		Rectangle.new(self, 1, -10, Vector2i(55,50))
-		Rectangle.new(self, 1, -10, Vector2i(5,50))
-		Rectangle.new(self, -25, 1, Vector2i(85,65))
-	if level == 7:
-		#ijget_biggest_rectangle()
-		SnakeProps.SM.target_speed = 4.
-		SnakeProps.SM.speed = 4.
-	
-		
-		
-		
-		
