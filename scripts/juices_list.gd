@@ -7,6 +7,7 @@ func _ready():
 
 func pause():
 	state = STATE.PAUSED
+	print(len(self.get_children()))
 	for child in self.get_children():
 		child.pause()
 

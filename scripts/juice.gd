@@ -17,7 +17,6 @@ var SM
 var end_animation_time = 0.5 # Time to make the juice disappear
 var spill_time = base_wait_time - end_animation_time
 
-
 static func instantiate(context, base: Vector2i):
 	var LOC_SM = context.get_node("%SnakeManager")
 	var EM = context.get_node("%EnvironmentManager")
@@ -29,7 +28,7 @@ static func instantiate(context, base: Vector2i):
 	instance.get_node("JuiceAnimated").frame = 0
 	instance.get_node("JuiceAnimated").play()
 	instance.scale.x = 0
-	instance.create_tween()
+	#instance.create_tween()
 	var t = instance.create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	t.tween_property(instance, "scale:x", 1, .4)
 	instance.SM = LOC_SM
@@ -112,8 +111,8 @@ func pause():
 func play():
 	$JuiceDespawnTimer.paused = false
 	$JuiceEndAnimationTimer.paused = false
-	if spill_tween:
+	if spill_tween and spill_tween.is_valid():
 		spill_tween.play()
-	if transparency_tween:
+	if transparency_tween and transparency_tween.is_valid():
 		transparency_tween.play()
 	$JuiceAnimated.play()

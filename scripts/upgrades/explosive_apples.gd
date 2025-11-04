@@ -28,7 +28,6 @@ func rec_apple_find(apple: Apple, visited: Dictionary, apples: Array[Apple]):
 				rec_apple_find(SnakeProps.eatables_pos[neigh_pos], visited, apples)
 	
 func on_apple_eaten(apple: Apple):
-	print($Cooldown.time_left)
 	if !running:
 		running = true
 		var pos = apple.tiles_pos
