@@ -42,7 +42,11 @@ func collect() -> void:
 		var apple_eat_particles_1 = preload("res://particles/apple_eat_particles.tscn").instantiate()
 		apple_eat_particles_1.global_position = global_position
 		apple_eat_particles_1.start()
-		get_tree().root.add_child(apple_eat_particles_1)
+		var t = get_tree()
+		if t != null:
+			t.root.add_child(apple_eat_particles_1)
+		else:
+			print("did not find a tree on apple collection, maybe i m null ?")
 		SnakeProps.eatables_pos.erase(tiles_pos)
 		queue_free()
 	
