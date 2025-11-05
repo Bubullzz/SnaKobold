@@ -64,6 +64,7 @@ func start_transparency_tween():
 	queue_free()
 	
 func _on_timer_timeout() -> void: # The juice is spilled
+	Signals.juice_spilled.emit(self)
 	start_transparency_tween()
 	SnakeProps.eatables_pos.erase(tiles_pos)
 	instantiate(SM, SM.body[0])

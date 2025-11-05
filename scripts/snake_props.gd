@@ -90,6 +90,7 @@ func update_juice_combo(value: int) -> void:
 func on_juice_consumed():
 	nb_juices_missed = 0
 	update_juice(100 * juice_combo)
+	Signals.juice_eaten.emit(100 * juice_combo)
 	update_juice_combo(juice_combo + 1)
 
 	

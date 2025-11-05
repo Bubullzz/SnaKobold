@@ -13,6 +13,7 @@ func on_selected():
 		SnakeProps.jump_price = SnakeProps.BASE_JUMP_PRICE
 		return
 	
+	@warning_ignore("narrowing_conversion")
 	SnakeProps.jump_price *= 1 - percentage_reduction
 
 func get_text()->String:
