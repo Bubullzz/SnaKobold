@@ -5,7 +5,6 @@ class_name UpgradesManager
 var curr_alpha_tween : Tween
 var level = 0
 var upgrading = false
-var previous_speed
 #Useful to prevent problems when end_upgrade sequence is called before tweens from start are done
 func flush_tweens():
 	if curr_alpha_tween:
@@ -29,10 +28,9 @@ func beginning_upgrade():
 	
 func start_upgrade_sequence():
 	level += 1
-	previous_speed = SnakeProps.SM.speed
 	SnakeProps.JuicesList.pause()
-	
 	enable_buttons()
+	
 	if level == 4:
 		%Upgrade1.disable_grey_frame()
 		%Upgrade3.disable_grey_frame()

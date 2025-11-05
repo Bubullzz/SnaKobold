@@ -18,7 +18,8 @@ func stop_game():
 	SnakeProps.JuicesList.pause()
 	SnakeProps.SM.speed = 0
 	SnakeProps.SM.target_speed = 0
-	SnakeProps.SM.speed_tweener.kill()
+	if SnakeProps.SM.speed_tweener:
+		SnakeProps.SM.speed_tweener.kill()
 
 
 func _input(_event):
