@@ -15,6 +15,7 @@ func middle() -> Vector2i:
 	return Vector2i(width / 2, height / 2)
 
 func stop_game():
+	print("recieved game_lost signal, stopping game")
 	SnakeProps.JuicesList.pause()
 	SnakeProps.SM.speed = 0
 	SnakeProps.SM.target_speed = 0

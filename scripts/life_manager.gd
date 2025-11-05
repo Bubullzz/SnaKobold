@@ -10,11 +10,13 @@ var health_delta = 35
 func on_collision():
 	if health_tween:
 		health_tween.stop()
-	if health - health_delta < 0:
-		Signals.game_lost
 	health_tween = get_tree().create_tween()
 	health_tween.set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	health_tween.tween_property(self, "health", health - health_delta, .4)
+	if health - health_delta < 0:
+		Signals.game_lost.emit()
+		print("life manager emmited game lost signal")
+		return
 	health_tween.set_ease(Tween.EASE_IN)
 	health_tween.tween_property(self, "health", max_health, 8)
 	
