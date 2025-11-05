@@ -137,7 +137,6 @@ func handle_collision():
 		print("body too small, emmited game_lost signal")
 		Signals.game_lost.emit()
 		return
-	SnakeProps.health_points -= 1
 	var send_back_amaount = 2
 	while send_back_amaount > 0 or %snakeJumpingLayer.get_cell_source_id(body[0]) == JUMP_ID: # Pop until we reach a non-jumping cell
 		var poped = body.pop_front()

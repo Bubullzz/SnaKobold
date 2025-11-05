@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Juice
 
-var base_wait_time = SnakeProps.base_juice_wait_time
+var base_wait_time = SnakeProps.juice_wait_time
 var nb_frames = 16
 var last_frame_duration = 4
 var tot_frames = nb_frames + last_frame_duration - 1

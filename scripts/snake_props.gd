@@ -3,20 +3,36 @@ extends Node
 
 enum GAME_STATE {RUNNING, PAUSED, GAME_OVER, DEBUG}
 
-var game_state : GAME_STATE = GAME_STATE.RUNNING
-var health_points = 3
-var max_juice = 0
-var juice_update_thresh = 1000
-var max_juice_step = 500
-var juice = 0
-var juice_combo = 1
-var max_juice_combo = 10
-var min_juice_combo = 1
-var nb_juices_missed = 0
-var max_allowed_misses = 0
-var jump_price = 99999999 # Gets initialized right on 3rd upgrade
-var base_jump_price = 500
-var growth : int = 0
+# === Base Values ===
+const BASE_JUICE_UPDATE_THRESH = 1000
+const BASE_MAX_JUICE_STEP = 500
+const BASE_JUICE_COMBO = 1
+const BASE_MAX_JUICE_COMBO = 10
+const BASE_MIN_JUICE_COMBO = 1
+const BASE_NB_JUICES_MISSED = 0
+const BASE_MAX_ALLOWED_MISSES = 0
+const BASE_JUMP_PRICE = 500
+const BASE_GROWTH = 0
+const BASE_JUICE = 0
+const BASE_GAME_STATE = GAME_STATE.RUNNING
+const BASE_JUICE_WAIT_TIME = 3
+
+# === Runtime Values ===
+var game_state : GAME_STATE
+var max_juice : int
+var juice_update_thresh : int
+var max_juice_step : int
+var juice : int
+var juice_combo : int
+var max_juice_combo : int
+var min_juice_combo : int
+var nb_juices_missed : int
+var max_allowed_misses : int
+var base_jump_price : int
+var growth : int
+var jump_price: int = 99999999 # Gets initialized right on 3rd upgrade
+var juice_wait_time = 3
+
 var SM : Node # The SnakeManager
 var ApplesList : Node
 var EnvironmentManager : Node
@@ -28,8 +44,27 @@ var OwnedUpgradesList : Node
 var MapGenerator : Node
 var MainGame : Node
 var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : instance
-var base_juice_wait_time = 3
 
+func init_vars() -> void:
+	game_state = BASE_GAME_STATE
+	max_juice = 0
+	juice_update_thresh = BASE_JUICE_UPDATE_THRESH
+	max_juice_step = BASE_MAX_JUICE_STEP
+	juice = BASE_JUICE
+	juice_combo = BASE_JUICE_COMBO
+	max_juice_combo = BASE_MAX_JUICE_COMBO
+	min_juice_combo = BASE_MIN_JUICE_COMBO
+	nb_juices_missed = BASE_NB_JUICES_MISSED
+	max_allowed_misses = BASE_MAX_ALLOWED_MISSES
+	jump_price = 99999999 # Will be reset during the 3rd upgrade
+	base_jump_price = BASE_JUMP_PRICE
+	growth = BASE_GROWTH
+	eatables_pos.clear()
+	juice_wait_time = BASE_JUICE_WAIT_TIME
+
+func _ready():
+	init_vars()
+	
 func growing() -> bool:
 	if growth > 0:
 		growth -= 1

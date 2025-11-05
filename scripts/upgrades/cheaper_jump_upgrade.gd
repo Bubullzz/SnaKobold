@@ -10,7 +10,7 @@ func on_selected():
 
 	level += 1
 	if level == 1:
-		SnakeProps.jump_price = SnakeProps.base_jump_price
+		SnakeProps.jump_price = SnakeProps.BASE_JUMP_PRICE
 		return
 	
 	SnakeProps.jump_price *= 1 - percentage_reduction

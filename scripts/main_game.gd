@@ -14,6 +14,10 @@ var debug = false
 func middle() -> Vector2i:
 	return Vector2i(width / 2, height / 2)
 
+func restart():
+	SnakeProps.init_vars()
+	get_tree().change_scene_to_file("res://main_game.tscn")
+
 func stop_game():
 	print("recieved game_lost signal, stopping game")
 	SnakeProps.JuicesList.pause()
@@ -54,8 +58,6 @@ func _input(_event):
 		SnakeProps.update_juice(5000)
 	if Input.is_key_pressed(KEY_Z):
 		SnakeProps.update_juice(1000)
-	if Input.is_key_pressed(KEY_H):
-		SnakeProps.health_points += 1	
 	if Input.is_key_pressed(KEY_N):
 		%SnakeManager.actual_speed += 1
 		SnakeProps.target_speed += 1
@@ -73,7 +75,7 @@ func _input(_event):
 	if Input.is_key_pressed(KEY_5):
 		SnakeProps.UM.start_upgrade_sequence()
 	if Input.is_key_pressed(KEY_0):
-		get_tree().change_scene_to_file("res://main_game.tscn")
+		restart()
 	if Input.is_key_pressed(KEY_1):
 		for i in range(50):
 			Apple.instantiate(%SnakeManager.body[0])
@@ -107,7 +109,6 @@ func update_debug_labels():
 	%DebugLabels.text += format % ["target_speed", SnakeProps.target_speed] + '\n'
 	%DebugLabels.text += format % ["clock", %SnakeManager.clock] + '\n'
 	%DebugLabels.text += format % ["body length", len(%SnakeManager.body)] + '\n'
-	%DebugLabels.text += format % ["health", SnakeProps.health_points] + '\n'
 
 
 func update_debug_boxes():
