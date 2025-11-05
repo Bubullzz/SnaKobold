@@ -70,3 +70,4 @@ func disable_buttons():
 	
 func _ready():
 	SnakeProps.UM = self
+	disable_buttons()

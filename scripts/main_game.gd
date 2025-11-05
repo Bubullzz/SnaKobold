@@ -10,18 +10,15 @@ var height
 
 var debug = false
 
+
 func middle() -> Vector2i:
 	return Vector2i(width / 2, height / 2)
 
-func array_to_map(arr): # Array2d of height * width
-	var walls: Array[Vector2i]
-	for i in range(height):
-		for j in range(width):
-			%EnvironmentManager.set_floor(Vector2i(i,j))
-			if !arr[i][j]:
-				%EnvironmentManager.set_wall(Vector2i(i,j))
-				walls.append(Vector2i(i,j))
-	%EnvironmentManager.update_terrain_cells(walls)
+func stop_game():
+	SnakeProps.JuicesList.pause()
+	SnakeProps.SM.speed = 0
+	SnakeProps.SM.target_speed = 0
+	SnakeProps.SM.speed_tweener.kill()
 
 
 func _input(_event):
@@ -72,6 +69,8 @@ func _input(_event):
 		SnakeProps.MapGenerator.level_up_map()
 	if Input.is_key_pressed(KEY_5):
 		SnakeProps.UM.start_upgrade_sequence()
+	if Input.is_key_pressed(KEY_0):
+		get_tree().change_scene_to_file("res://main_game.tscn")
 	if Input.is_key_pressed(KEY_1):
 		for i in range(50):
 			Apple.instantiate(%SnakeManager.body[0])
@@ -125,6 +124,8 @@ func _process(_delta: float) -> void:
 
 
 func _ready():
+	Signals.game_lost.connect(stop_game)
+	
 	SnakeProps.MainGame = self
 	
 	var start: Vector2i = Vector2i(8,8)

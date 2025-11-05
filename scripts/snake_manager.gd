@@ -132,6 +132,10 @@ func handle_collision():
 	var real_coor_hit_pos = %SnakeLayer.map_to_local(body[0])
 	%Boom.set_position(real_coor_hit_pos)
 	%Boom.set_emitting(true)
+	if len(body) < 8:
+		print("body too small, emmited game_lost signal")
+		Signals.game_lost.emit()
+		return
 	SnakeProps.health_points -= 1
 	var send_back_amaount = 2
 	while send_back_amaount > 0 or %snakeJumpingLayer.get_cell_source_id(body[0]) == JUMP_ID: # Pop until we reach a non-jumping cell
@@ -280,6 +284,8 @@ func _on_clock_tick() -> void:
 
 
 func _process(delta: float) -> void:
+	if speed == 0:
+		return
 	var clock_rate = 16666 # vraiment hyper hyper important que ça soit un multiple de 16666 
 	delta = delta * 1000 # get it in ms
 	delta = delta * 1000 # get it in ns
@@ -287,8 +293,8 @@ func _process(delta: float) -> void:
 	if SnakeProps.game_state == SnakeProps.GAME_STATE.RUNNING && clock_collector * speed > clock_rate:
 		for i in range(int(clock_collector * speed / clock_rate)):
 			_on_clock_tick()
-
-		clock_collector = int(clock_collector) % (int(clock_rate / speed))
+		
+		clock_collector = int(clock_collector) % (int(clock_rate / max(speed, 0.001)))
 
 
 func _ready() -> void:
