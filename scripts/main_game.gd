@@ -20,6 +20,7 @@ func stop_game():
 	SnakeProps.SM.target_speed = 0
 	if SnakeProps.SM.speed_tweener:
 		SnakeProps.SM.speed_tweener.kill()
+	%TailParticles.stop()
 
 
 func _input(_event):

@@ -12,3 +12,6 @@ func _process(_delta):
 		$Part.emitting = false
 	else:
 		$Part.emitting = true
+
+func stop():
+	$Part.emitting = false

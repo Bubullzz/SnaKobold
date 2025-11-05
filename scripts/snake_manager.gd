@@ -129,6 +129,7 @@ func tween_speed(start:float, end:float, duration: float):
 	
 
 func handle_collision():
+	Signals.on_collision.emit()
 	var real_coor_hit_pos = %SnakeLayer.map_to_local(body[0])
 	%Boom.set_position(real_coor_hit_pos)
 	%Boom.set_emitting(true)
