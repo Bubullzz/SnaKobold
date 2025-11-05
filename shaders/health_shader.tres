@@ -26,7 +26,7 @@ operator = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yf42x"]
 noise_type = 3
-frequency = 0.0098
+frequency = 0.0296
 offset = Vector3(0, 0, 3)
 fractal_type = 2
 fractal_octaves = 2
@@ -59,14 +59,14 @@ default_input_values = [0, 0.0, 1, 1.0]
 operator = 4
 
 [sub_resource type="VisualShaderNodeIntConstant" id="VisualShaderNodeIntConstant_v333c"]
-constant = 200
+constant = 600
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_l4t71"]
 default_input_values = [0, 0.0, 1, 1.0]
 operator = 3
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_jkyim"]
-constant = Color(0.152941, 0.0627451, 0.12549, 1)
+constant = Color(0.89, 0.3738, 0.743743, 1)
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ilvtu"]
 operator = 2
@@ -83,7 +83,7 @@ default_input_values = [0, 0.0, 1, 20.0]
 operator = 2
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_0u1po"]
-default_input_values = [0, 0.0, 1, 0.9]
+default_input_values = [0, 0.0, 1, 0.7]
 operator = 7
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_7qyb6"]
@@ -111,7 +111,7 @@ uniform sampler3D tex3d_frg_18;
 
 void fragment() {
 // ColorConstant:27
-	vec4 n_out27p0 = vec4(0.152941, 0.062745, 0.125490, 1.000000);
+	vec4 n_out27p0 = vec4(0.890000, 0.373800, 0.743743, 1.000000);
 
 
 // FloatParameter:4
@@ -170,7 +170,7 @@ void fragment() {
 
 
 // IntConstant:23
-	int n_out23p0 = 200;
+	int n_out23p0 = 600;
 
 
 // FloatOp:22
@@ -205,7 +205,7 @@ void fragment() {
 
 
 // FloatOp:32
-	float n_in32p1 = 0.90000;
+	float n_in32p1 = 0.70000;
 	float n_out32p0 = min(n_out29p0, n_in32p1);
 
 
@@ -216,7 +216,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-1350.38, -625.699)
+graph_offset = Vector2(-53.741, -308.703)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(1140, 180)
@@ -253,7 +253,7 @@ nodes/fragment/21/position = Vector2(-1200, -680)
 nodes/fragment/22/node = SubResource("VisualShaderNodeFloatOp_273g6")
 nodes/fragment/22/position = Vector2(-1200, -420)
 nodes/fragment/23/node = SubResource("VisualShaderNodeIntConstant_v333c")
-nodes/fragment/23/position = Vector2(-1460, -220)
+nodes/fragment/23/position = Vector2(-1540, -240)
 nodes/fragment/24/node = SubResource("VisualShaderNodeFloatOp_l4t71")
 nodes/fragment/24/position = Vector2(-980, -420)
 nodes/fragment/27/node = SubResource("VisualShaderNodeColorConstant_jkyim")
