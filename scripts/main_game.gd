@@ -26,6 +26,9 @@ func stop_game():
 	if SnakeProps.SM.speed_tweener:
 		SnakeProps.SM.speed_tweener.kill()
 	%TailParticles.stop()
+	%EndGameCanvas.get_child(0).visible = true
+	%EndGameCanvas.get_child(0).appear()
+	%LifeManager.stop()
 
 
 func _input(_event):
@@ -58,9 +61,6 @@ func _input(_event):
 		SnakeProps.update_juice(5000)
 	if Input.is_key_pressed(KEY_Z):
 		SnakeProps.update_juice(1000)
-	if Input.is_key_pressed(KEY_N):
-		%SnakeManager.actual_speed += 1
-		SnakeProps.target_speed += 1
 	if Input.is_key_pressed(KEY_B):
 		%SnakeManager.actual_speed -= 1
 		SnakeProps.target_speed -= 1
@@ -128,6 +128,7 @@ func _process(_delta: float) -> void:
 
 
 func _ready():
+	Signals.restart.connect(restart)
 	Signals.game_lost.connect(stop_game)
 	
 	SnakeProps.MainGame = self

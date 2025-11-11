@@ -53,8 +53,11 @@ func _on_collision_zone_area_entered(area:Area2D) -> void:
 	SnakeProps.eatables_pos.erase(tiles_pos)
 	call_deferred("instantiate", area, SM.body[0])
 	var jc = SnakeProps.juice_combo
+	if SnakeProps.max_juice == SnakeProps.juice:
+		PopUpText.spawn_juice_popup(self, "FULL", global_position, jc * 2.3 + 15)
+	else:
+		PopUpText.spawn_juice_popup(self, "+%d" % [100 * jc], global_position, jc * 2 + 8)
 	SnakeProps.on_juice_consumed()
-	PopUpText.spawn_juice_popup(self, "x%d" % [jc], global_position, jc)
 	queue_free()
 
 func start_transparency_tween():

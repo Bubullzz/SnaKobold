@@ -6,4 +6,5 @@ signal juice_eaten
 signal juice_spilled
 signal golden_apple_eaten
 signal game_lost
+signal restart
 signal on_collision

@@ -1,0 +1,154 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtv84ximkck17"]
+
+[ext_resource type="Script" uid="uid://cm7cucnvj6fv6" path="res://scripts/game_lost.gd" id="1_fhetd"]
+[ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="1_k0tqk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fhetd"]
+font = ExtResource("1_k0tqk")
+font_size = 200
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lff48"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_26cyf"]
+font = ExtResource("1_k0tqk")
+font_size = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fhetd"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.85, 0.85, 0.85, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kn0hh"]
+content_margin_left = 60.0
+content_margin_top = 50.0
+content_margin_right = 50.0
+content_margin_bottom = 20.0
+bg_color = Color(0.13, 0.13, 0.13, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[node name="GameLost" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fhetd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0.2, 0.2, 0.2, 0.458824)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You Lost !"
+label_settings = SubResource("LabelSettings_fhetd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lff48")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="NbApplesEaten" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Apples eaten : "
+label_settings = SubResource("LabelSettings_26cyf")
+
+[node name="TotalJuiceGathered" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Juice gathered : "
+label_settings = SubResource("LabelSettings_26cyf")
+
+[node name="NbJuiceSpilled" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Juices spilled : "
+label_settings = SubResource("LabelSettings_26cyf")
+
+[node name="MaxCombo" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Highest Combo : "
+label_settings = SubResource("LabelSettings_26cyf")
+
+[node name="NumberOfCollisions" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Collisions : "
+label_settings = SubResource("LabelSettings_26cyf")
+
+[node name="FinalLength" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Highest Length : "
+label_settings = SubResource("LabelSettings_26cyf")
+
+[node name="Label" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_26cyf")
+
+[node name="Label2" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_26cyf")
+
+[node name="RestartButton" type="Button" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_k0tqk")
+theme_override_font_sizes/font_size = 120
+theme_override_styles/focus = SubResource("StyleBoxFlat_fhetd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kn0hh")
+text = "RESTART"
+
+[connection signal="button_down" from="MarginContainer/ColorRect/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_button_down"]

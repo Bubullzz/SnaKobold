@@ -35,6 +35,9 @@ func initialize_juice(text: String, global_pos: Vector2, combo: int) -> void:
 	$Text.modulate = juice_text_color
 	$Text.label_settings.font_size = 10
 	$Text.label_settings.font_size += combo * 3
+	$Text.label_settings.outline_color = apple_outline_color
+	$Text.label_settings.outline_size = 4 + combo/4
+	
 
 	
 func initialize_apple(text: String, global_pos: Vector2) -> void:

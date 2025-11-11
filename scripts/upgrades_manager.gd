@@ -46,6 +46,7 @@ func start_upgrade_sequence():
 	curr_alpha_tween = alpha_tween
 	
 func end_upgrade_sequence():
+	disable_buttons()
 	SnakeProps.JuicesList.play()
 	flush_tweens()
 	upgrading = false
@@ -54,7 +55,6 @@ func end_upgrade_sequence():
 	
 	SnakeProps.SM.clock_collector = 0
 	SnakeProps.SM.tween_speed(0.1, SnakeProps.SM.target_speed, .5)
-	disable_buttons()
 	
 func enable_buttons():
 	for b in [%Upgrade1, %Upgrade2, %Upgrade3]:
