@@ -61,7 +61,9 @@ func place_snake(pos):
 		body.push_back(pos + Direction.dir_to_vec(Direction.DIR.LEFT) * i)
 		%SnakeLayer.set_cell(body[-1], GROUND_ID, Vector2i(0, 0))
 
-
+func reset_dir_buff():
+	dir_buffer = [null, null] 
+	
 func dir_buff_add(dir):
 	if dir_buffer[0] == null:
 		dir_buffer[0] = dir
@@ -96,7 +98,6 @@ func pop_tail():
 	if %snakeJumpingLayer.get_cell_source_id(old_tail_co) == (JUMP_ID):
 		%snakeJumpingLayer.set_cell(old_tail_co)
 		if is_ground_snake(old_tail_co): # the tail is passing under body and needs update
-			print("HERE")
 			var index = get_body_index(old_tail_co)
 			if index == -1:
 				print("Error: Tail not found in body")
@@ -148,8 +149,8 @@ func handle_collision():
 	tween_speed(.1, target_speed, 2.5)
 	curr_dir = Direction.cells_to_dir(body[1], body[0])
 	var ideal_cam_pos = body[0] + 1 * Direction.dir_to_vec(Direction.opp(curr_dir))
-	%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 1, 4.)
-	%MainCam.start_shake()
+	#%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 1, 4.)
+	%MainCam.start_shake(30, 6)
 
 	dir_buffer = [null, null]
 
@@ -299,4 +300,5 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	SnakeProps.SM = self
+	Signals.on_collision.connect(reset_dir_buff)
 	pass # SnakeProps.update_max_juice()

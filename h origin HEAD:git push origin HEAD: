@@ -1,0 +1,156 @@
+[33m42deea6[m[33m ([m[1;36mHEAD[m[33m)[m added game_lost menu and made juices better
+[33maeaec16[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m hmmm not sure where i m going with that one, could iterate on it some day
+[33m4136062[m[33m ([m[1;32mmain[m[33m)[m so much better smog, damso serait fier
+[33mb501e75[m better better
+[33mebc5445[m better smog...
+[33m1bbc54b[m we have stats now ga .
+[33m1579efa[m clean restart working ga .
+[33m1a930ae[m we can officially die now ga .
+[33m8fc7300[m cool first version of health shader
+[33me3fb2c8[m fixed small bug
+[33m8bf6039[m clean stop function
+[33maa2dc4c[m walls are not plain anymore ga .
+[33m1a5a64d[m little fixes
+[33m304595c[m little fix in apples maybe
+[33me9ace89[m added logging when selectijng upgrades but noticed a WEIRD random bug kinda whatever tho
+[33m099658d[m made tutorial upgrades ga .!
+[33m02535c1[m nice dust wall break particles ga .!
+[33m7e0f260[m cleaned a few shits
+[33m379d9f3[m better frame hehe
+[33mee61069[m frame a bit better ga .!
+[33mc4c7e89[m added extra spill time
+[33mfb60162[m changed additionnal juice icon
+[33m4f4abcc[m good idea for longer juice sprite upgrade, need to polish it
+[33m8a141d0[m better gapples icon heheheh
+[33m6f64065[m magnificient juicy apples upgrade
+[33md8083cd[m added jump icon not big fan, might change later but might not
+[33m351c5e2[m added random corridor generation
+[33md757894[m getting some good map generation ga .
+[33m5621051[m function to find border looks to be working pretty well ga .!
+[33m7d6c560[m few changes but is better now
+[33m320b0df[m better stopwatch icon
+[33m4994b8d[m made map a bit better and added cheaper_jump_upgrade
+[33me0593bc[m JuicyApples upggrade is working !
+[33m0c24bfb[m made map generation a bit better, there is still some work to do but it will look nice ga .
+[33m0d4c768[m increased size of selected outline
+[33m8cb5364[m added new sprites for upgrade ga .! need to redo time slow tho
+[33m30e7d7b[m removes files
+[33m7db8e05[m changed uppgrade frame and the way it works in code ga .!
+[33m18c84b0[m c
+[33mf09b651[m first version of better upgrades, needs improvement
+[33m439d364[m we can kinda easily add new rooms les gooooo
+[33mbbdfa72[m removed random print
+[33m7c9cd8f[m small fix, better shader
+[33m7fc2f64[m bullet time is finally working with colors as expected
+[33mdcaea9d[m little debug
+[33m113ff60[m fully functionnal bullet time ga .
+[33m0d92828[m zioum shader first version working
+[33m54de934[m added jumpable logs and fixed shitty logic which created sprites problems
+[33me8da42c[m created log sprites and terrain
+[33m72b623d[m removed procedurally generated map
+[33m77622aa[m upgrades work without slowing engine time
+[33m2d886a0[m pause and play funcs for juices + put them all in JuicesList
+[33m898ad42[m everything uses tweens now ga .
+[33m047a220[m perlin seeds for juice seeds now set randomly
+[33me7e873e[m changed shaders to visual
+[33m6fdcb23[m only one apple and small bug
+[33mf3aaad4[m cleaner gapples
+[33m596a273[m golden apples spawn
+[33m45a5c9b[m explosive apple upgrade functionnal
+[33mbff3b3a[m fixed SnakeProps.eatables_pos bug
+[33ma282198[m made map better !
+[33m13d1410[m spawns additionnal juice upgrade
+[33mec2c59a[m better map generation with tunnels
+[33m5f35f84[m basic MapGenerator + fix apples shadow
+[33m461e0bf[m apples pop is now better
+[33mf559fa8[m labyrinth map
+[33m08872c1[m combo goes down nicely in ui
+[33ma84bd5f[m added combo thingy
+[33m76403cd[m choose 3 DIFFERENT random upgrades
+[33m31c6e85[m increased bar size
+[33m9b95cda[m upgrades selected randomly now ga .
+[33m93cd578[m collect all apples upgrade
+[33m2a46376[m removed Proute and allowed_spills uppgrade works ga .
+[33m9fdacbd[m made code ready for allowed juices misses
+[33mc18a5bc[m MinJuiceComboUpgrade
+[33ma7adeb8[m changed text to get_text()
+[33mabd5447[m even better
+[33m6227949[m just wow, making upgrades menu better
+[33m0008d8d[m upgrades start to look good git add .
+[33ma4cd8e0[m created max_juice_combo_upgrade
+[33m7c6b80b[m added first prototype of upgrades
+[33m1e7a36c[m changed puip up texts to print x 1 2 3
+[33m9aed3e7[m juice now shivers and slowly disapears also fixed small bug on spill shader to take into account end_time
+[33m1e1f77d[m proof of concept for additionnal visuals depending on context, added eyes when juice is full there
+[33mab825bd[m small fix: cannot jump over walls anymore
+[33mbfa4709[m added main menu scene
+[33m4e7a82f[m added shaders for juice and apple spawn, looks nice !!!
+[33mc2b9e9a[m Now using a singleton for snakes thing, it was horrible to change all, i will not kill myself pour autant
+[33mdf3e83f[m added basic step evolution for absolute_max_juice
+[33md39003c[m added tweening on bar update
+[33m9170fd9[m made tail particles a bit smaller
+[33md83f744[m added celeste-like opening shader
+[33m1d319bc[m with shader
+[33ma631a6c[m small change for no weird visual jumps
+[33m094429b[m tweaked parameters for rounder spill and changed sprit i think
+[33m3d1bd42[m first working version of shader for juice, need to tweak parameters
+[33m253ffed[m added tail aprticles and removed unused particles/apple.gd
+[33m248e21f[m add small movement to apple and separated it from it's shadow
+[33md6c1793[m multiple combo break texts possible now
+[33me3c29e5[m cleaned code and set up z indexes
+[33m424e9f9[m looks like it's working for juice too, need to clean code and setup z indexes
+[33m18fb0a7[m small fix to remove an error
+[33mc0ca28e[m added apples with collision box. need to remove all dead coed now
+[33m493b617[m progress_bar updates its size from snake size #heheha
+[33me8b49a2[m added particles when eating apples
+[33mfe08e12[m smallest_fix_ever
+[33m1b3dbd5[m game now uses control nodes so it does not depend on the size of the window ! :3 (also new juice aseprite but have to put it in game)
+[33me087938[m better pop up apple text
+[33m2f37b5f[m gorgeous instantiation
+[33m9d298d5[m no longer waist all juice on long and shitty wall jumps
+[33md6d7604[m snake now cannot jump over already jumped places
+[33mf7c05a3[m created a new sprite for juice, changed for better calls in popuptext and now sprites management for turning snake under jump
+[33mb8390a9[m juice never spawns on apple now and changed keys to ijkl for movement
+[33m0a8afa5[m added texts popups
+[33m85d1b38[m small fix of juice_combo
+[33m8ce03fe[m added juice_combo
+[33m95c7cd4[m passed to godot3.jsp added apple spawn capacity added hit particles !!
+[33m31fe1df[m ez ez ez
+[33m84292e5[m all good all clean
+[33m3af7a25[m the juice is movingggg
+[33m819a9aa[m added min pck tkt
+[33m2aef740[m auto jump and leaky juice
+[33mf643409[m bizarre lent biance 2
+[33m3720e12[m[33m ([m[1;32mmaster[m[33m)[m added bar for juice need to do things now
+[33mf134964[m heeeeeealutu
+[33mea031e3[m rm last shitty import and put apples before wwalls
+[33me710993[m cleaned the tree hihi
+[33mcd781a0[m remove easy useless old sprites and added walls_kayouent
+[33m29f2832[m added heart.aseprite, changed snake_manager and change floor
+[33m904e7c3[m jsp mais commit comme meme
+[33m8f2d403[m omgu walluzu
+[33mf178582[m KAYOUKAYOUKAYOU
+[33m203649e[m deleted wall, updated apple and made maquette
+[33me9ad766[m fixed collision passing over precedent jumps. Prevents turning while jumping
+[33m0a2f390[m updated sprites renderer with atlas transforms
+[33m5898f34[m passed everything in 32 bits
+[33m9bc44c4[m slowed main_cam speed a bit and small fix to walls better :p
+[33mb10a04e[m plus quatre akhy
+[33md16df58[m Merge, inchallah g pas tous cassez
+[33m05d5480[m big walls update, now also places two apples and little dezoom in beginning
+[33m2fe9e7e[m changes to collision checker and camera update
+[33mc0194df[m added checks for place_apple and clean move_bufer on collision
+[33m0691a82[m added better terrains, collision, camera shake, camera zoom, clean proc gen, and other things idk lol
+[33m44fce0a[m better generation, filled holes
+[33m7038ecf[m map is starting to be gen procedurally and removed bug of trailing queue in walls
+[33mf42102b[m removed useless print
+[33mfc9bb22[m straught yp jumpigning it
+[33m67c22d1[m the head jumps !!!!!
+[33meacd46a[m starting to jump (it doesn't work)
+[33m90b30f1[m finished angles
+[33mdda632d[m jsp exactement ce que je fais
+[33m818542c[m set imports back ig ??
+[33m2112a96[m removes .png and changed tructure
+[33ma85dd94[m aaaa
+[33me8cb0a5[m aa
+[33mab6f3e3[m first commit, not last

@@ -38,7 +38,7 @@ func _input(_event):
 		if Input.is_action_just_pressed("ui_down"):
 			%SnakeManager.dir_buff_add(DIR.DOWN)
 		if Input.is_action_just_pressed("ui_right"):
-			%SnakeManager. dir_buff_add(DIR.RIGHT)
+			%SnakeManager.dir_buff_add(DIR.RIGHT)
 		if Input.is_action_just_pressed("ui_left"):
 			%SnakeManager.dir_buff_add(DIR.LEFT)
 		if  Input.is_action_just_pressed("Action"):
@@ -89,8 +89,9 @@ func _input(_event):
 		while %SnakeManager.clock > 0:
 			%SnakeManager._on_clock_tick()
 	if Input.is_key_pressed(KEY_Z):
-		%MainCam.curr_state = %MainCam.STATE.DEBUG
-		%MainCam.set_both_zoom(%MainCam.zoom.x * 0.7)
+		pass
+		#%MainCam.curr_state = %MainCam.STATE.DEBUG
+		#%MainCam.set_both_zoom(%MainCam.zoom.x * 0.7)
 
 func update_game_labels():
 	%GameLabels.text = ""
@@ -117,7 +118,7 @@ func update_debug_boxes():
 	if debug:
 		for part in %SnakeManager.body:
 			%DebugLayer.set_cell(part, 0, Vector2i(0,0))
-		%DebugLayer.set_cell(%SnakeManager.body[0] + %MainCam.lookahead * Direction.dir_to_vec(%SnakeManager.curr_dir), 0, Vector2i(0,0)) # XXX change lookahaed color
+		#%DebugLayer.set_cell(%SnakeManager.body[0] + %MainCam.lookahead * Direction.dir_to_vec(%SnakeManager.curr_dir), 0, Vector2i(0,0)) # XXX change lookahaed color
 		
 
 func _process(_delta: float) -> void:
@@ -141,8 +142,8 @@ func _ready():
 	%JuiceBar.max_value = SnakeProps.max_juice
 
 	%MainCam.position_smoothing_enabled = false
-	%MainCam.position = %SnakeLayer.map_to_local(%SnakeManager.body[0])
-	%MainCam.set_both_zoom(0.6)
+	#%MainCam.position = %SnakeLayer.map_to_local(%SnakeManager.body[0])
+	#%MainCam.set_both_zoom(0.6)
 	await get_tree().create_timer(0.1).timeout 
 	%MainCam.position_smoothing_enabled = true
 	%MainCam.position_smoothing_speed = 1.

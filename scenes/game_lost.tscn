@@ -128,7 +128,7 @@ label_settings = SubResource("LabelSettings_26cyf")
 [node name="FinalLength" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Highest Length : "
+text = "Final Length : "
 label_settings = SubResource("LabelSettings_26cyf")
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
