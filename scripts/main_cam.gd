@@ -11,7 +11,6 @@ var rng = RandomNumberGenerator.new()
 var curr_shake_strength: float = 0.0
 @onready var starting_pos = position
 
-var position_tween: Tween
 var zoom_tween: Tween
 @onready var initial_zoom = zoom
 
@@ -37,9 +36,6 @@ func on_collision():
 	var head_offset = (dir_scaled * %SnakeManager.clock) / 16 # where is the head inside its tile, prevents jittering
 	var exact_head_pos =  %SnakeLayer.map_to_local(%SnakeManager.body[0]) + head_offset + dir_scaled * 3
 	
-	#position_tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	#position_tween.tween_property(self, "position", exact_head_pos, .05)
-	
 	zoom_tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	zoom_tween.tween_property(self, "zoom", Vector2(2.5,2.5), .2)
 	zoom_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
@@ -56,16 +52,12 @@ func handle_shake(delta: float) -> void:
 		offset = random_offset()
 
 func any_tween_active():
-	return [position_tween, zoom_tween].any(func(t:Tween): return t and t.is_running())
+	return [zoom_tween].any(func(t:Tween): return t and t.is_running())
 
 func _process(delta: float) -> void:
 	handle_shake(delta)
-	
-	if any_tween_active():
-		return
 	match curr_state:
 		STATE.START:
-			
 			position = lerp(position, get_target_pos(), .1)
 
 
