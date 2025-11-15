@@ -8,3 +8,4 @@ signal golden_apple_eaten
 signal game_lost
 signal restart
 signal on_collision
+signal map_updated

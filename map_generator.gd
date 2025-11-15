@@ -208,20 +208,15 @@ func generate_room():
 	
 	
 func update_from_level():
-	outline_everything(1)
 	if level == 1:
 		Rectangle.new(self, 20,12, Vector2i(0,0))
 	else:
+		Signals.map_updated.emit()
+		outline_everything(1)
 		generate_random_corridor()
 		generate_random_corridor()
 		generate_room()
 		generate_room()
 		generate_room()
 		%MainCam.start_shake(40, 2)
-	
-
-	
-	
-	
-	
 	return

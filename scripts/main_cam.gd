@@ -11,8 +11,11 @@ var rng = RandomNumberGenerator.new()
 var curr_shake_strength: float = 0.0
 @onready var starting_pos = position
 
+@export var basic_movement_speed_factor : float = 1.3
+
 var zoom_tween: Tween
 @onready var initial_zoom = zoom
+var free_zoom = 1.1
 
 func start_shake(strength = 2.0, fade = 5.0) -> void:
 	curr_shake_strength = strength
@@ -41,6 +44,14 @@ func on_collision():
 	zoom_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 	zoom_tween.tween_property(self, "zoom", initial_zoom, 3.)
 	
+func free_cam():
+	Signals.map_updated.disconnect(free_cam)
+	curr_state = STATE.FREE
+	initial_zoom = free_zoom
+	if zoom_tween:
+		zoom_tween.stop()
+	zoom_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	zoom_tween.tween_property(self, "zoom", Vector2(free_zoom,free_zoom), 4.)
 
 func random_offset() -> Vector2:
 	return Vector2(rng.randf_range(-curr_shake_strength, curr_shake_strength), rng.randf_range(-curr_shake_strength, curr_shake_strength))
@@ -59,8 +70,16 @@ func _process(delta: float) -> void:
 	match curr_state:
 		STATE.START:
 			position = lerp(position, get_target_pos(), .1)
+		STATE.FREE: 
+			var snake_head_pos = %SnakeLayer.map_to_local(%SnakeManager.body[0])
+			var anchor = %SnakeLayer.map_to_local(%SnakeManager.body[0] + Direction.dir_to_vec(%SnakeManager.curr_dir)) # One tile after head
+			var dir_scaled = anchor - snake_head_pos # Vector of norm 1 in the right direction (conversion from tiles to local coordinates)
+			var head_offset = (dir_scaled * %SnakeManager.clock) / 16 # where is the head inside its tile, prevents jittering
+			var ideal_pos =  %SnakeLayer.map_to_local(%SnakeManager.body[0] + (int(lookahead * %SnakeManager.speed)) * Direction.dir_to_vec(%SnakeManager.curr_dir)) + head_offset
+			position = lerp(position, ideal_pos, basic_movement_speed_factor * %SnakeManager.speed * delta)
 
 
 func _ready() -> void:
 	Signals.on_collision.connect(on_collision)
+	Signals.map_updated.connect(free_cam)
 	
