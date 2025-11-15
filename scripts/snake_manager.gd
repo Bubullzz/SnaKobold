@@ -148,7 +148,6 @@ func handle_collision():
 		send_back_amaount -= 1
 	tween_speed(.1, target_speed, 2.5)
 	curr_dir = Direction.cells_to_dir(body[1], body[0])
-	var ideal_cam_pos = body[0] + 1 * Direction.dir_to_vec(Direction.opp(curr_dir))
 	#%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 1, 4.)
 	%MainCam.start_shake(30, 6)
 

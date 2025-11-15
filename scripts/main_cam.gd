@@ -37,7 +37,6 @@ func on_collision():
 	var dir_scaled = anchor - snake_head_pos # Vector of norm 1 in the right direction (conversion from tiles to local coordinates)
 
 	var head_offset = (dir_scaled * %SnakeManager.clock) / 16 # where is the head inside its tile, prevents jittering
-	var exact_head_pos =  %SnakeLayer.map_to_local(%SnakeManager.body[0]) + head_offset + dir_scaled * 3
 	
 	zoom_tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	zoom_tween.tween_property(self, "zoom", Vector2(2.5,2.5), .2)

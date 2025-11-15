@@ -17,8 +17,12 @@ func on_collision():
 		return
 	health_tween.tween_property(self, "health", health - health_delta, .4)
 
-	health_tween.set_ease(Tween.EASE_IN)
-	health_tween.tween_property(self, "health", max_health, 8)
+	await get_tree().create_timer(5.).timeout
+	if health_tween:
+		health_tween.stop()
+	health_tween = get_tree().create_tween()
+	health_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
+	health_tween.tween_property(self, "health", max_health, (max_health - health) / max_health * 12.)
 
 func stop():
 	if health_tween:
