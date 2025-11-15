@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://db0wuiadm126a"]
+
+[ext_resource type="Script" uid="uid://dfd2ivbl5jxwo" path="res://scripts/apples_basket.gd" id="1_jkuek"]
+[ext_resource type="Texture2D" uid="uid://c63w35wkn2wfh" path="res://assets/apples/apple_basket.png" id="2_npi03"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8t7t"]
+size = Vector2(3.73333, 2)
+
+[node name="ApplesBasket" type="Node2D"]
+script = ExtResource("1_jkuek")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_npi03")
+
+[node name="Area2D" type="Area2D" parent="."]
+z_index = 4096
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 0)
+scale = Vector2(15, 15)
+shape = SubResource("RectangleShape2D_b8t7t")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

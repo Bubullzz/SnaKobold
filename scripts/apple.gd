@@ -12,9 +12,12 @@ static func instantiate(base: Vector2i):
 	var MAP = SnakeProps.GameTiles.find_child("WallsLayer")
 	var AL = SnakeProps.ApplesList
 	
-	var instance: Apple = load("res://scenes/apple.tscn").instantiate()
+	var instance: Apple
 	if GoldenApple.is_gapple_spawn():
 		instance = load("res://scenes/golden_apple.tscn").instantiate()
+	else:
+		instance = load("res://scenes/apple.tscn").instantiate()
+		
 	var spawn_height = 15
 	var spawn_width = 20
 	var apple_pos = Vector2i(base.x + (randi() % spawn_width) - spawn_width/2, base.y + (randi() % spawn_height) - spawn_height/2)
