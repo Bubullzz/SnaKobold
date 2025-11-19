@@ -184,7 +184,7 @@ func generate_random_corridor():
 	print("failed to generate corridor")
 	return				
 				
-func generate_room():
+func generate_room(is_corridor : bool = false):
 	var start = map_border().pick_random()
 	while nearest_floor(start) == Vector2i(0,0):
 		start = map_border().pick_random()
@@ -204,10 +204,12 @@ func generate_room():
 	var base : Vector2i = vec_dir * dim_1_size 
 	var other_dim = perp_dir_vector * dim_2_size
 	var r_vec = base + other_dim
-	Rectangle.new(self, r_vec.x, r_vec.y, arrival + perp_dir_vector * -offset)
+	var r = Rectangle.new(self, r_vec.x, r_vec.y, arrival + perp_dir_vector * -offset)
 	
-	var basket = preload("res://particles/apple_eat_particles.tscn").instantiate()
-	basket.position = Vector2(0,0)#.GameTiles.tile_pos_to_global_pos(tile_pos)
+	var basket = preload("res://scenes/apples_basket.tscn").instantiate()
+	var tile_pos = Vector2(r.start) + Vector2(r.x, r.y)/2
+	basket.position = SnakeProps.GameTiles.tile_pos_to_global_pos(tile_pos)
+	print(tile_pos, "  ", basket.position)
 	SnakeProps.ApplesList.add_child(basket)
 	
 func update_from_level():

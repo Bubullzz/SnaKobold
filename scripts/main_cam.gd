@@ -32,8 +32,8 @@ func get_target_pos():
 	return starting_pos + diff_vector * max(0, diff_vector.length() - 10)* .001
 
 func on_collision():
-	var snake_head_pos = %SnakeLayer.map_to_local(%SnakeManager.body[0])
-	var anchor = %SnakeLayer.map_to_local(%SnakeManager.body[0] + Direction.dir_to_vec(%SnakeManager.curr_dir)) # One tile after head
+	#var snake_head_pos = %SnakeLayer.map_to_local(%SnakeManager.body[0])
+	#var anchor = %SnakeLayer.map_to_local(%SnakeManager.body[0] + Direction.dir_to_vec(%SnakeManager.curr_dir)) # One tile after head
 
 	zoom_tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	zoom_tween.tween_property(self, "zoom", Vector2(2.5,2.5), .2)

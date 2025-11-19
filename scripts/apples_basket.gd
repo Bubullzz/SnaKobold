@@ -1,6 +1,6 @@
 extends Node2D
 
-var nb_apples_spawned = 10
+var nb_apples_spawned = 20
 
 func on_collect():
 	print("basket collected")
