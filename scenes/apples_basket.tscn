@@ -7,9 +7,12 @@
 size = Vector2(3.73333, 2)
 
 [node name="ApplesBasket" type="Node2D"]
+z_index = 800
+y_sort_enabled = true
 script = ExtResource("1_jkuek")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -17)
 texture = ExtResource("2_npi03")
 
 [node name="Area2D" type="Area2D" parent="."]
