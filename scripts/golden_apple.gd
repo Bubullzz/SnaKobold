@@ -2,8 +2,8 @@ extends Apple
 
 class_name GoldenApple
 
-static var last_gapple_eaten = 0
-static var time_between_two_spawns = 5000
+static var last_gapple_eaten = -99999
+static var time_between_two_spawns = 30 * 1000
 
 
 static func is_gapple_spawn()-> bool:

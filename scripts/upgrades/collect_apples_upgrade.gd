@@ -16,7 +16,7 @@ func on_selected():
 func collect_everything(_a): # a is needed there because emitted signal has one parameter
 	var sleep_time = 0.1
 	for apple in ApplesList.get_children():
-		if apple:
+		if apple and apple is Apple:
 			apple.is_attracted = true
 			await get_tree().create_timer(sleep_time).timeout
 			sleep_time = max(0.001, sleep_time * 0.95)

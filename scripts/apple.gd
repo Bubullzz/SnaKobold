@@ -20,19 +20,25 @@ static func instantiate(base: Vector2i):
 		
 	var spawn_height = 15
 	var spawn_width = 20
+	var nb_tries = 0
+	var allowed_tries = 200
+	
 	var apple_pos = Vector2i(base.x + (randi() % spawn_width) - spawn_width/2, base.y + (randi() % spawn_height) - spawn_height/2)
-	while SnakeProps.eatables_pos.has(apple_pos) or \
+	while nb_tries < allowed_tries and \
+				(SnakeProps.eatables_pos.has(apple_pos) or \
 				SM.is_snake(apple_pos) or \
 				EM.is_wall(apple_pos) or \
-				! SM.check_accessible(apple_pos):
+				! SM.check_accessible(apple_pos)):
+		nb_tries+=1
 		spawn_height += 1
 		spawn_width += 1
 		apple_pos = Vector2i(base.x + (randi() % spawn_width) - spawn_width/2, base.y + (randi() % spawn_height) - spawn_height/2)
-	
-	instance.position = MAP.map_to_local(apple_pos)
-	instance.tiles_pos = apple_pos
-	SnakeProps.eatables_pos[apple_pos] = instance
-	AL.call_deferred("add_child", instance)
+	if nb_tries >= allowed_tries: print("failed to spawn apple, too many triess")
+	else:
+		instance.position = MAP.map_to_local(apple_pos)
+		instance.tiles_pos = apple_pos
+		SnakeProps.eatables_pos[apple_pos] = instance
+		AL.call_deferred("add_child", instance)
 
 func collect() -> void:
 	if !collecting:

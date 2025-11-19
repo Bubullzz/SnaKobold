@@ -207,7 +207,6 @@ func generate_room():
 	Rectangle.new(self, r_vec.x, r_vec.y, arrival + perp_dir_vector * -offset)
 	
 	var basket = preload("res://particles/apple_eat_particles.tscn").instantiate()
-	var tile_pos = Vector2((r_vec + arrival)/2)
 	basket.position = Vector2(0,0)#.GameTiles.tile_pos_to_global_pos(tile_pos)
 	SnakeProps.ApplesList.add_child(basket)
 	

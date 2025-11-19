@@ -1,13 +1,13 @@
 extends Control
 
-@export var Stats: Stats
+@export var stats: Stats
 
 func update():
-	%NbApplesEaten.text += str(Stats.nb_apples_eaten)
-	%TotalJuiceGathered.text += str(Stats.total_juice_gathered)
-	%NbJuiceSpilled.text += str(Stats.nb_juice_spilled)
-	%MaxCombo.text += str(Stats.max_combo)
-	%NumberOfCollisions.text += str(Stats.number_of_collisions)
+	%NbApplesEaten.text += str(stats.nb_apples_eaten)
+	%TotalJuiceGathered.text += str(stats.total_juice_gathered)
+	%NbJuiceSpilled.text += str(stats.nb_juice_spilled)
+	%MaxCombo.text += str(stats.max_combo)
+	%NumberOfCollisions.text += str(stats.number_of_collisions)
 	%FinalLength.text += str(len(SnakeProps.SM.body))
 
 func appear():

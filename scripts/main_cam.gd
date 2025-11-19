@@ -34,7 +34,6 @@ func get_target_pos():
 func on_collision():
 	var snake_head_pos = %SnakeLayer.map_to_local(%SnakeManager.body[0])
 	var anchor = %SnakeLayer.map_to_local(%SnakeManager.body[0] + Direction.dir_to_vec(%SnakeManager.curr_dir)) # One tile after head
-	var dir_scaled = anchor - snake_head_pos # Vector of norm 1 in the right direction (conversion from tiles to local coordinates)
 
 	zoom_tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	zoom_tween.tween_property(self, "zoom", Vector2(2.5,2.5), .2)
@@ -44,7 +43,7 @@ func on_collision():
 func free_cam():
 	Signals.map_updated.disconnect(free_cam)
 	curr_state = STATE.FREE
-	initial_zoom = free_zoom
+	initial_zoom = Vector2(free_zoom, free_zoom)
 	if zoom_tween:
 		zoom_tween.stop()
 	zoom_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
