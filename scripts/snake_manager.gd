@@ -129,6 +129,12 @@ func tween_speed(start:float, end:float, duration: float):
 	speed_tweener.tween_property(self, "speed", end, duration)
 	
 
+func update_and_freeze_buffer():
+	dir_buffer = [null, null]
+	await get_tree().create_timer(.3).timeout
+	dir_buffer = [null, null]
+
+
 func handle_collision():
 	Signals.on_collision.emit()
 	var real_coor_hit_pos = %SnakeLayer.map_to_local(body[0])
@@ -151,11 +157,11 @@ func handle_collision():
 	#%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 1, 4.)
 	%MainCam.start_shake(30, 6)
 
-	dir_buffer = [null, null]
-
 	SnakeProps.update_max_juice() # makes juice bar smaller, based on lost size
 	SnakeProps.update_juice(0) 
 	%SnakeAdditionnalVisuals.clear_additional_visuals()
+	
+	update_and_freeze_buffer()
 
 func check_not_waisting(pos) -> bool:
 	# Check if we are not wating all juice to do 12 jumps in wall then die

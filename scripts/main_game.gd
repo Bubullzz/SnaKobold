@@ -45,6 +45,8 @@ func _input(_event):
 			%SnakeManager.activable_apple_spawn();
 
 	# Debug
+	if !SnakeProps.is_cheating:
+		return
 	if Input.is_key_pressed(KEY_C):
 		%SnakeManager.clock_collector = 0.0
 		SnakeProps.game_state = SnakeProps.GAME_STATE.RUNNING
@@ -134,7 +136,7 @@ func _ready():
 	
 	SnakeProps.MainGame = self
 	
-	var start: Vector2i = Vector2i(8,8)
+	var start: Vector2i = Vector2i(4,8)
 	width = $MapGenerator.width
 	height = $MapGenerator.height
 	#array_to_map($MapGenerator.map)

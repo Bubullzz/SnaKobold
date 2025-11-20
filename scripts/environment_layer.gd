@@ -19,7 +19,10 @@ func is_jumpable_wall(pos : Vector2i) -> bool:
 	return %WallsLayer.get_cell_source_id(pos) == _cell_to_id[CELL_TYPE.JUMPABLE_WALL]
 
 func set_floor(pos : Vector2i) -> void:
-	%FloorLayer.set_cell(pos, _cell_to_id[CELL_TYPE.FLOOR], Vector2i(0,0))
+	var x = 0
+	if randi() % 100 < 30:
+		x = 1
+	%FloorLayer.set_cell(pos, _cell_to_id[CELL_TYPE.FLOOR], Vector2i(x,0))
 
 func set_wall(pos : Vector2i) -> void:
 	%WallsLayer.set_cell(pos, _cell_to_id[CELL_TYPE.WALL], Vector2i(0,0))

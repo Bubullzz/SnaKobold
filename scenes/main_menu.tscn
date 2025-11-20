@@ -1,22 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkgb26d4jadjf"]
+[gd_scene load_steps=6 format=3 uid="uid://dkgb26d4jadjf"]
 
 [ext_resource type="Script" uid="uid://dhcmxfq160ed2" path="res://scripts/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="1_l6cm7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxnf"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_bqqt6"]
-font = ExtResource("1_l6cm7")
-font_size = 400
+[ext_resource type="Texture2D" uid="uid://ccxqtnqw1lti1" path="res://assets/canvas/title.png" id="2_bqqt6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wu84c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
 bg_color = Color(0.180392, 0.00784314, 0.239216, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 expand_margin_left = 40.0
 expand_margin_top = 40.0
 expand_margin_right = 40.0
@@ -47,24 +42,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
 
 [node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
-theme_override_constants/separation = 105
-theme_override_styles/separator = SubResource("StyleBoxEmpty_ekxnf")
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 400
-text = "Snakobold"
-label_settings = SubResource("LabelSettings_bqqt6")
-horizontal_alignment = 1
-vertical_alignment = 1
+size_flags_stretch_ratio = 0.2
+texture = ExtResource("2_bqqt6")
+expand_mode = 2
+stretch_mode = 5
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2

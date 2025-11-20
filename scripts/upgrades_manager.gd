@@ -47,7 +47,6 @@ func start_upgrade_sequence():
 	
 func end_upgrade_sequence():
 	disable_buttons()
-	SnakeProps.JuicesList.play()
 	flush_tweens()
 	upgrading = false
 	var alpha_tween = get_tree().create_tween().set_trans(Tween.TRANS_QUINT)#.set_ease(Tween.EASE_OUT)
@@ -55,6 +54,9 @@ func end_upgrade_sequence():
 	
 	SnakeProps.SM.clock_collector = 0
 	SnakeProps.SM.tween_speed(0.1, SnakeProps.SM.target_speed, .5)
+	await get_tree().create_timer(.01).timeout
+	SnakeProps.JuicesList.play()
+	
 	
 func enable_buttons():
 	for b in [%Upgrade1, %Upgrade2, %Upgrade3]:

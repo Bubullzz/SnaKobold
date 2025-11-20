@@ -44,6 +44,7 @@ var OwnedUpgradesList : Node
 var MapGenerator : Node
 var MainGame : Node
 var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : instance
+var is_cheating = true 
 
 func init_vars() -> void:
 	game_state = BASE_GAME_STATE
