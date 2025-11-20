@@ -9,7 +9,7 @@ var height
 @export var noise_texture : NoiseTexture2D
 
 var debug = false
-
+var mooving = false
 
 func middle() -> Vector2i:
 	return Vector2i(width / 2, height / 2)
@@ -32,6 +32,9 @@ func stop_game():
 
 
 func _input(_event):
+	if _event is InputEventKey and _event.pressed:
+		mooving = true
+		SnakeProps.SM.tween_speed(-1,-1, .5)
 	if ! SnakeProps.UM.upgrading: #Only register Inputs when not in upgrading menu
 		if Input.is_action_just_pressed("ui_up"):
 			%SnakeManager.dir_buff_add(DIR.UP)
@@ -152,5 +155,8 @@ func _ready():
 	SnakeProps.update_max_juice()
 
 	Apple.instantiate(start)
+
+	for i in range(16):
+		SnakeProps.SM._on_clock_tick()
 
 	%OpeningRect.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)

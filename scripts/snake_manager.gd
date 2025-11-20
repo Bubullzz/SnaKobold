@@ -20,7 +20,7 @@ var curr_dir : Direction.DIR = Direction.DIR.RIGHT
 var clock : int = 0 # The clock used for updating the snake. One pixel per tick
 var clock_collector : float = 0.0
 var target_speed = 2.
-var speed = target_speed
+var speed = 0.
 var speed_tweener: Tween
 
 func is_snake(pos):
@@ -123,6 +123,8 @@ func pop_tail():
 func tween_speed(start:float, end:float, duration: float):
 	if start > 0.:
 		speed = start
+	if end == -1:
+		end = target_speed
 	if speed_tweener:
 		speed_tweener.kill()
 	speed_tweener = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
