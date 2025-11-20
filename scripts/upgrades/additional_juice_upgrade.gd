@@ -6,7 +6,8 @@ func _ready():
 func on_selected():
 	print("Spawned an additional juice")
 
-	Juice.instantiate(SnakeProps.SM, SnakeProps.SM.body[0])
+	var i = Juice.instantiate(SnakeProps.SM, SnakeProps.SM.body[0])
+	call_deferred("play", i)
 
 func get_text()->String:
-	return "Spawns an additionnal juice !" 
+	return "Spawns an additionnal juice" 

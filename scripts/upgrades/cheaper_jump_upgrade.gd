@@ -19,5 +19,5 @@ func on_selected():
 func get_text()->String:
 	if level == 0:
 		return "Automatically jump over your body instead of bumping into it !\n(500 juice / jump)"
-	return "Reduces Jump Price !\n %d -> %d" % \
+	return "Reduces Jump Price\n %d -> %d" % \
 	 [SnakeProps.jump_price, SnakeProps.jump_price * (1 - percentage_reduction)]

@@ -55,4 +55,4 @@ func on_selected():
 	SnakeProps.OwnedUpgradesList.add_child(self)
 
 func get_text()->String:
-	return "Apples explode and collect all the other apples Around !"
+	return "Apples explode and collect all the other apples around"

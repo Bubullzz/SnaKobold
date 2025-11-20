@@ -10,5 +10,5 @@ func on_selected():
 	print("Added +%d to max juice combo.\nCurrent max juice combo : " % [add_amount], SnakeProps.max_juice_combo)
 
 func get_text()->String:
-	return "Gives +%d to your max Juice Combo !\n %d -> %d" % \
+	return "Gives +%d to your max Juice Combo\n %d -> %d" % \
 	 [add_amount, SnakeProps.max_juice_combo, SnakeProps.max_juice_combo + add_amount]

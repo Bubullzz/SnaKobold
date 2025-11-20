@@ -47,6 +47,8 @@ static func instantiate(context, base: Vector2i):
 	instance.tiles_pos = juice_pos
 	SnakeProps.eatables_pos[juice_pos] = instance
 	SnakeProps.JuicesList.add_child(instance)
+	return instance
+
 
 
 func _on_collision_zone_area_entered(area:Area2D) -> void:
