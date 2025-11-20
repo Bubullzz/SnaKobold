@@ -143,6 +143,8 @@ func handle_collision():
 	%Boom.set_position(real_coor_hit_pos)
 	%Boom.set_emitting(true)
 	if len(body) < 8:
+		%MainCam.start_shake(400, 6)
+		
 		print("body too small, emmited game_lost signal")
 		Signals.game_lost.emit()
 		return

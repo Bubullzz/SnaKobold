@@ -32,7 +32,7 @@ func stop_game():
 
 
 func _input(_event):
-	if _event is InputEventKey and _event.pressed:
+	if _event is InputEventKey and _event.pressed and !mooving:
 		mooving = true
 		SnakeProps.SM.tween_speed(-1,-1, .5)
 	if ! SnakeProps.UM.upgrading: #Only register Inputs when not in upgrading menu
