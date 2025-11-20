@@ -97,13 +97,18 @@ func _ready() -> void:
 
 func _on_juice_end_animation_timer_timeout() -> void:
 	const OSCILLATIONS := 5
-	const DISTANCE:= 1.5
+	const DISTANCE:= 2
 	var t := create_tween()
 	var init_pos = $JuiceAnimated.position.x
 	t.tween_method(func(x): $JuiceAnimated.position.x = init_pos + sin(x * 2) * DISTANCE, 0.0, PI * OSCILLATIONS, end_animation_time)
 
 	var t2 := create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
 	t2.tween_property($JuiceAnimated, "modulate", Color(1, 1, 1, 0), end_animation_time)
+	
+	var shrink_time = .3
+	await get_tree().create_timer(end_animation_time-shrink_time).timeout
+	var t_body := create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
+	t_body.tween_property($JuiceAnimated, "scale", Vector2(0,0), shrink_time - .05)
 
 func pause():
 	$JuiceDespawnTimer.paused = true
