@@ -9,10 +9,13 @@ size = Vector2(2, 2)
 
 [node name="Apple" type="Node2D"]
 z_index = 400
+y_sort_enabled = true
 script = ExtResource("1_0i6tn")
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
+position = Vector2(1, 12)
 texture = ExtResource("3_pg1xk")
+offset = Vector2(-1, -12)
 
 [node name="AppleSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_3dmh2")

@@ -7,7 +7,7 @@ func on_collect():
 	var scale_tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	scale_tween.tween_property(self, "scale", Vector2(0,0), .07)
 	for i in range(nb_apples_spawned):
-		Apple.instantiate(SnakeProps.SM.body[0])
+		Apple.instantiate(SnakeProps.SM.body[0], true)
 		await get_tree().create_timer(.02).timeout
 	SnakeProps.UM.start_upgrade_sequence()
 	queue_free()

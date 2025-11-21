@@ -26,7 +26,7 @@ func collect() -> void:
 		Signals.golden_apple_eaten.emit(self)
 		var SM = SnakeProps.SM
 		SnakeProps.growth += 1
-		Apple.instantiate(SnakeProps.SM.body[0])
+		Apple.instantiate(SnakeProps.SM.body[0], false)
 		var apple_eat_particles_1 = preload("res://particles/apple_eat_particles.tscn").instantiate()
 		apple_eat_particles_1.global_position = global_position
 		apple_eat_particles_1.start()

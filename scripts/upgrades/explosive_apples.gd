@@ -23,9 +23,14 @@ func rec_apple_find(apple: Apple, visited: Dictionary, apples: Array[Apple]):
 			var neigh_pos = pos + Vector2i(i,j)
 			if visited.has(neigh_pos): continue
 			visited[neigh_pos] = 1
-			if SnakeProps.eatables_pos.has(neigh_pos) and SnakeProps.eatables_pos[neigh_pos] is Apple:
+			if SnakeProps.eatables_pos.has(neigh_pos) \
+				and SnakeProps.eatables_pos[neigh_pos] != null \
+				and SnakeProps.eatables_pos[neigh_pos] is Apple:
+					
 				apples.append(SnakeProps.eatables_pos[neigh_pos])
 				rec_apple_find(SnakeProps.eatables_pos[neigh_pos], visited, apples)
+			else:
+				print("problem")
 	
 func on_apple_eaten(apple: Apple):
 	if !running:

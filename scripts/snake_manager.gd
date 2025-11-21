@@ -273,7 +273,7 @@ func get_head_world_pos():
 
 func activable_apple_spawn():
 	if SnakeProps.consume_juice(1000):
-		Apple.instantiate(body[0])
+		Apple.instantiate(body[0], true)
 
 
 func _on_clock_tick() -> void:

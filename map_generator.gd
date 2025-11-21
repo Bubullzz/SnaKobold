@@ -184,7 +184,7 @@ func generate_random_corridor():
 	print("failed to generate corridor")
 	return				
 				
-func generate_room(is_corridor : bool = false):
+func generate_room():
 	var start = map_border().pick_random()
 	while nearest_floor(start) == Vector2i(0,0):
 		start = map_border().pick_random()

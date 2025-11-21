@@ -85,7 +85,7 @@ func _input(_event):
 		restart()
 	if Input.is_key_pressed(KEY_1):
 		for i in range(50):
-			Apple.instantiate(%SnakeManager.body[0])
+			Apple.instantiate(%SnakeManager.body[0], true)
 	if Input.is_key_pressed(KEY_V):
 		SnakeProps.game_state = SnakeProps.GAME_STATE.DEBUG
 		%SnakeManager._on_clock_tick()
@@ -156,7 +156,7 @@ func _ready():
 	%MainCam.position_smoothing_speed = 1.
 	SnakeProps.update_max_juice()
 
-	Apple.instantiate(start)
+	Apple.instantiate(start, false)
 
 	for i in range(16):
 		SnakeProps.SM._on_clock_tick()
