@@ -1,8 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkgb26d4jadjf"]
+[gd_scene load_steps=10 format=3 uid="uid://dkgb26d4jadjf"]
 
 [ext_resource type="Script" uid="uid://dhcmxfq160ed2" path="res://scripts/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="1_l6cm7"]
+[ext_resource type="Shader" uid="uid://bhsbsqyi0yqyf" path="res://scripts/blur.gdshader" id="2_8ln24"]
 [ext_resource type="Texture2D" uid="uid://ccxqtnqw1lti1" path="res://assets/canvas/title.png" id="2_bqqt6"]
+[ext_resource type="PackedScene" uid="uid://bf3kugmhm0pqt" path="res://main_game.tscn" id="2_wu84c"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8ln24"]
+viewport_path = NodePath("BlurContainer/GameViewPort")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ln24"]
+resource_local_to_scene = true
+shader = ExtResource("2_8ln24")
+shader_parameter/SCREEN_TEXTURE = SubResource("ViewportTexture_8ln24")
+shader_parameter/scale = 6.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wu84c"]
 
@@ -17,39 +28,47 @@ expand_margin_top = 40.0
 expand_margin_right = 40.0
 expand_margin_bottom = 40.0
 
-[node name="MainMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("BlurContainer")]
 script = ExtResource("1_ekxnf")
+BlurContainer = NodePath("BlurContainer")
+high_time = 0.5
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="BlurContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_8ln24")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
+[node name="GameViewPort" type="SubViewport" parent="BlurContainer"]
+disable_3d = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="MainGame" parent="BlurContainer/GameViewPort" instance=ExtResource("2_wu84c")]
+
+[node name="MenuLayout" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+z_index = 2000
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 21.0
+offset_bottom = 331.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(954, 516)
 theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 60
 
-[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="MenuLayout"]
 layout_mode = 2
 
-[node name="Title" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+[node name="Title" type="TextureRect" parent="MenuLayout/HBoxContainer"]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_stretch_ratio = 0.2
@@ -57,12 +76,13 @@ texture = ExtResource("2_bqqt6")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/HBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="MenuLayout/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 200
 theme_override_styles/separator = SubResource("StyleBoxEmpty_wu84c")
 
-[node name="Button" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="StartButton" type="Button" parent="MenuLayout/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -73,4 +93,4 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_8ln24")
 theme_override_styles/normal = SubResource("StyleBoxFlat_8ln24")
 text = "Start"
 
-[connection signal="button_up" from="MarginContainer/HBoxContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="MenuLayout/HBoxContainer/StartButton" to="." method="_on_button_button_up"]

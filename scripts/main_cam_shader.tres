@@ -253,7 +253,7 @@ hint = 1
 max = 0.2
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_wouq3"]
-parameter_name = "intensity"
+parameter_name = "intensity_____"
 hint = 1
 max = 5.0
 
@@ -336,7 +336,7 @@ render_mode blend_mix;
 uniform float edge : hint_range(0.0, 0.20000000298023);
 uniform vec2 HeadPosInCamera;
 uniform float first : hint_range(-0.10000000149012, 1.0);
-uniform float intensity : hint_range(0.0, 5.0);
+uniform float intensity_____ : hint_range(0.0, 5.0);
 uniform sampler2D screen_tex_frg_14 : hint_screen_texture;
 uniform float second : hint_range(0.0, 1.0);
 
@@ -451,7 +451,7 @@ void fragment() {
 
 
 // FloatParameter:69
-	float n_out69p0 = intensity;
+	float n_out69p0 = intensity_____;
 
 
 // VectorOp:58

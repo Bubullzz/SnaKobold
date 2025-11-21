@@ -29,8 +29,6 @@ func rec_apple_find(apple: Apple, visited: Dictionary, apples: Array[Apple]):
 					
 				apples.append(SnakeProps.eatables_pos[neigh_pos])
 				rec_apple_find(SnakeProps.eatables_pos[neigh_pos], visited, apples)
-			else:
-				print("problem")
 	
 func on_apple_eaten(apple: Apple):
 	if !running:
