@@ -35,6 +35,8 @@ func _input(_event):
 	if _event is InputEventKey and _event.pressed and !mooving:
 		mooving = true
 		SnakeProps.SM.tween_speed(-1,-1, .5)
+		%TailParticles.visible = true
+	
 	if ! SnakeProps.UM.upgrading: #Only register Inputs when not in upgrading menu
 		if Input.is_action_just_pressed("ui_up"):
 			%SnakeManager.dir_buff_add(DIR.UP)
