@@ -3,7 +3,7 @@ extends Upgrade
 var add_amount = 2
 
 func _ready():
-	title = "Mini Combo"
+	title = "Complex Structures"
 	
 func on_selected():
 	SnakeProps.min_juice_combo += add_amount
@@ -12,3 +12,5 @@ func on_selected():
 func get_text()->String:
 	return "Gives +%d to your starting Juice Combo\n%d -> %d" % \
 	 [add_amount, SnakeProps.min_juice_combo, SnakeProps.min_juice_combo + add_amount]
+	
+	

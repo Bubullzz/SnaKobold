@@ -78,4 +78,3 @@ func _process(delta: float) -> void:
 func _ready() -> void:
 	Signals.on_collision.connect(on_collision)
 	Signals.map_updated.connect(free_cam)
-	

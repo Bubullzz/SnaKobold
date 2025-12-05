@@ -158,7 +158,7 @@ func _ready():
 
 	Apple.instantiate(start, false)
 
-	for i in range(16):
+	for i in range(15):
 		SnakeProps.SM._on_clock_tick()
 
 	%OpeningRect.set_instance_shader_parameter("start_time", Time.get_ticks_msec() / 1000.0)

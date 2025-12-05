@@ -51,6 +51,7 @@ func initialize_apple(text: String, global_pos: Vector2) -> void:
 
 func initialize_combo_break(global_pos: Vector2, combo) -> void:
 	initialize(combo_break_texts[randi() % len(combo_break_texts)], global_pos)
+	SnakeProps.Audio.combo_break_sound()
 	$Text.label_settings.font_color = Color(1, 1,1, 1)
 	$Text.label_settings.outline_color = apple_outline_color
 	$Text.label_settings.outline_size = 10

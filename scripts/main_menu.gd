@@ -5,8 +5,11 @@ extends CanvasLayer
 @export var high_blur = 10.
 @export var high_time = 1.
 @export var low_time = 1.
+
+
 func _ready():
 	BlurContainer.material.set_shader_parameter("scale", inital_blur)
+
 
 func _on_button_button_up() -> void:
 	%StartButton.disabled = true

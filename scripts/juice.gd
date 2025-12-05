@@ -57,6 +57,7 @@ func _on_collision_zone_area_entered(area:Area2D) -> void:
 	var jc = SnakeProps.juice_combo
 	if SnakeProps.max_juice == SnakeProps.juice:
 		PopUpText.spawn_juice_popup(self, "FULL!!", global_position, jc * 2.3 + 15)
+		SnakeProps.Audio.full_sound()
 	else:
 		PopUpText.spawn_juice_popup(self, "+%d" % [100 * jc], global_position, jc * 2 + 8)
 	SnakeProps.on_juice_consumed()
