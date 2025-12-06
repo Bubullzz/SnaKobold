@@ -75,6 +75,7 @@ func _on_timer_timeout() -> void: # The juice is spilled
 	SnakeProps.eatables_pos.erase(tiles_pos)
 	instantiate(SM, SM.body[0])
 	var jc = SnakeProps.juice_combo # Stocking it before the potential reset
+	SnakeProps.Audio.glass_break()
 	if SnakeProps.on_juice_spilled(): # Reseted combo
 		if jc > SnakeProps.min_juice_combo + 3:
 			var t = preload("res://scenes/pop_up_text.tscn").instantiate()

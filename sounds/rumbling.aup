@@ -1,0 +1,54 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="rumbling_data" version="1.3.0" audacityversion="2.4.2" sel0="0.0000000000" sel1="1.9336374948" vpos="0" h="0.0000000000" zoom="114.8095238095" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags>
+		<tag name="Encoded by" value="LAME"/>
+		<tag name="YEAR" value="2024"/>
+		<tag name="COMMENTS" value="Recorded on 26.09.2024 in Edison."/>
+		<tag name="TITLE" value="NATDMisc_A Rockfall In The Mountains.No Rumble.With An Echo.Designed 1_EM"/>
+	</tags>
+	<wavetrack name="757266__newlocknew__natdmisc_a-rockfall-in-the-mountainsno-rumblewith-an-echo" isSelected="1" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="452207">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f464.au" len="262144" min="-0.539686" max="0.498067" rms="0.033547"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="eff1f2d7.au" len="190063" min="-0.612548" max="0.532436" rms="0.019628"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="217657__reitanna__earth-rumble" isSelected="0" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="48000" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="2016000">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1fd3e.au" len="262144" min="-0.975983" max="0.978943" rms="0.580281"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="eff1ffdd.au" len="262144" min="-0.977814" max="0.977051" rms="0.594502"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="eff1f573.au" len="262144" min="-0.982849" max="0.982208" rms="0.644461"/>
+				</waveblock>
+				<waveblock start="786432">
+					<simpleblockfile filename="eff1fc0e.au" len="262144" min="-0.972748" max="0.968445" rms="0.62479"/>
+				</waveblock>
+				<waveblock start="1048576">
+					<simpleblockfile filename="eff1f86e.au" len="262144" min="-0.962402" max="0.968903" rms="0.590807"/>
+				</waveblock>
+				<waveblock start="1310720">
+					<simpleblockfile filename="eff1f6db.au" len="262144" min="-0.973022" max="0.981598" rms="0.611196"/>
+				</waveblock>
+				<waveblock start="1572864">
+					<simpleblockfile filename="eff1f627.au" len="262144" min="-0.983276" max="0.999908" rms="0.59601"/>
+				</waveblock>
+				<waveblock start="1835008">
+					<simpleblockfile filename="eff1f60a.au" len="180992" min="-0.969086" max="0.990173" rms="0.613633"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

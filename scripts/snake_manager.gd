@@ -197,6 +197,7 @@ func step(jumped_last_frame : bool):
 	if is_snake(expected_head_pos) || %EnvironmentManager.is_wall(expected_head_pos) || %EnvironmentManager.is_jumpable_wall(expected_head_pos):
 		if ! is_jump_snake(expected_head_pos) && check_not_waisting(expected_head_pos): # && juice > jump_price // this may solve bug
 			jumping_frame = true
+			SnakeProps.Audio.jump_sound()
 			body.push_front(expected_head_pos) 
 			SnakeProps.update_juice(-SnakeProps.jump_price)
 		else:

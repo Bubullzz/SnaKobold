@@ -218,6 +218,7 @@ func update_from_level():
 	else:
 		Signals.map_updated.emit()
 		outline_everything(1)
+		SnakeProps.Audio.rumbling_sound()
 		generate_random_corridor()
 		generate_random_corridor()
 		generate_room()
