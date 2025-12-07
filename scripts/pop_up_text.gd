@@ -72,9 +72,9 @@ func _on_timer_timeout() -> void:
 static func spawn_juice_popup(context: Node, text: String, global_pos: Vector2, combo: int) -> void:
 	var instance = preload("res://scenes/pop_up_text.tscn").instantiate()
 	instance.initialize_juice(text, global_pos, combo)
-	context.get_tree().root.add_child(instance)
+	SnakeProps.Overlays.add_child(instance)
 
 static func spawn_apple_popup(context: Node, text: String, global_pos: Vector2) -> void:
 	var instance = preload("res://scenes/pop_up_text.tscn").instantiate()
 	instance.initialize_apple(text, global_pos)
-	context.get_tree().root.add_child(instance)
+	SnakeProps.Overlays.add_child(instance)

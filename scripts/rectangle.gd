@@ -43,7 +43,7 @@ static func async_actions(rec: Rectangle):
 	var dust_time = 2
 	for cell in walls_to_remove:
 		var inst = DustParticles.instantiate()
-		inst.global_position = SnakeProps.GameTiles.tile_pos_to_global_pos(cell)
+		inst.position = SnakeProps.GameTiles.tile_pos_to_global_pos(cell)
 		SnakeProps.GameTiles.add_child(inst)
 		inst.start()
 		inst.scale *= 1

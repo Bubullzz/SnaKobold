@@ -80,11 +80,11 @@ func collect() -> void:
 		SnakeProps.growth += 1
 		Apple.instantiate(SnakeProps.SM.body[0], false)
 		var apple_eat_particles_1 = preload("res://particles/apple_eat_particles.tscn").instantiate()
-		apple_eat_particles_1.global_position = global_position
+		apple_eat_particles_1.position = position
 		apple_eat_particles_1.start()
 		var t = get_tree()
 		if t != null:
-			t.root.add_child(apple_eat_particles_1)
+			SnakeProps.Overlays.add_child(apple_eat_particles_1)
 		else:
 			print("did not find a tree on apple collection, maybe i m null ?")
 		queue_free()
