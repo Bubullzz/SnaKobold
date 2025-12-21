@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckv0w7wxajg7f"]
+[gd_scene load_steps=14 format=3 uid="uid://ckv0w7wxajg7f"]
 
 [ext_resource type="Script" uid="uid://xp72yxb70mk2" path="res://scripts/upgrade_button.gd" id="1_uok10"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="2_t8uck"]
 [ext_resource type="Texture2D" uid="uid://cteduv4v0yv0n" path="res://assets/upgrade_icons/frame_bg.png" id="3_7hluo"]
+[ext_resource type="AudioStream" uid="uid://bk0ibqio0ebh5" path="res://sounds/button_clicked.mp3" id="3_psg77"]
+[ext_resource type="AudioStream" uid="uid://d2hbflbrt6lcn" path="res://sounds/button_hovered.mp3" id="4_fjfg7"]
+[ext_resource type="AudioStream" uid="uid://c2gtr2hk2yq0u" path="res://sounds/button_selected.mp3" id="4_j7vjb"]
 [ext_resource type="Texture2D" uid="uid://cvm0yqlsojwej" path="res://assets/upgrade_icons/additional_juice.png" id="4_rwucg"]
 [ext_resource type="Texture2D" uid="uid://bweg6a8d44ch5" path="res://assets/upgrade_icons/frame.png" id="5_xmmih"]
 [ext_resource type="Texture2D" uid="uid://bydgmsjhjf5tj" path="res://assets/upgrade_icons/disabled.png" id="6_rwucg"]
@@ -56,6 +59,18 @@ theme_override_fonts/font = ExtResource("2_t8uck")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxFlat_7hluo")
 autowrap_mode = 3
+
+[node name="ClickedSound" type="AudioStreamPlayer" parent="MarginContainer/Button"]
+stream = ExtResource("3_psg77")
+volume_db = 7.23
+
+[node name="SelectedSound" type="AudioStreamPlayer" parent="MarginContainer/Button"]
+stream = ExtResource("4_j7vjb")
+volume_db = 7.229
+
+[node name="HoveredSound" type="AudioStreamPlayer" parent="MarginContainer/Button"]
+stream = ExtResource("4_fjfg7")
+volume_db = -20.563
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Button"]
 layout_mode = 1
@@ -155,4 +170,7 @@ layout_mode = 2
 theme_override_constants/separation = 40
 theme_override_styles/separator = SubResource("StyleBoxEmpty_iqj6o")
 
+[connection signal="focus_entered" from="MarginContainer/Button" to="." method="_on_button_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/Button" to="." method="_on_button_focus_exited"]
+[connection signal="mouse_entered" from="MarginContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

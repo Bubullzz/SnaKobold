@@ -34,6 +34,7 @@ func stop():
 	
 func _ready() -> void:
 	Signals.on_collision.connect(on_collision)
+	SnakeProps.LifeManager = self
 
 func _process(_delta: float) -> void:
 	HealthShader.material.set_shader_parameter("level", 1 - health/100.)

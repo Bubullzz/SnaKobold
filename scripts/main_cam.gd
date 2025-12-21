@@ -31,6 +31,14 @@ func get_target_pos():
 	var diff_vector = exact_head_pos - starting_pos
 	return starting_pos + diff_vector * max(0, diff_vector.length() - 10)* .001
 
+func get_free_cam_ideal_pos():
+	var snake_head_pos = %SnakeLayer.map_to_local(%SnakeManager.body[0])
+	var anchor = %SnakeLayer.map_to_local(%SnakeManager.body[0] + Direction.dir_to_vec(%SnakeManager.curr_dir)) # One tile after head
+	var dir_scaled = anchor - snake_head_pos # Vector of norm 1 in the right direction (conversion from tiles to local coordinates)
+	var head_offset = (dir_scaled * %SnakeManager.clock) / 16 # where is the head inside its tile, prevents jittering
+	var ideal_pos =  %SnakeLayer.map_to_local(%SnakeManager.body[0] + (int(lookahead * %SnakeManager.speed)) * Direction.dir_to_vec(%SnakeManager.curr_dir)) + head_offset
+	return ideal_pos
+	
 func on_collision():
 	#var snake_head_pos = %SnakeLayer.map_to_local(%SnakeManager.body[0])
 	#var anchor = %SnakeLayer.map_to_local(%SnakeManager.body[0] + Direction.dir_to_vec(%SnakeManager.curr_dir)) # One tile after head
@@ -39,6 +47,9 @@ func on_collision():
 	zoom_tween.tween_property(self, "zoom", Vector2(2.5,2.5), .2)
 	zoom_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 	zoom_tween.tween_property(self, "zoom", initial_zoom, 3.)
+	
+	var pos_tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	pos_tween.tween_property(self, "position", get_free_cam_ideal_pos(), .2)
 	
 func free_cam():
 	Signals.map_updated.disconnect(free_cam)

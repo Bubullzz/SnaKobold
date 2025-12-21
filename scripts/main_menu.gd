@@ -13,7 +13,8 @@ func _ready():
 
 func _on_button_button_up() -> void:
 	%StartButton.disabled = true
-	
+	$MenuLayout/HBoxContainer/StartButton/ClickUp.play()
+	SnakeProps.started = true
 	var blur_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	blur_tween.tween_method(func(v): BlurContainer.material.set_shader_parameter("scale", v), inital_blur,high_blur, high_time)
 	blur_tween.set_ease(Tween.EASE_IN_OUT)
@@ -24,3 +25,11 @@ func _on_button_button_up() -> void:
 	transparency_tween.finished.connect(func():%MenuLayout.visible = false)
 	var scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	scale_tween.tween_property(%MenuLayout, "scale", Vector2(3.,3.), 1.)
+
+
+func _on_start_button_button_down() -> void:
+	$MenuLayout/HBoxContainer/StartButton/ClickDown.play()
+
+
+func _on_start_button_mouse_entered() -> void:
+	$MenuLayout/HBoxContainer/StartButton/Hover.play()

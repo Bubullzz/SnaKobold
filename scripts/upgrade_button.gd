@@ -27,5 +27,19 @@ func set_upgrade(up : Upgrade):
 	%UpgradeIcon.texture = upgrade.icon
 
 func _on_button_pressed() -> void:
+	$MarginContainer/Button/ClickedSound.play()
 	upgrade.on_selected()
 	manager.end_upgrade_sequence()
+
+
+func _on_button_focus_entered() -> void:
+	pass #$MarginContainer/Button/SelectedSound.play()
+
+
+func _on_button_mouse_entered() -> void:
+	if !%Button.disabled:
+		$MarginContainer/Button/HoveredSound.play()
+
+
+func _on_button_focus_exited() -> void:
+		$MarginContainer/Button/SelectedSound.play()

@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkgb26d4jadjf"]
+[gd_scene load_steps=16 format=3 uid="uid://dkgb26d4jadjf"]
 
 [ext_resource type="Script" uid="uid://dhcmxfq160ed2" path="res://scripts/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="1_l6cm7"]
 [ext_resource type="Shader" uid="uid://bhsbsqyi0yqyf" path="res://scripts/blur.gdshader" id="2_8ln24"]
 [ext_resource type="Texture2D" uid="uid://ccxqtnqw1lti1" path="res://assets/canvas/title.png" id="2_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://bf3kugmhm0pqt" path="res://main_game.tscn" id="2_wu84c"]
+[ext_resource type="Texture2D" uid="uid://d307toh5v1gm8" path="res://assets/canvas/buttons.png" id="6_rtw2f"]
+[ext_resource type="AudioStream" uid="uid://c2gtr2hk2yq0u" path="res://sounds/button_selected.mp3" id="7_tbmy8"]
+[ext_resource type="AudioStream" uid="uid://d2hbflbrt6lcn" path="res://sounds/button_hovered.mp3" id="8_jk1qb"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8ln24"]
 viewport_path = NodePath("BlurContainer/GameViewPort")
@@ -17,22 +20,34 @@ shader_parameter/scale = 6.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wu84c"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtw2f"]
-expand_margin_left = 40.0
-expand_margin_top = 40.0
-expand_margin_right = 40.0
-expand_margin_bottom = 40.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jk1qb"]
+texture = ExtResource("6_rtw2f")
+expand_margin_left = 55.0
+expand_margin_top = 10.0
+expand_margin_right = 55.0
+region_rect = Rect2(14, 51, 36, 12)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
-bg_color = Color(0.126338, 0.0561, 0.17, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 40.0
-expand_margin_top = 40.0
-expand_margin_right = 40.0
-expand_margin_bottom = 30.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oa1go"]
+texture = ExtResource("6_rtw2f")
+expand_margin_left = 55.0
+expand_margin_top = 10.0
+expand_margin_right = 55.0
+region_rect = Rect2(14, 19, 36, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rtw2f"]
+content_margin_top = 55.0
+texture = ExtResource("6_rtw2f")
+expand_margin_left = 55.0
+expand_margin_top = 10.0
+expand_margin_right = 55.0
+region_rect = Rect2(14, 34, 36, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbmy8"]
+texture = ExtResource("6_rtw2f")
+expand_margin_left = 55.0
+expand_margin_top = 10.0
+expand_margin_right = 55.0
+region_rect = Rect2(14, 3, 36, 12)
 
 [node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("BlurContainer")]
 script = ExtResource("1_ekxnf")
@@ -94,11 +109,26 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
 theme_override_fonts/font = ExtResource("1_l6cm7")
 theme_override_font_sizes/font_size = 200
-theme_override_styles/hover = SubResource("StyleBoxFlat_rtw2f")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_8ln24")
-theme_override_styles/normal = SubResource("StyleBoxFlat_8ln24")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_jk1qb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oa1go")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_tbmy8")
 text = "Start"
 
+[node name="ClickUp" type="AudioStreamPlayer" parent="MenuLayout/HBoxContainer/StartButton"]
+stream = ExtResource("7_tbmy8")
+pitch_scale = 1.36
+
+[node name="ClickDown" type="AudioStreamPlayer" parent="MenuLayout/HBoxContainer/StartButton"]
+stream = ExtResource("7_tbmy8")
+
+[node name="Hover" type="AudioStreamPlayer" parent="MenuLayout/HBoxContainer/StartButton"]
+stream = ExtResource("8_jk1qb")
+volume_db = -15.046
+
+[connection signal="button_down" from="MenuLayout/HBoxContainer/StartButton" to="." method="_on_start_button_button_down"]
 [connection signal="button_up" from="MenuLayout/HBoxContainer/StartButton" to="." method="_on_button_button_up"]
+[connection signal="mouse_entered" from="MenuLayout/HBoxContainer/StartButton" to="." method="_on_start_button_mouse_entered"]

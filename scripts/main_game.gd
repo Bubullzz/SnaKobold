@@ -16,7 +16,7 @@ func middle() -> Vector2i:
 
 func restart():
 	SnakeProps.init_vars()
-	get_tree().change_scene_to_file("res://main_game.tscn")
+	get_tree().change_scene_to_file.call_deferred("res://main_game.tscn")
 
 func stop_game():
 	print("recieved game_lost signal, stopping game")
@@ -32,7 +32,11 @@ func stop_game():
 
 
 func _input(_event):
-	if _event is InputEventKey and _event.pressed and !mooving:
+	if !mooving and SnakeProps.started and \
+		(Input.is_action_just_pressed("ui_up") or \
+		Input.is_action_just_pressed("ui_down") or \
+		Input.is_action_just_pressed("ui_left") or \
+		Input.is_action_just_pressed("ui_right")):
 		mooving = true
 		SnakeProps.SM.tween_speed(-1,-1, .5)
 		%TailParticles.visible = true

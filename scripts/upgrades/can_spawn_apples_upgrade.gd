@@ -11,4 +11,4 @@ func on_selected():
 	SnakeProps.OwnedUpgradesList.add_child(self)
 	
 func get_text()->String:
-	return "Press P to spend 1000 Juice and spawn another apple !"
+	return "Press SPACE to spend 1000 Juice and spawn another apple !"

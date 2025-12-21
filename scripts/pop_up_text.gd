@@ -51,7 +51,6 @@ func initialize_apple(text: String, global_pos: Vector2) -> void:
 
 func initialize_combo_break(global_pos: Vector2, combo) -> void:
 	initialize(combo_break_texts[randi() % len(combo_break_texts)], global_pos)
-	SnakeProps.Audio.combo_break_sound()
 	$Text.label_settings.font_color = Color(1, 1,1, 1)
 	$Text.label_settings.outline_color = apple_outline_color
 	$Text.label_settings.outline_size = 10
@@ -69,12 +68,12 @@ func _on_timer_timeout() -> void:
 	queue_free()
 
 
-static func spawn_juice_popup(context: Node, text: String, global_pos: Vector2, combo: int) -> void:
+static func spawn_juice_popup(text: String, global_pos: Vector2, combo: int) -> void:
 	var instance = preload("res://scenes/pop_up_text.tscn").instantiate()
 	instance.initialize_juice(text, global_pos, combo)
 	SnakeProps.Overlays.add_child(instance)
 
-static func spawn_apple_popup(context: Node, text: String, global_pos: Vector2) -> void:
+static func spawn_apple_popup(text: String, global_pos: Vector2) -> void:
 	var instance = preload("res://scenes/pop_up_text.tscn").instantiate()
 	instance.initialize_apple(text, global_pos)
 	SnakeProps.Overlays.add_child(instance)

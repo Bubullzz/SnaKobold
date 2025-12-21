@@ -27,6 +27,7 @@ func beginning_upgrade():
 	
 	
 func start_upgrade_sequence():
+	SnakeProps.Audio.open_upgrade_sound()
 	level += 1
 	SnakeProps.JuicesList.pause()
 	enable_buttons()
@@ -46,6 +47,7 @@ func start_upgrade_sequence():
 	curr_alpha_tween = alpha_tween
 	
 func end_upgrade_sequence():
+	SnakeProps.Audio.close_upgrade_sound()
 	disable_buttons()
 	flush_tweens()
 	upgrading = false

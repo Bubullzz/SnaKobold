@@ -16,7 +16,15 @@ func appear():
 	var t = get_tree().create_tween()
 	t.set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	t.tween_property(self, "modulate:a", 1, 2)
-	%RestartButton.grab_focus()
-	
-func _on_restart_button_button_down() -> void:
+
+func _on_restart_button_button_up() -> void:
+	$ClickUp.play()
 	Signals.restart.emit()
+
+
+func _on_restart_button_button_down() -> void:
+	$ClickDown.play()
+
+
+func _on_restart_button_mouse_entered() -> void:
+	$Hover.play()

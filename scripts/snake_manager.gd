@@ -138,7 +138,7 @@ func update_and_freeze_buffer():
 
 
 func handle_collision():
-	Signals.on_collision.emit()
+	#Signals.on_collision.emit()
 	var real_coor_hit_pos = %SnakeLayer.map_to_local(body[0])
 	%Boom.set_position(real_coor_hit_pos)
 	%Boom.set_emitting(true)
@@ -148,7 +148,7 @@ func handle_collision():
 		print("body too small, emmited game_lost signal")
 		Signals.game_lost.emit()
 		return
-	var send_back_amaount = 2
+	var send_back_amaount = 4
 	while send_back_amaount > 0 or %snakeJumpingLayer.get_cell_source_id(body[0]) == JUMP_ID: # Pop until we reach a non-jumping cell
 		var poped = body.pop_front()
 		if %snakeJumpingLayer.get_cell_source_id(poped) == JUMP_ID:
@@ -156,6 +156,8 @@ func handle_collision():
 		else:
 			%SnakeLayer.set_cell(poped)
 		send_back_amaount -= 1
+	Signals.on_collision.emit()
+		
 	tween_speed(.1, target_speed, 2.5)
 	curr_dir = Direction.cells_to_dir(body[1], body[0])
 	#%MainCam.set_tmp_scene(%SnakeLayer.map_to_local(ideal_cam_pos), 6, 1, 4.)

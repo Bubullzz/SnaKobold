@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtv84ximkck17"]
+[gd_scene load_steps=13 format=3 uid="uid://dtv84ximkck17"]
 
 [ext_resource type="Script" uid="uid://cm7cucnvj6fv6" path="res://scripts/game_lost.gd" id="1_fhetd"]
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="1_k0tqk"]
+[ext_resource type="Texture2D" uid="uid://d307toh5v1gm8" path="res://assets/canvas/buttons.png" id="3_lff48"]
+[ext_resource type="AudioStream" uid="uid://c2gtr2hk2yq0u" path="res://sounds/button_selected.mp3" id="4_kn0hh"]
+[ext_resource type="AudioStream" uid="uid://d2hbflbrt6lcn" path="res://sounds/button_hovered.mp3" id="5_iyn1p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fhetd"]
 font = ExtResource("1_k0tqk")
@@ -13,21 +16,34 @@ font_size = 200
 font = ExtResource("1_k0tqk")
 font_size = 60
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fhetd"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.85, 0.85, 0.85, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kn0hh"]
+texture = ExtResource("3_lff48")
+expand_margin_left = 55.0
+expand_margin_top = 10.0
+expand_margin_right = 55.0
+region_rect = Rect2(14, 51, 36, 12)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kn0hh"]
-content_margin_left = 60.0
-content_margin_top = 50.0
-content_margin_right = 50.0
-content_margin_bottom = 20.0
-bg_color = Color(0.13, 0.13, 0.13, 1)
-border_color = Color(0.8, 0.8, 0.8, 0)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iyn1p"]
+texture = ExtResource("3_lff48")
+expand_margin_left = 55.0
+expand_margin_top = 10.0
+expand_margin_right = 55.0
+region_rect = Rect2(14, 19, 36, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlwdk"]
+content_margin_top = 30.0
+texture = ExtResource("3_lff48")
+expand_margin_left = 55.0
+expand_margin_top = 10.0
+expand_margin_right = 55.0
+region_rect = Rect2(14, 34, 36, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_clt4q"]
+texture = ExtResource("3_lff48")
+expand_margin_left = 55.0
+expand_margin_top = 10.0
+expand_margin_right = 55.0
+region_rect = Rect2(14, 3, 36, 12)
 
 [node name="GameLost" type="Control"]
 layout_mode = 3
@@ -145,10 +161,26 @@ label_settings = SubResource("LabelSettings_26cyf")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
 theme_override_fonts/font = ExtResource("1_k0tqk")
-theme_override_font_sizes/font_size = 120
-theme_override_styles/focus = SubResource("StyleBoxFlat_fhetd")
-theme_override_styles/normal = SubResource("StyleBoxFlat_kn0hh")
+theme_override_font_sizes/font_size = 150
+theme_override_styles/disabled = SubResource("StyleBoxTexture_kn0hh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_iyn1p")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rlwdk")
+theme_override_styles/normal = SubResource("StyleBoxTexture_clt4q")
 text = "RESTART"
 
+[node name="ClickUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kn0hh")
+pitch_scale = 1.36
+
+[node name="ClickDown" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kn0hh")
+
+[node name="Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_iyn1p")
+volume_db = -15.046
+
 [connection signal="button_down" from="MarginContainer/ColorRect/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_button_down"]
+[connection signal="button_up" from="MarginContainer/ColorRect/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_button_up"]
+[connection signal="mouse_entered" from="MarginContainer/ColorRect/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_mouse_entered"]

@@ -17,7 +17,7 @@ func _ready():
 	title = "A stopwatch !"
 	
 func get_text()->String:
-	return "Slow down time by holding P, costs Juice"
+	return "Slow down time by holding SPACE, costs Juice"
 
 
 func on_selected():

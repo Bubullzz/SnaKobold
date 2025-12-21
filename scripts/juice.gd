@@ -56,10 +56,10 @@ func _on_collision_zone_area_entered(area:Area2D) -> void:
 	call_deferred("instantiate", area, SM.body[0])
 	var jc = SnakeProps.juice_combo
 	if SnakeProps.max_juice == SnakeProps.juice:
-		PopUpText.spawn_juice_popup(self, "FULL!!", position, jc * 2.3 + 15)
+		PopUpText.spawn_juice_popup("FULL!!", position, jc * 2.3 + 15)
 		SnakeProps.Audio.full_sound()
 	else:
-		PopUpText.spawn_juice_popup(self, "+%d" % [100 * jc], position, jc * 2 + 8)
+		PopUpText.spawn_juice_popup("+%d" % [100 * jc], position, jc * 2 + 8)
 	SnakeProps.on_juice_consumed()
 	queue_free()
 
@@ -81,6 +81,10 @@ func _on_timer_timeout() -> void: # The juice is spilled
 			var t = preload("res://scenes/pop_up_text.tscn").instantiate()
 			t.initialize_combo_break(position, jc)
 			SnakeProps.Overlays.add_child(t)
+			SnakeProps.Audio.reset_combo_sequence(jc)
+		if jc == SnakeProps.max_juice_combo:
+			SnakeProps.Audio.combo_break_sound()
+
 	else:
 		if jc > SnakeProps.min_juice_combo + 3:
 			var t = preload("res://scenes/pop_up_text.tscn").instantiate()

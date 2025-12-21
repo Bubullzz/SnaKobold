@@ -15,6 +15,8 @@ var middle: Vector2i
 var map: Array[Array]
 var rectangles: Array[Rectangle] = []
 
+var updating = false
+
 func print_map():
 	for i in range(height):
 		var s = ''
@@ -99,12 +101,13 @@ func _ready():
 	
 
 func try_update_map():
-	if len(SnakeProps.SM.body) > 0.7 * tot_free_space:
+	if !updating and len(SnakeProps.SM.body) > 0.7 * tot_free_space:
 		level_up_map()
 	
 
 func level_up_map():
 	level += 1
+	
 	update_from_level()
 
 func outline_rectangle(r: Rectangle, outline: int) -> Rectangle:
@@ -213,16 +216,23 @@ func generate_room():
 	SnakeProps.ApplesList.add_child(basket)
 	
 func update_from_level():
+	updating = true
 	if level == 1:
+		print("First Level Up")
 		Rectangle.new(self, 20,12, Vector2i(0,0))
 	else:
+		print("leveling Up", level)
+		SnakeProps.Audio.rumbling_sound()
+		%MainCam.start_shake(10, 2)
+		await get_tree().create_timer(1.).timeout
 		Signals.map_updated.emit()
 		outline_everything(1)
-		SnakeProps.Audio.rumbling_sound()
 		generate_random_corridor()
 		generate_random_corridor()
 		generate_room()
 		generate_room()
 		generate_room()
 		%MainCam.start_shake(40, 2)
+	updating = false
+	
 	return
