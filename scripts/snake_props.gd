@@ -45,6 +45,7 @@ var MapGenerator : Node
 var MainGame : Node
 var Audio : SoundManager
 var Overlays: Overlay
+var BaseUI: Node
 var LifeManager
 var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : instance
 

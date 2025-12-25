@@ -85,6 +85,9 @@ func _input(_event):
 		SnakeProps.MapGenerator.level_up_map()
 	if Input.is_key_pressed(KEY_5):
 		SnakeProps.UM.start_upgrade_sequence()
+	if Input.is_key_pressed(KEY_6):
+		var t = TopText.instantiate("Test")
+		SnakeProps.BaseUI.add_child(t)
 	if Input.is_key_pressed(KEY_0):
 		restart()
 	if Input.is_key_pressed(KEY_1):

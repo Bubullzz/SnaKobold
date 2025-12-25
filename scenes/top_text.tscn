@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://clw4aqlg8s757"]
+
+[ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="1_4ipof"]
+[ext_resource type="Script" uid="uid://bc775i52420xx" path="res://scripts/top_text.gd" id="1_kn08k"]
+[ext_resource type="Shader" uid="uid://bq5wplf2rsbo6" path="res://shaders/top_text.tres" id="2_63hpp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewbjp"]
+shader = ExtResource("2_63hpp")
+
+[sub_resource type="LabelSettings" id="LabelSettings_d8ar3"]
+font = ExtResource("1_4ipof")
+font_size = 120
+
+[node name="TopText" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_kn08k")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ewbjp")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 166.0
+grow_horizontal = 2
+color = Color(0.15, 0.15, 0.15, 0.372549)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 145.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+
+[node name="Text" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "PlaceHolder"
+label_settings = SubResource("LabelSettings_d8ar3")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true

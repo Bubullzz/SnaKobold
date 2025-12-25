@@ -2,6 +2,7 @@ extends CanvasLayer
 
 func _ready():
 	Signals.juice_combo_updated.connect(_on_juice_combo_updated)
+	SnakeProps.BaseUI = self
 
 func _on_juice_combo_updated(old, new):
 	var step = 1
