@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://clw4aqlg8s757"]
+[gd_scene load_steps=7 format=3 uid="uid://clw4aqlg8s757"]
 
 [ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="1_4ipof"]
 [ext_resource type="Script" uid="uid://bc775i52420xx" path="res://scripts/top_text.gd" id="1_kn08k"]
 [ext_resource type="Shader" uid="uid://bq5wplf2rsbo6" path="res://shaders/top_text.tres" id="2_63hpp"]
+[ext_resource type="AudioStream" uid="uid://c2awku7y8n4hx" path="res://sounds/top_text_sound.mp3" id="2_ewbjp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewbjp"]
 shader = ExtResource("2_63hpp")
@@ -22,6 +23,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_kn08k")
 
+[node name="sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ewbjp")
+autoplay = true
+
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_ewbjp")
 layout_mode = 1
@@ -37,13 +42,14 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 145.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 40
+theme_override_constants/margin_left = 200
 theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
+theme_override_constants/margin_right = 200
 
 [node name="Text" type="Label" parent="MarginContainer"]
 layout_mode = 2
-text = "PlaceHolder"
+text = "PlaceHolderPlaceHolder"
 label_settings = SubResource("LabelSettings_d8ar3")
 horizontal_alignment = 1
+autowrap_mode = 3
 metadata/_edit_use_anchors_ = true

@@ -3,16 +3,13 @@ extends Node
 enum DIR {UP, DOWN, LEFT, RIGHT}
 enum EAT {APPLE, JUICE}
 
-
-var width
-var height
 @export var noise_texture : NoiseTexture2D
 
 var debug = false
 var mooving = false
 
 func middle() -> Vector2i:
-	return Vector2i(width / 2, height / 2)
+	return Vector2i(0,0)
 
 func restart():
 	SnakeProps.init_vars()
@@ -86,6 +83,7 @@ func _input(_event):
 	if Input.is_key_pressed(KEY_5):
 		SnakeProps.UM.start_upgrade_sequence()
 	if Input.is_key_pressed(KEY_6):
+		pass
 		var t = TopText.instantiate("Test")
 		SnakeProps.BaseUI.add_child(t)
 	if Input.is_key_pressed(KEY_0):
@@ -149,8 +147,7 @@ func _ready():
 	SnakeProps.MainGame = self
 	
 	var start: Vector2i = Vector2i(4,8)
-	width = $MapGenerator.width
-	height = $MapGenerator.height
+
 	#array_to_map($MapGenerator.map)
 	%SnakeManager.place_snake(start)
 	%JuiceBar.max_value = SnakeProps.max_juice

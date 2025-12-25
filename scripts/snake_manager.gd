@@ -183,6 +183,8 @@ func check_not_waisting(pos) -> bool:
 
 
 func step(jumped_last_frame : bool):
+	Signals.on_step.emit()
+	
 	# needs to be done first 
 	if SnakeProps.growth == 0:
 		pop_tail()
