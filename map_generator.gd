@@ -98,7 +98,12 @@ func get_biggest_rectangle():
 	Rectangle.new(self, max_x - min_x, max_y - min_y, Vector2i(min_x,min_y))
 
 func generate_exit_corridor():
-	return
+	var start = map_border.pick_random()
+	while nearest_floor(start) == Vector2i(0,0):
+		start = map_border.pick_random()
+	var dir:Direction.DIR = Direction.cells_to_dir(nearest_floor(start), start)
+	var vec_dir = Direction.dir_to_vec(dir)
+	Rectangle.new(self,(400*vec_dir).x, (400*vec_dir).y, start)
 
 
 func generate_random_corridor(max_corridor_length = 50):
@@ -151,8 +156,6 @@ func update_from_level():
 	if level == 1:
 		print("First Level Up")
 		Rectangle.new(self, 20,12, Vector2i(0,0))
-	elif level == 4:
-		return
 	else:
 		update_map_border()
 		print("leveling Up", level)
@@ -167,6 +170,11 @@ func update_from_level():
 		generate_room()
 		generate_room()
 		%MainCam.start_shake(40, 2)
+		if level == 5:
+			print("generating exit")
+			generate_exit_corridor()
+			generate_exit_corridor()
+			generate_exit_corridor()
 	updating = false
 	
 	return

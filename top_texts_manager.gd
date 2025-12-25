@@ -3,6 +3,7 @@ extends Node
 var level = 0
 @export var credits_canvas_bg: ColorRect
 
+var last_sequence_flag = false
 var first_sentences = [
 	"Wow... what is going on...",
 	"Holy shit what is hapening ??!"
@@ -112,9 +113,9 @@ func final_goodbye():
 	
 
 func try_final_sequence():
-	return
 	var head_pos: Vector2i = SnakeProps.SM.body[0]
-	if SnakeProps.MapGenerator.is_end(head_pos):
+	if !last_sequence_flag and (abs(head_pos.x) > 190 or abs(head_pos.y) > 190):
+		last_sequence_flag = true
 		final_goodbye()
 
 func update():
