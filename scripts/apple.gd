@@ -48,9 +48,9 @@ static func instantiate(base: Vector2i, is_payed: bool):
 func falling_spawn():
 	spawning = true
 	SnakeProps.Audio.apple_falling_sound()
-	$AppleSprite.position = Vector2(0,-2000)
+	$AppleSprite.position = Vector2(0,-700)
 	$AppleSprite.z_index += 1000 # print it over everything
-	var fall_time = 2.
+	var fall_time = .7
 	SnakeProps.get_tree().create_timer(fall_time).timeout.connect(func (): spawning = false)
 	SnakeProps.get_tree().create_timer(fall_time - .1).timeout.connect(func (): $AppleSprite.z_index -= 1000)
 	var apple_sprite_pos_tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)

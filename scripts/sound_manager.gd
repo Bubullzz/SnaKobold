@@ -65,6 +65,10 @@ func reset_combo_sequence(combo: int):
 func game_over_sound():
 	$GameOver.play()
 
+func deafen_glass_break():
+	$GlassBreak.volume_db = -50
+	
+
 func _ready():
 	SnakeProps.Audio = self
 	Signals.apple_eaten.connect(apple_eaten_sound)

@@ -56,9 +56,11 @@ func sleep(time):
 func start_bg_credits():
 	credits_canvas_bg.visible = true
 	credits_canvas_bg.modulate.a = 0.
-	create_tween().tween_property(credits_canvas_bg, "modulate:a", 1., 26.)
+	create_tween().tween_property(credits_canvas_bg, "modulate:a", 1., 20.)
 	
 func final_goodbye():
+	SnakeProps.Audio.deafen_glass_break()
+	
 	var base_wait = 7.
 	
 	TopText.instantiate("I knew I could get out !!!")
@@ -93,15 +95,11 @@ func final_goodbye():
 	
 	start_bg_credits()
 	
-	TopText.instantiate("...")
-	TopText.instantiate("")
-	await sleep(base_wait - 2.)
-	
-	TopText.instantiate("w-what do I do now.. ?")
+	TopText.instantiate("I don't even know what to do now... ?")
 	await sleep(base_wait - 1.)
 	
 	TopText.instantiate("")
-	TopText.instantiate("why did I even do all that..")
+	TopText.instantiate("w-what do i do now ?")
 	await sleep(base_wait - 1.)
 	
 	TopText.instantiate("w-wait..")
@@ -111,6 +109,8 @@ func final_goodbye():
 	TopText.instantiate("DONT LEAVE ME")
 	await sleep(base_wait)
 	
+	await get_tree().create_timer(2.).timeout
+	get_tree().change_scene_to_file("res://scenes/credits.tscn")
 
 func try_final_sequence():
 	var head_pos: Vector2i = SnakeProps.SM.body[0]

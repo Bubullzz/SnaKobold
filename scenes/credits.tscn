@@ -126,7 +126,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_0ctdu")
 [node name="special thanks2" type="Label" parent="Texts/VBoxContainer"]
 layout_mode = 2
 text = "without whom any of this
-would  have been possible"
+would have been possible"
 label_settings = SubResource("LabelSettings_mah5v")
 horizontal_alignment = 1
 
