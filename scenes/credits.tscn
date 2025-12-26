@@ -1,0 +1,143 @@
+[gd_scene load_steps=9 format=3 uid="uid://cju0evwvpr5jp"]
+
+[ext_resource type="Script" uid="uid://cviul6ifnuxiy" path="res://scripts/credits.gd" id="1_0ctdu"]
+[ext_resource type="Texture2D" uid="uid://ccxqtnqw1lti1" path="res://assets/canvas/title.png" id="1_2ckv8"]
+[ext_resource type="FontFile" uid="uid://2hoged8ymkjp" path="res://assets/fibberish.ttf" id="2_0ctdu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2fbfq"]
+font = ExtResource("2_0ctdu")
+font_size = 70
+
+[sub_resource type="LabelSettings" id="LabelSettings_8gwij"]
+font = ExtResource("2_0ctdu")
+font_size = 230
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ctdu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mah5v"]
+font = ExtResource("2_0ctdu")
+font_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_kyhnv"]
+font = ExtResource("2_0ctdu")
+font_size = 100
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0ctdu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Texts" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 4.0
+offset_bottom = 2503.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Texts"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Texts/VBoxContainer"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("1_2ckv8")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="a game by" type="Label" parent="Texts/VBoxContainer"]
+layout_mode = 2
+text = "a game by"
+label_settings = SubResource("LabelSettings_2fbfq")
+horizontal_alignment = 1
+
+[node name="Bubulle2" type="Label" parent="Texts/VBoxContainer"]
+layout_mode = 2
+text = "Bubulle"
+label_settings = SubResource("LabelSettings_8gwij")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Texts/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 350
+theme_override_styles/separator = SubResource("StyleBoxEmpty_0ctdu")
+
+[node name="Thank You" type="Label" parent="Texts/VBoxContainer"]
+layout_mode = 2
+text = "Thank you so much
+for playing  and going that far
+into the game ! <3"
+label_settings = SubResource("LabelSettings_2fbfq")
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Texts/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 400
+theme_override_styles/separator = SubResource("StyleBoxEmpty_0ctdu")
+
+[node name="special thanks" type="Label" parent="Texts/VBoxContainer"]
+layout_mode = 2
+text = "And Special Thanks to"
+label_settings = SubResource("LabelSettings_mah5v")
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="Texts/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_0ctdu")
+
+[node name="Bubulle3" type="Label" parent="Texts/VBoxContainer"]
+layout_mode = 2
+text = "Margaux
+Belle
+Louis
+Nicolas
+Proxxy (style)
+Livia"
+label_settings = SubResource("LabelSettings_kyhnv")
+horizontal_alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="Texts/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 80
+theme_override_styles/separator = SubResource("StyleBoxEmpty_0ctdu")
+
+[node name="special thanks2" type="Label" parent="Texts/VBoxContainer"]
+layout_mode = 2
+text = "without whom any of this
+would  have been possible"
+label_settings = SubResource("LabelSettings_mah5v")
+horizontal_alignment = 1
+
+[node name="HSeparator5" type="HSeparator" parent="Texts/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 800
+theme_override_styles/separator = SubResource("StyleBoxEmpty_0ctdu")
+
+[node name="next game" type="Label" parent="Texts/VBoxContainer"]
+layout_mode = 2
+text = "I'll see you here 
+in my next game ! :3"
+label_settings = SubResource("LabelSettings_mah5v")
+horizontal_alignment = 1
