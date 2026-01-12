@@ -2,6 +2,14 @@ extends Control
 
 @export var stats: Stats
 
+func get_score():
+	var s = 0
+	s += stats.nb_apples_eaten * 10
+	s += stats.total_juice_gathered / 100
+	s += len(SnakeProps.SM.body) * 20
+	s -= 100 * stats.number_of_collisions
+	return s
+
 func update():
 	%NbApplesEaten.text += str(stats.nb_apples_eaten)
 	%TotalJuiceGathered.text += str(stats.total_juice_gathered)
@@ -9,6 +17,7 @@ func update():
 	%MaxCombo.text += str(stats.max_combo)
 	%NumberOfCollisions.text += str(stats.number_of_collisions)
 	%FinalLength.text += str(len(SnakeProps.SM.body))
+	%Score.text += str(get_score())
 
 func appear():
 	update()

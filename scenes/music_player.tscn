@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3kdkphsxcujo"]
+
+[ext_resource type="Script" uid="uid://bmoc7p4cst2aw" path="res://scripts/music_player.gd" id="1_l7xiw"]
+[ext_resource type="AudioStream" uid="uid://b5gsuts4s7qmc" path="res://sounds/bass.wav" id="2_l7xiw"]
+[ext_resource type="AudioStream" uid="uid://5he27bktfo17" path="res://sounds/drums.wav" id="3_yalyj"]
+
+[node name="MusicPlayer" type="Node"]
+script = ExtResource("1_l7xiw")
+
+[node name="Bass" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_l7xiw")
+max_polyphony = 67
+
+[node name="Drums" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_yalyj")
+volume_db = -80.0
+max_polyphony = 82
+
+[connection signal="finished" from="Drums" to="." method="_on_drums_finished"]

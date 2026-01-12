@@ -20,7 +20,7 @@ static func instantiate(base: Vector2i, is_payed: bool):
 	var spawn_height = 15
 	var spawn_width = 20
 	var nb_tries = 0
-	var allowed_tries = 200
+	var allowed_tries = 30
 	
 	var apple_pos = Vector2i(base.x + (randi() % spawn_width) - spawn_width/2, base.y + (randi() % spawn_height) - spawn_height/2)
 	while nb_tries < allowed_tries and \

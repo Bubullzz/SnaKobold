@@ -60,7 +60,7 @@ func start_bg_credits():
 	
 func final_goodbye():
 	SnakeProps.Audio.deafen_glass_break()
-	
+	SnakeProps.MusicPlayer.setup_end()
 	var base_wait = 7.
 	
 	TopText.instantiate("I knew I could get out !!!")
@@ -107,6 +107,7 @@ func final_goodbye():
 	
 	TopText.instantiate("")
 	TopText.instantiate("DONT LEAVE ME")
+	SnakeProps.MusicPlayer.final_stop()
 	await sleep(base_wait)
 	
 	await get_tree().create_timer(2.).timeout

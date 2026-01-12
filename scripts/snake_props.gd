@@ -46,11 +46,12 @@ var MainGame : Node
 var Audio : SoundManager
 var Overlays: Overlay
 var BaseUI: Node
+var MusicPlayer: Node
 var LifeManager
 var eatables_pos = {} # Dictionary of all the apples positions in the form Vector2i : instance
 
 var started = false
-var is_cheating = true 
+var is_cheating = false 
 
 func init_vars() -> void:
 	game_state = BASE_GAME_STATE

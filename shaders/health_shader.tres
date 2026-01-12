@@ -36,8 +36,8 @@ fractal_gain = 1.0
 width = 256
 height = 256
 depth = 1024
-invert = true
 noise = SubResource("FastNoiseLite_yf42x")
+invert = true
 
 [sub_resource type="VisualShaderNodeTexture3D" id="VisualShaderNodeTexture3D_rblb7"]
 texture = SubResource("NoiseTexture3D_jkyim")
