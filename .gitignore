@@ -19,3 +19,5 @@ HTML/
 *.png
 *.gif
 *.zip
+*.exe
+*.x86_64
