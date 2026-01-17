@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgdlns0uc4p5p"]
+
+[ext_resource type="Script" uid="uid://cbxhntjod2lkj" path="res://top_texts_manager.gd" id="1_s8epe"]
+
+[node name="TopTextsManager" type="Node" node_paths=PackedStringArray("credits_canvas_bg")]
+script = ExtResource("1_s8epe")
+credits_canvas_bg = NodePath("")

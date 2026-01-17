@@ -20,19 +20,12 @@ font_size = 60
 font = ExtResource("1_k0tqk")
 font_size = 160
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kn0hh"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_clt4q"]
 texture = ExtResource("3_lff48")
 expand_margin_left = 55.0
 expand_margin_top = 10.0
 expand_margin_right = 55.0
-region_rect = Rect2(14, 51, 36, 12)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iyn1p"]
-texture = ExtResource("3_lff48")
-expand_margin_left = 55.0
-expand_margin_top = 10.0
-expand_margin_right = 55.0
-region_rect = Rect2(14, 19, 36, 12)
+region_rect = Rect2(14, 3, 36, 12)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlwdk"]
 content_margin_top = 30.0
@@ -42,12 +35,19 @@ expand_margin_top = 10.0
 expand_margin_right = 55.0
 region_rect = Rect2(14, 34, 36, 12)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_clt4q"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iyn1p"]
 texture = ExtResource("3_lff48")
 expand_margin_left = 55.0
 expand_margin_top = 10.0
 expand_margin_right = 55.0
-region_rect = Rect2(14, 3, 36, 12)
+region_rect = Rect2(14, 19, 36, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kn0hh"]
+texture = ExtResource("3_lff48")
+expand_margin_left = 55.0
+expand_margin_top = 10.0
+expand_margin_right = 55.0
+region_rect = Rect2(14, 51, 36, 12)
 
 [node name="GameLost" type="Control"]
 layout_mode = 3
@@ -169,10 +169,10 @@ size_flags_horizontal = 4
 focus_mode = 0
 theme_override_fonts/font = ExtResource("1_k0tqk")
 theme_override_font_sizes/font_size = 150
-theme_override_styles/disabled = SubResource("StyleBoxTexture_kn0hh")
-theme_override_styles/hover = SubResource("StyleBoxTexture_iyn1p")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_rlwdk")
 theme_override_styles/normal = SubResource("StyleBoxTexture_clt4q")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rlwdk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_iyn1p")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_kn0hh")
 text = "RESTART"
 
 [node name="ClickUp" type="AudioStreamPlayer" parent="."]

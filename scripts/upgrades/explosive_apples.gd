@@ -59,7 +59,7 @@ func iter_apple_find(start: Apple)-> Array[Array]:
 	
 	
 func on_apple_eaten(apple: Apple):
-	if !running:
+	if $Cooldown.is_stopped():
 		running = true
 		var tot_time = .2
 		var full_array = iter_apple_find(apple)

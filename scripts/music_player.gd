@@ -16,7 +16,8 @@ func _on_drums_finished() -> void:
 
 func start_drums():
 	get_tree().create_tween().tween_property($Drums, "volume_db", 0.0, .5)
-	Signals.map_updated.disconnect(start_drums)
+	if Signals.map_updated.is_connected(start_drums):
+		Signals.map_updated.disconnect(start_drums)
 	
 func setup_end():
 	get_tree().create_tween().tween_property($Drums, "volume_db", -80.0, 2.)

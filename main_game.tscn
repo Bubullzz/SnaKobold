@@ -1,7 +1,7 @@
 [gd_scene load_steps=101 format=4 uid="uid://bf3kugmhm0pqt"]
 
 [ext_resource type="Script" uid="uid://crgjkresaa5cf" path="res://scripts/main_game.gd" id="1_c0m7j"]
-[ext_resource type="Script" uid="uid://cbxhntjod2lkj" path="res://top_texts_manager.gd" id="2_0djuc"]
+[ext_resource type="PackedScene" uid="uid://dgdlns0uc4p5p" path="res://scenes/top_texts_manager.tscn" id="2_0djuc"]
 [ext_resource type="Script" uid="uid://cwm22ulowiblb" path="res://scripts/sound_manager.gd" id="2_5gq48"]
 [ext_resource type="Script" uid="uid://d048wmi5m13p7" path="res://scripts/life_manager.gd" id="2_ck3nl"]
 [ext_resource type="Script" uid="uid://bkvholjk2q0lr" path="res://map_generator.gd" id="2_lght5"]
@@ -1255,11 +1255,10 @@ sources/0 = SubResource("TileSetAtlasSource_8jqmg")
 script = ExtResource("1_c0m7j")
 noise_texture = SubResource("NoiseTexture2D_rk40v")
 
-[node name="MusicPlayer" parent="." instance=ExtResource("2_swfle")]
-
-[node name="TopTextsManager" type="Node" parent="." node_paths=PackedStringArray("credits_canvas_bg")]
-script = ExtResource("2_0djuc")
+[node name="TopTextsManager" parent="." node_paths=PackedStringArray("credits_canvas_bg") instance=ExtResource("2_0djuc")]
 credits_canvas_bg = NodePath("../Credits/bg")
+
+[node name="MusicPlayer" parent="." instance=ExtResource("2_swfle")]
 
 [node name="SoundManager" type="Node" parent="."]
 script = ExtResource("2_5gq48")
